@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54051187403cbe241a9f2f71da092967, type: 3}
+  m_Name: The World History
+  m_EditorClassIdentifier: 
+  id: 10
+  icon: {fileID: 0}
+  isDroppable: 0
+  removeWhenNumberIsZero: 0
+  isOnlyItem: 1
+  label: The World History
+  description: That book talk about the previous world that has died for the apocalypse.
+  currentQuantity: 1
+  maxQuantity: 1
+  slotSize: 1
+  itemWeigth: 0.05
+  totalWeightPerItem: 0

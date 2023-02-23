@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f8429b40c540e046b4c2e943f6d7319, type: 3}
+  m_Name: School Bag
+  m_EditorClassIdentifier: 
+  icon: {fileID: 0}
+  title: School Bag
+  maxColumn: 10
+  maxRow: 10
+  currentSlotUse: 0
+  weightLimited: 100
+  currentWeightUse: 0
+  autoOrganize: 0
+  itemList: []

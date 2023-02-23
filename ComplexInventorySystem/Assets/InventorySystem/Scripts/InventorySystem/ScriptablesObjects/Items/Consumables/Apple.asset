@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85f31840570ac64ea4ba1e713eee1ce, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  id: 3
+  icon: {fileID: 0}
+  isDroppable: 1
+  removeWhenNumberIsZero: 1
+  isOnlyItem: 0
+  label: Apple
+  description: A apple fruit that provides food and a tiny quantity of water.
+  currentQuantity: 1
+  maxQuantity: 32
+  slotSize: 1
+  itemWeigth: 0.1
+  totalWeightPerItem: 0
