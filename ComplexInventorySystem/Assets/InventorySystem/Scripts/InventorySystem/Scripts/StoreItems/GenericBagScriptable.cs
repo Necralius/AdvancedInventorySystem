@@ -37,6 +37,7 @@ public abstract class GenericBagScriptable : ScriptableObject
     public int CurrentSlot { get => currentSlotUse; }
     public float WeightLimited { get => weightLimited; }
     public bool UsedOrganizeBtSizePriority { get => usedOrganizeBtSizePriority; set => usedOrganizeBtSizePriority = value; }
+    public float CurrentWeightUse { get => currentWeightUse; set => currentWeightUse = value; }
     #endregion
 
     #region - Methods -
@@ -49,7 +50,7 @@ public abstract class GenericBagScriptable : ScriptableObject
     {
         itemList = new List<GenericItemScriptable>();
         currentSlotUse = 0;
-        currentWeightUse = 0;
+        CurrentWeightUse = 0;
     }
 
     protected virtual bool SlotCapacityValidation(GenericItemScriptable item)
@@ -72,7 +73,7 @@ public abstract class GenericBagScriptable : ScriptableObject
         {
             if (CurrentSlot + item.SlotSize <= SlotLimited)
             {
-                if (currentWeightUse + item.TotalWeightPerItem * number <= weightLimited)
+                if (CurrentWeightUse + item.TotalWeightPerItem * number <= weightLimited)
                 {
                     if (item.Add(number))
                     {
@@ -87,7 +88,7 @@ public abstract class GenericBagScriptable : ScriptableObject
         }
         else
         {
-            if (currentWeightUse + item.TotalWeightPerItem * number <= weightLimited)
+            if (CurrentWeightUse + item.TotalWeightPerItem * number <= weightLimited)
             {
                 if (item.Add(number))
                 {
@@ -103,12 +104,12 @@ public abstract class GenericBagScriptable : ScriptableObject
     protected virtual void UpdateSizeAndWeight()
     {
         currentSlotUse = 0;
-        currentWeightUse = 0;
+        CurrentWeightUse = 0;
 
         foreach(var item in itemList)
         {
             currentSlotUse += item.SlotSize;
-            currentWeightUse += item.TotalWeightPerItem;
+            CurrentWeightUse += item.TotalWeightPerItem;
 
         }
     }

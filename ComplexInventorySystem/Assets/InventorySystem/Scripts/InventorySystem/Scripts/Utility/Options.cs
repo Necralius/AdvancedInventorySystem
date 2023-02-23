@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Options { }
 
+public enum SlotPlaceTo
+{
+    BAG = 0,
+    CLOTHING_WEAPON = 1,
+    SHORT_CUT = 2,
+    OUT = 3,
+}
 public enum ItemEquip
 {
     NONE = 0,

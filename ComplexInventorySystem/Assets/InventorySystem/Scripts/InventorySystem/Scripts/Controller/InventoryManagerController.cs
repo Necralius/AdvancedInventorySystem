@@ -22,6 +22,10 @@ public class InventoryManagerController : MonoBehaviour
     [SerializeField] protected List<KeyCode> keyCodeShortcutList;
 
     #region - Methods -
+    private void Start()
+    {
+        InventoryView.Instance.Initiate(currentBag);
+    }
     private void Update()
     {
         if (Input.GetKeyDown(keyCodeShortcutList[0]))
@@ -53,15 +57,14 @@ public class InventoryManagerController : MonoBehaviour
             if (result)
             {
                 List<GenericItemScriptable> resultItemList = currentBag.ReturnFullList();
-
-                //Send a List => InventoryView (resultItemList)
+                InventoryView.Instance.UpdateAllItems(resultItemList);
             }
 
             if (currentBag.UsedOrganizeBtSizePriority)
             {
                 List<GenericItemScriptable> resultItemList = currentBag.ReturnFullList();
 
-                //Send a List => InventoryView (resultItemList)
+                InventoryView.Instance.UpdateAllItems(resultItemList);
                 currentBag.UsedOrganizeBtSizePriority = false;
             }
             //Refresh Shortcut
