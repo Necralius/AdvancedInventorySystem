@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 37046935917375448815ed5fe72aca91, type: 3}
   title: School Bag
-  maxColumn: 10
-  maxRow: 9
+  maxColumn: 4
+  maxRow: 4
   currentSlotUse: 0
   weightLimited: 20
   currentWeightUse: 0

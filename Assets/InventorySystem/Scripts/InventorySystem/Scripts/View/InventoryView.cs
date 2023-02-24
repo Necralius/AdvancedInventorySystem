@@ -131,9 +131,58 @@ public class InventoryView : MonoBehaviour
     public void UpdateAllItems(List<GenericItemScriptable> list)
     {
         //Check Inventory Panel
-        BagWeightAndSlotUpdate();
 
+        if (true)
+        {
+            foreach(var item in list)
+            {
+                BuildComplexSlot(item);
+            }
+
+            BagWeightAndSlotUpdate();
+        }
     }
+    private void BuildComplexSlot(GenericItemScriptable item)
+    {
+        Vector3 pos = new Vector3(0, 0, 0);
+        Vector2 size = new Vector2(cellSize, cellSize);
 
+        Vector2 factor = new Vector2(1, 1);
+
+        List<Vector2> cellList = currentBag.FindCellById(item.Id);
+
+        if (cellList.Count > 1)
+        {
+            factor = cellList[cellList.Count - 1] - cellList[0];
+
+            size = new Vector2((cellSize * factor.y) + cellSize, (cellSize * factor.x) + cellSize);
+            if(size.x == 0)
+            {
+                size = new Vector2(cellSize, size.y);
+            }
+            if(size.y == 0)
+            {
+                size = new Vector2(size.x, cellSize);
+            }
+        }
+
+        pos = new Vector3(cellSize * cellList[0].y, (cellSize * cellList[0].x * -1));
+
+        GameObject obj = Instantiate(complexSlotGo);
+
+        obj.transform.SetParent(complexSlotGroup.transform);
+        obj.GetComponent<RectTransform>().localPosition = pos;
+        obj.GetComponent<RectTransform>().sizeDelta = size;
+        obj.GetComponent<ComplexSlotView>().ItemView = item;
+        obj.GetComponent<ComplexSlotView>().UpdateIcon();
+        obj.GetComponent<ComplexSlotView>().UpdateText();
+        obj.tag = "ComplexSlot";
+        obj.name = item.name + "_Clone";
+    }
+    private void RemoveAllComplexSlot()
+    {
+        GameObject[] resultComplexSlotGo = GameObject.FindGameObjectsWithTag("ComplexSlot");
+        foreach (var item in resultComplexSlotGo) Destroy(item);
+    }
     #endregion
 }

@@ -7,7 +7,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region - View Data -
-    [SerializeField, Range(1, 10)] private float mouseSensitivity = 3;
+    public KeyCodeGroup playerKeyCodeGroup;
+    public PlayerStats playerStats;
 
     private float xRotation = 0f;
 
@@ -23,9 +24,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region - Movment Data -
-    public float currentSpeed;
-    public float walkSpeed;
-    public float runSpeed;
+    [SerializeField] private float currentSpeed;
    
     public float gravity = -9.81f;
     public float jumpHeight;
@@ -34,10 +33,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region - State Bools -
+
+    [Header("Player State")]
     public bool isWalking;
     public bool isRunning;
     public bool isGrounded;
-
     public bool isCrouched;
     public bool isProning;
     public bool isAiming;
@@ -74,42 +74,57 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    #region - Key Code System -
-    [Header("Key Code System")]
-    public KeyCode crouchKeyCode;
-    public KeyCode proneKeyCode;
-    public KeyCode inventoryKeyCode;
-    public KeyCode sprintKeyCode;
-    #endregion
-
     #region - BuildIn Methods -
-    private void Start() => Stand();
+    private void Start()
+    {
+        Stand();
+        playerStats.mouseSensitivity *= 100;
+    }
     void Update()
     {
         InputGet();
-        if (GameManager.Instance.inventoryIsOpen) return;
-        CalculateMovment();
         CalculateView();
         CalculateState();
+        CalculateMovment();
     }
     #endregion
 
     #region - Input Gathering -
     private void InputGet()
     {
-        if (Input.GetKeyDown(inventoryKeyCode)) GameManager.Instance.ChangeInventoryState();
+        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("InventoryKey"))) GameManager.Instance.ChangeInventoryState();
 
-        if (GameManager.Instance.inventoryIsOpen) return;
+        if (GameManager.Instance.inventoryIsOpen)
+        {
+            lookInput = Vector2.zero;
+            movmentInput = Vector2.zero;
 
-        lookInput = new Vector2(Input.GetAxis("Mouse X") * (mouseSensitivity * 100) * Time.deltaTime, Input.GetAxis("Mouse Y") * (mouseSensitivity * 100) * Time.deltaTime);
+            isWalking = false;
+            isRunning = false;
+            isAiming = false;
+
+            return;
+        }
+
+        lookInput = new Vector2(Input.GetAxis("Mouse X") * playerStats.mouseSensitivity * Time.deltaTime, Input.GetAxis("Mouse Y") * playerStats.mouseSensitivity * Time.deltaTime);
         movmentInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (Input.GetKeyDown(crouchKeyCode) && CheckPlayerState()) Crouch();
-        if (Input.GetKeyDown(proneKeyCode) && CheckPlayerState()) Prone();
+        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("CrouchKey")) && CheckPlayerState()) Crouch();
+        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("ProneKey")) && CheckPlayerState()) Prone();
 
         isGrounded = playerController.isGrounded;
-        isRunning = Input.GetKey(sprintKeyCode) && isWalking;
+        isRunning = Input.GetKey(playerKeyCodeGroup.GetKeyCodeByName("SprintKey")) && isWalking;
         isWalking = movmentInput != Vector2.zero && isGrounded;
+        isAiming = Input.GetKey(playerKeyCodeGroup.GetKeyCodeByName("AimKey")) && !isRunning;
+
+        #region - Speed Effector Set -
+
+        currentSpeed = isRunning ? playerStats.runSpeed : playerStats.walkSpeed;
+        currentSpeed *= playerStats.currentSpeedEffector;
+
+        #endregion
+
+        if (equippedGun) equippedGun.isAiming = this.isAiming;
     }
     #endregion
 
@@ -122,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
         playerController.Move(movmentVector * currentSpeed * Time.deltaTime);
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("JumpKey")) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             Stand();
@@ -148,11 +163,14 @@ public class PlayerController : MonoBehaviour
     #region - Player State Calculation -
     private void CalculateState()
     {
-        currentSpeed = isRunning ? runSpeed : walkSpeed;
-
         playerController.height = Mathf.Lerp(playerController.height, currentState.StateHeight, stateHeightChangeSpeed * Time.deltaTime);
-        currentSpeed *= currentState.StateSpeedModifier;
 
+        if (isAiming) playerStats.currentSpeedEffector = playerStats.aimSpeedEffector;
+        else if (currentState.Equals(playerStandState)) playerStats.currentSpeedEffector = playerStats.standSpeedEffector;
+        else if (currentState.Equals(playerCrouchState)) playerStats.currentSpeedEffector = playerStats.crouchSpeedEffector;
+        else if (currentState.Equals(playerProneState)) playerStats.currentSpeedEffector = playerStats.proneSpeedEffector;
+
+        controllerAnimator.speed = playerStats.currentSpeedEffector;
         controllerAnimator.SetBool("IsWalking", isWalking);
         controllerAnimator.SetBool("IsRunning", isRunning);
     }
