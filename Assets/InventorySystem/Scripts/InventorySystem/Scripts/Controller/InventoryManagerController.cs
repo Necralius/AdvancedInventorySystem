@@ -134,4 +134,15 @@ public class InventoryManagerController : MonoBehaviour
         else Debug.LogWarning("There is no item with this id in the item list to instantiate: ItemList: " + itemList.ToString() + "Item ID: " + id);
     }
     #endregion
+
+    #region - OnDropItem and OnPointDownItem -
+    public void OnPointerDownItem(GenericItemScriptable item, GameObject origin)
+    {
+        if (origin.transform.parent.parent.name == ("img_GridBackground"))
+        {
+            InventoryView.Instance.UpdateDescriptionPanel(item);
+        }
+    }
+
+    #endregion
 }

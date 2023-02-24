@@ -184,5 +184,20 @@ public class InventoryView : MonoBehaviour
         GameObject[] resultComplexSlotGo = GameObject.FindGameObjectsWithTag("ComplexSlot");
         foreach (var item in resultComplexSlotGo) Destroy(item);
     }
+    public void UpdateDescriptionPanel(GenericItemScriptable item)
+    {
+        if (visiblePanel)
+        {
+            itemText.text = "Item: " + item.name;
+            typeText.text = "Type: ";
+            descriptionText.text = item.Description;
+
+            itemIconDetailPanel.sprite = item.Icon;
+
+            currentQuantityText.text = item.CurrentQuantity.ToString();
+            maxQuantityText.text = separationChar + item.MaxQuantity.ToString();
+            totalWeightPerItemNumberText.text = item.TotalWeightPerItem.ToString() + weightUnit;
+        }
+    }
     #endregion
 }

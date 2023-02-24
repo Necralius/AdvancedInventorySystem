@@ -224,6 +224,8 @@ GameObject:
   - component: {fileID: 7231525979969080434}
   - component: {fileID: 252262583678888987}
   - component: {fileID: -4347509786825834614}
+  - component: {fileID: 2569039843249848476}
+  - component: {fileID: 2714766964942882758}
   m_Layer: 5
   m_Name: GridSlot_ComplexSlot
   m_TagString: Untagged
@@ -318,3 +320,27 @@ MonoBehaviour:
   itemView: {fileID: 0}
   icon: {fileID: 6090072710249904867}
   currenNumberText: {fileID: 1958663892920958212}
+--- !u!114 &2569039843249848476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7231525979969080436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48964628101a4f342903dc60fd586ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2714766964942882758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7231525979969080436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 100a9f780f455014198956ec40a34569, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
