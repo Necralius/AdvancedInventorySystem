@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
         inventoryUIObject.SetActive(!inventoryUIObject.activeInHierarchy);
         inventoryIsOpen = inventoryUIObject.activeInHierarchy;
         Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        InventoryManagerController.Instance.InventoryStateChanged();
     }
     #endregion
     private void Start()

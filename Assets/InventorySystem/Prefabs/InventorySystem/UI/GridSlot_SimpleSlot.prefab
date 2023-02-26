@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2257606295524682116}
   - component: {fileID: 2257606295524682117}
   - component: {fileID: -5925537777147519782}
+  - component: {fileID: 124113924115249606}
   m_Layer: 5
   m_Name: GridSlot_SimpleSlot
   m_TagString: Untagged
@@ -91,3 +92,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPlaceTo: 0
   coordinate: {x: 0, y: 0}
+--- !u!114 &124113924115249606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2257606295524682123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4197c5213d68c204c9438da427e49bd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 0}

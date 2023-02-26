@@ -5,7 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewStoryItem", menuName = "InventorySystem/Items/Story Items")]
 public class StoryItemScriptable : GenericItemScriptable
 {
-    
-
-
+    public override ItemType GetItemType() => ItemType.STORY;
 }

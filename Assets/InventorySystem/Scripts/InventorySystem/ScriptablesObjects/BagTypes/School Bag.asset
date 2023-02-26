@@ -16,8 +16,10 @@ MonoBehaviour:
   title: School Bag
   maxColumn: 4
   maxRow: 4
-  currentSlotUse: 0
+  currentSlotUse: 4
   weightLimited: 20
-  currentWeightUse: 0
+  currentWeightUse: 1
   autoOrganize: 0
-  itemList: []
+  itemList:
+  - {fileID: 11400000, guid: e6e16444506a67a4b892259d5f4e7acb, type: 2}
+  maxShortCutSlot: 10

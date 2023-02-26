@@ -12,4 +12,5 @@ public class ArmorItemScriptable : GenericItemScriptable
         actionManagerEvnt = new ActionManagerEvent();
         actionManagerEvnt.DispatchAllGenericActionListEvent(actionEquipList);
     }
+    public override ItemType GetItemType() => ItemType.ARMOR;
 }

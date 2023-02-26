@@ -19,7 +19,6 @@ public class InventoryView : MonoBehaviour
 
     [SerializeField] private string separationChar = "/";
     [SerializeField] private string weightUnit = " Kg";
-    private string n = " Slot";
     private float cellSize = 50;
 
     [SerializeField] private GameObject inventoryGo;
@@ -132,8 +131,9 @@ public class InventoryView : MonoBehaviour
     {
         //Check Inventory Panel
 
-        if (true)
+        if (GameManager.Instance.inventoryIsOpen)
         {
+            RemoveAllComplexSlot();
             foreach(var item in list)
             {
                 BuildComplexSlot(item);
@@ -189,7 +189,7 @@ public class InventoryView : MonoBehaviour
         if (visiblePanel)
         {
             itemText.text = "Item: " + item.name;
-            typeText.text = "Type: ";
+            typeText.text = "Type: " + item.GetItemType();
             descriptionText.text = item.Description;
 
             itemIconDetailPanel.sprite = item.Icon;

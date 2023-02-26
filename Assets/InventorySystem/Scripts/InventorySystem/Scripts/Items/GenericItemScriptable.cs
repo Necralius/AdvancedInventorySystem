@@ -7,6 +7,7 @@ public abstract class GenericItemScriptable : ScriptableObject
     #region - Main Declaration -
 
     [SerializeField] private int id;
+
     [SerializeField] private Sprite icon;
 
     [SerializeField] private bool isDroppable;
@@ -32,6 +33,7 @@ public abstract class GenericItemScriptable : ScriptableObject
 
     #region - Get and Set Data -
     public int Id { get => id; }
+    public abstract ItemType GetItemType();
     public Sprite Icon { get => icon; }
     public bool IsDroppable { get => isDroppable;}
     public bool RemoveWhenNumberIsZero { get => removeWhenNumberIsZero;}
