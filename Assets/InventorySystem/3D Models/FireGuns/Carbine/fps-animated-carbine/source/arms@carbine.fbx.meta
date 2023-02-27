@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: dcede7c768e4bdc4aa5c02653d719a4e
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: -1498010087492872569
@@ -14,16 +14,16 @@ ModelImporter:
     second: Fire
   - first:
       74: 229770723416056496
-    second: Reload
+    second: M4A4_Reload_2
   - first:
       74: 7814417069299978070
-    second: Reload 2
+    second: M4A4_Reload_1_Full
   - first:
       74: -3318820769779832755
-    second: Gun Down
+    second: M4A4_GunDown
   - first:
       74: 3119890625738519776
-    second: Gun Up
+    second: M4A4_GunDraw
   - first:
       74: 4375821218105003881
     second: MeeleAtack
@@ -159,7 +159,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload
+      name: M4A4_Reload_2
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 9
@@ -188,7 +188,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload 2
+      name: M4A4_Reload_1_Full
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 68
@@ -217,11 +217,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gun Down
+      name: M4A4_GunDown
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 133
-      lastFrame: 143
+      lastFrame: 144
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -246,11 +246,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Gun Up
+      name: M4A4_GunDraw
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 143
-      lastFrame: 188
+      lastFrame: 177
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -338,6 +338,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -705,6 +706,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

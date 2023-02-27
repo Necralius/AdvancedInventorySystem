@@ -7,16 +7,19 @@ using UnityEngine;
 public class BagScriptable : GenericBagScriptable
 {
     #region - Data Declaration -
-
     [SerializeField, Range(1, 10)] protected int maxShortCutSlot;
-    [SerializeField] protected Dictionary<int, GenericItemScriptable> itemsShortCutDictionary;
 
+    [SerializeField] private List<RulerScriptable> rulerList;
+
+    [SerializeField] protected Dictionary<int, GenericItemScriptable> itemsShortCutDictionary;
     #endregion
+
 
     #region - Get and Set Data -
     public Dictionary<int, GenericItemScriptable> ItemsShortCutDictionary { get => itemsShortCutDictionary;}
     public int MaxShortCutSlot { get => maxShortCutSlot; }
     #endregion
+
 
     #region - Methods -
     protected override void OnEnable()
@@ -39,8 +42,7 @@ public class BagScriptable : GenericBagScriptable
         if (itemsShortCutDictionary.ContainsValue(item)) Debug.LogWarning("The item " + item.name + "is already on shortcuts!");
         else
         {
-            //Check the rules
-            if (true)
+            if (CheckAllRules(index, item))
             {
                 itemsShortCutDictionary.Add(index, item);
                 return true;
@@ -127,6 +129,25 @@ public class BagScriptable : GenericBagScriptable
         catch(Exception ex)
         {
             Debug.LogWarning(ex.ToString());
+        }
+        return false;
+    }
+    private bool CheckAllRules(int index, GenericItemScriptable item)
+    {
+        if (rulerList.Count != 0)
+        {
+            foreach(var ruler in rulerList)
+            {
+                if (ruler.Validade(index, item))
+                {
+
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Thre is no Rules, so no item is allowed!");
         }
         return false;
     }

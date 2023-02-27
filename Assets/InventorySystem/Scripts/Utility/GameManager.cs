@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     void Awake() => Instance = this;
     #endregion
 
+    public KeyCodeGroup GeneralKeyCodes;
+
     #region - Inventory Change -
     public GameObject inventoryUIObject;
     public bool inventoryIsOpen = false;

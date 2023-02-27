@@ -25,3 +25,7 @@ MonoBehaviour:
     actionKeyCode: 122
   - keyActionName: SprintKey
     actionKeyCode: 304
+  - keyActionName: ReloadKey
+    actionKeyCode: 114
+  - keyActionName: ChangeGunStateKey
+    actionKeyCode: 116

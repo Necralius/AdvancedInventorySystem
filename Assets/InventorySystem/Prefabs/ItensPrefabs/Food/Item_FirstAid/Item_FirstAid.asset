@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85f31840570ac64ea4ba1e713eee1ce, type: 3}
+  m_Name: Item_FirstAid
+  m_EditorClassIdentifier: 
+  id: 42
+  icon: {fileID: 21300000, guid: b0d886d098132f44eb8b3ba77dda0741, type: 3}
+  isDroppable: 1
+  removeWhenNumberIsZero: 1
+  isOnlyItem: 0
+  label: First Aid
+  description: An complete First Aid Kit, Restore 70 Points of life.
+  currentQuantity: 0
+  maxQuantity: 12
+  slotSize: 4
+  itemWeigth: 0.25
+  totalWeightPerItem: 0
+  actionUseList: []

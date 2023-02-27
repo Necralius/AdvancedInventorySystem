@@ -3,25 +3,26 @@ using UnityEngine;
 public class GunProceduralRecoil : MonoBehaviour
 {
     public GameObject Weapon => gameObject;
-    public GameObject CameraPos;
+    public GameObject CameraPos => GameObject.FindGameObjectWithTag("PlayerCam");
+
     private Vector3 currentRotation;
     private Vector3 targetRotation;
 
     private Vector3 currentPosition;
     private Vector3 targetPosition;
 
-    [SerializeField] private float recoilX;
-    [SerializeField] private float recoilY;
-    [SerializeField] private float recoilZ;
+    [SerializeField] private float recoilX = -3;
+    [SerializeField] private float recoilY = 3;
+    [SerializeField] private float recoilZ = 2;
 
     [SerializeField] private float snappiness = 6;
-    [SerializeField] private float returnSpeed = 2;
+    [SerializeField] private float returnSpeed = 20;
 
     public float RecoilReduct = 1;
-    public float aimReductionFactor;
+    public float aimReductionFactor = 0.3f;
 
-    public float Z_KickBack = 1;
-    [SerializeField] float Z_Current_KickBack;
+    public float Z_KickBack = 0.4f;
+    [SerializeField] float Z_Current_KickBack = 0.4f;
     public bool isAiming;
 
     private void Update()

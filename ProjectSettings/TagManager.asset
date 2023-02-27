@@ -9,6 +9,7 @@ TagManager:
   - ComplexSlot
   - SpecialSlot
   - ClothingWeaponsSlot
+  - PlayerCam
   layers:
   - Default
   - TransparentFX

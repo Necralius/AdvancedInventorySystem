@@ -29,18 +29,12 @@ public class WeaponSystem : MonoBehaviour
     public bool isReloading;
     #endregion
 
-    #region - Gun KeyCodes
-    [Header("General Keycodes")]
-    public KeyCode reloadCode = KeyCode.R;
-    public KeyCode changeGunState = KeyCode.T;
-    #endregion
-
     #region - Shoot System -
     [Header("Shoot Settings")]
 
-    [SerializeField] private float shootDamage;
-    [SerializeField] private float shootRange;
-    [SerializeField] private float rateOfFire;
+    [SerializeField] private float shootDamage = 25;
+    [SerializeField] private float shootRange = 200;
+    [SerializeField] private float rateOfFire = 0.12f;
 
     [HideInInspector, Range(1,10)] public int shootsPerTap = 1;
     [HideInInspector] public float bulletSpread = 1;
@@ -61,11 +55,11 @@ public class WeaponSystem : MonoBehaviour
 
     #region - Ammo -
     [Header("Ammo Settings")]
-    [SerializeField] private int currentMagAmmo;
-    [SerializeField] private int maxMagAmmo;
+    [SerializeField] private int currentMagAmmo = 31;
+    [SerializeField] private int maxMagAmmo = 31;
 
-    [SerializeField] private int maxInventoryAmmo;
-    [SerializeField] private int currentInventoryAmmo;
+    [SerializeField] private int maxInventoryAmmo = 240;
+    [SerializeField] private int currentInventoryAmmo = 240;
     int amountToNeeded;
     #endregion
 
@@ -74,18 +68,18 @@ public class WeaponSystem : MonoBehaviour
 
     public Vector3 aimPosition;
     private Vector3 originalPosition = Vector3.zero;
-    public float reloadingOffset_Z;
-    public float aimingFOV;
-    public float normalFOV;
+    public float reloadingOffset_Z = 0.2f;
+    public float aimingFOV = 45;
+    public float normalFOV = 60;
     private float targetFOV;
-    public float aimSpeed;
+    public float aimSpeed = 10;
     #endregion
 
     #region - Weapon Sway System -
     [Header("Weapon Sway System")]
 
     [Header("Position Sway")]
-    public float swayAmount = 0.02f;
+    public float swayAmount = 0.01f;
     public float maxAmount = 0.06f;
     public float smoothAmount = 6f;
 
@@ -103,11 +97,11 @@ public class WeaponSystem : MonoBehaviour
     public bool swayOnZ = true;
 
     [Header("Movment Sway")]
-    public float movmentSwayXAmount;
-    public float movmentSwayYAmount;
+    public float movmentSwayXAmount = 0.05f;
+    public float movmentSwayYAmount = 0.05f;
 
-    public float movmentSwaySmooth;
-    public float maxMovmentSwayAmount;
+    public float movmentSwaySmooth = 6f;
+    public float maxMovmentSwayAmount = 0.5f;
     #endregion
 
     #region - BuildIn Methods -
@@ -131,6 +125,15 @@ public class WeaponSystem : MonoBehaviour
         CalculateAiming();
         CalculateWeaponSway();
     }
+    private void InstatiateGun()
+    {
+        gunStates.Clear();
+        if (gunType.Equals(GunType.SemiAndAuto)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire, GunState.AutoFire };
+        else if (gunType.Equals(GunType.Shotgun)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire };
+
+        if (!GetComponent<GunProceduralRecoil>()) gameObject.AddComponent<GunProceduralRecoil>();
+    }
+    private void OnValidate() => InstatiateGun();
     #endregion
 
     private void CalculateWeaponSway()
@@ -180,10 +183,10 @@ public class WeaponSystem : MonoBehaviour
     #region - Input Gathering -
     private void InputGathering() 
     {
-        if (Input.GetKeyDown(reloadCode)) ReloadWeapon();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ReloadKey"))) ReloadWeapon();
 
         gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
-        if (Input.GetKeyDown(changeGunState)) StateChange();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ChangeGunStateKey"))) StateChange();
 
         isAiming = Input.GetMouseButton(1) && !playerController.isRunning;
     }

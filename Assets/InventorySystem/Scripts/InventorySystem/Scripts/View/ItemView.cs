@@ -17,11 +17,6 @@ public class ItemView : MonoBehaviour
     public GenericItemScriptable Item { get => item; }
     #endregion
 
-    private void OnMouseDown()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("Player")) Collect();
@@ -37,4 +32,14 @@ public class ItemView : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+    private void PrepareObject()
+    {
+        if (!gameObject.GetComponent<Rigidbody>()) gameObject.AddComponent<Rigidbody>();
+        if (!gameObject.GetComponent<SphereCollider>())
+        {
+            gameObject.AddComponent<SphereCollider>().isTrigger = true; gameObject.GetComponent<SphereCollider>().radius = 2.2f;
+        }
+        if (!gameObject.GetComponent<MeshCollider>()) gameObject.AddComponent<MeshCollider>().convex = true;
+    }
+    private void OnValidate() => PrepareObject();
 }

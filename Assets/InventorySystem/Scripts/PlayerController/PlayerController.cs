@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
     #region - Input Gathering -
     private void InputGet()
     {
-        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("InventoryKey"))) GameManager.Instance.ChangeInventoryState();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("InventoryKey"))) GameManager.Instance.ChangeInventoryState();
 
         if (GameManager.Instance.inventoryIsOpen)
         {
@@ -109,13 +109,13 @@ public class PlayerController : MonoBehaviour
         lookInput = new Vector2(Input.GetAxis("Mouse X") * playerStats.mouseSensitivity * Time.deltaTime, Input.GetAxis("Mouse Y") * playerStats.mouseSensitivity * Time.deltaTime);
         movmentInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("CrouchKey")) && CheckPlayerState()) Crouch();
-        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("ProneKey")) && CheckPlayerState()) Prone();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("CrouchKey")) && CheckPlayerState()) Crouch();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ProneKey")) && CheckPlayerState()) Prone();
 
         isGrounded = playerController.isGrounded;
-        isRunning = Input.GetKey(playerKeyCodeGroup.GetKeyCodeByName("SprintKey")) && isWalking;
+        isRunning = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("SprintKey")) && isWalking;
         isWalking = movmentInput != Vector2.zero && isGrounded;
-        isAiming = Input.GetKey(playerKeyCodeGroup.GetKeyCodeByName("AimKey")) && !isRunning;
+        isAiming = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("AimKey")) && !isRunning;
 
         #region - Speed Effector Set -
 
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
 
         playerController.Move(movmentVector * currentSpeed * Time.deltaTime);
 
-        if (Input.GetKeyDown(playerKeyCodeGroup.GetKeyCodeByName("JumpKey")) && isGrounded)
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("JumpKey")) && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             Stand();
