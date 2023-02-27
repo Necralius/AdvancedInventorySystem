@@ -130,6 +130,8 @@ public class WeaponSystem : MonoBehaviour
         gunStates.Clear();
         if (gunType.Equals(GunType.SemiAndAuto)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire, GunState.AutoFire };
         else if (gunType.Equals(GunType.Shotgun)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire };
+        else if (gunType.Equals(GunType.OnlySemi)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire };
+        else if (gunType.Equals(GunType.SniperType)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire };
 
         if (!GetComponent<GunProceduralRecoil>()) gameObject.AddComponent<GunProceduralRecoil>();
     }
@@ -185,7 +187,15 @@ public class WeaponSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ReloadKey"))) ReloadWeapon();
 
-        gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
+        if (gunType.Equals(GunType.SniperType))
+        {
+            if (canShoot)
+            {
+                gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
+            }
+            else gunAnimator.SetLayerWeight(1, !canShoot ? 1f : 0f);
+        }
+        else gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ChangeGunStateKey"))) StateChange();
 
         isAiming = Input.GetMouseButton(1) && !playerController.isRunning;
@@ -291,9 +301,13 @@ public class WeaponSystem : MonoBehaviour
     }
     private IEnumerator ShootBehavior(float rateOfFire)
     {
+        if (gunType.Equals(GunType.SniperType))
+        {
+            gunAnimator.SetTrigger("Shooted");
+        }
         ShootGun();
         yield return new WaitForSeconds(rateOfFire);
-        canShoot = true;
+        if (!gunType.Equals(GunType.SniperType)) canShoot = true;
     }
     public void ShootGun()
     {
@@ -323,5 +337,9 @@ public class WeaponSystem : MonoBehaviour
 
     #region - Animation Events -
     public void DrawWeapon() => AudioManager.Instance.PlayEffectSound(drawWeaponClip);
+    public void SetCanShoot()
+    {
+        canShoot = true; gunAnimator.SetLayerWeight(1, 0);
+    }
     #endregion
 }

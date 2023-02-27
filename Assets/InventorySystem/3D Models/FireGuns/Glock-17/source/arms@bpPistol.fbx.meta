@@ -1,23 +1,23 @@
 fileFormatVersion: 2
 guid: f36cfc1617619d94a875817d961caf3c
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: -1498010087492872569
     second: bpPistol
   - first:
       74: 229770723416056496
-    second: Reload
+    second: Glock-17_Reload
   - first:
       74: 7814417069299978070
-    second: Reload 2
+    second: Glock-17_Reload_Full
   - first:
       74: -7251055699838741195
-    second: GlockReady
+    second: Glock-17_DrawGun
   - first:
       74: -8349192303093389039
-    second: GlockDown
+    second: Glock-17_HostGun
   - first:
       74: 3319718755618372136
     second: GlockMelee
@@ -85,7 +85,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload
+      name: Glock-17_Reload
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 9
@@ -114,7 +114,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload 2
+      name: Glock-17_Reload_Full
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 63
@@ -143,7 +143,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: GlockReady
+      name: Glock-17_DrawGun
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 144
@@ -172,7 +172,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: GlockDown
+      name: Glock-17_HostGun
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 127
@@ -264,6 +264,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -296,6 +297,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     void Awake() => Instance = this;
     #endregion
 
+    public GameObject CrossHair;
+
     public KeyCodeGroup GeneralKeyCodes;
 
     #region - Inventory Change -
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
         InventoryManagerController.Instance.InventoryStateChanged();
     }
     #endregion
+    public void ChangeCrosHairState() => CrossHair.SetActive(!CrossHair.activeInHierarchy);
     private void Start()
     {
         Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;

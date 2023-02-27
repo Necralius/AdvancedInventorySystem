@@ -1,23 +1,23 @@
 fileFormatVersion: 2
 guid: bbda74bbae84f724cbc5a47e1860f701
 ModelImporter:
-  serializedVersion: 21202
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: -1498010087492872569
     second: smg45
   - first:
       74: 229770723416056496
-    second: Reload
+    second: UMP-45_Reload_Full
   - first:
       74: 7814417069299978070
-    second: Reload 2
+    second: UMP-45_Reload
   - first:
       74: 2999364418066488810
-    second: HostWeapon
+    second: UMP-45_HostWeapon
   - first:
       74: 817816060480425240
-    second: UmpReady
+    second: UMP-45_DrawWeapon
   - first:
       74: 4515959297619598572
     second: MeeleAtack
@@ -90,7 +90,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload
+      name: UMP-45_Reload_Full
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 7
@@ -119,7 +119,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Reload 2
+      name: UMP-45_Reload
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 80
@@ -148,7 +148,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HostWeapon
+      name: UMP-45_HostWeapon
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 129
@@ -177,7 +177,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: UmpReady
+      name: UMP-45_DrawWeapon
       takeName: CINEMA_4D_Main
       internalID: 0
       firstFrame: 141
@@ -269,6 +269,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -301,6 +302,8 @@ ModelImporter:
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
+  remapMaterialsIfMaterialImportModeIsNone: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

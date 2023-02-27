@@ -15,7 +15,9 @@ public enum PlayerStateType
 public enum GunType
 {
     Shotgun,   
-    SemiAndAuto
+    SemiAndAuto,
+    OnlySemi,
+    SniperType
 }
 public enum GunState
 {
