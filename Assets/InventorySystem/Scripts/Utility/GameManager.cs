@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         inventoryIsOpen = inventoryUIObject.activeInHierarchy;
         Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
         InventoryManagerController.Instance.InventoryStateChanged();
+        ClothingWeaponView.Instance.ShowAndHide();
     }
     #endregion
     public void ChangeCrosHairState() => CrossHair.SetActive(!CrossHair.activeInHierarchy);

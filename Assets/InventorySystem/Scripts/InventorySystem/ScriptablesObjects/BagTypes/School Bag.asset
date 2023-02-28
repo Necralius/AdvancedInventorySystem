@@ -14,13 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: 37046935917375448815ed5fe72aca91, type: 3}
   title: School Bag
-  maxColumn: 4
-  maxRow: 4
-  currentSlotUse: 0
+  maxColumn: 10
+  maxRow: 10
+  currentSlotUse: 16
   weightLimited: 20
-  currentWeightUse: 0
+  currentWeightUse: 8
   autoOrganize: 0
-  itemList: []
+  itemList:
+  - {fileID: 11400000, guid: 772a6a3d22613af47a932a2f6ba5b31d, type: 2}
+  - {fileID: 11400000, guid: df765d499694b214c9238b6ce6fe6214, type: 2}
+  - {fileID: 11400000, guid: 1789056b5e88612498aa5791181e2a8c, type: 2}
+  - {fileID: 11400000, guid: 07dfe2b45e5aa7a49850a8969cedfd9f, type: 2}
+  - {fileID: 11400000, guid: 1534c2bd72f4ae44e81d7bca378288c8, type: 2}
+  - {fileID: 11400000, guid: 6d3df370fc76aaf4a89e410d8c317dca, type: 2}
   maxShortCutSlot: 10
   rulerList:
   - {fileID: 11400000, guid: a411de56e6da8ff4ab96ee341578922f, type: 2}

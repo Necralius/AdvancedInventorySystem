@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2415766862822279088}
   - component: {fileID: 2415766862822279089}
   m_Layer: 5
-  m_Name: SpecialSlot
+  m_Name: SpecialSlot_ClothingWeapons
   m_TagString: SpecialSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,7 +204,7 @@ PrefabInstance:
     - target: {fileID: -5925537777147519782, guid: 3379d8d4c88be4347b795f041fb194d2,
         type: 3}
       propertyPath: slotPlaceTo
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2257606295524682122, guid: 3379d8d4c88be4347b795f041fb194d2,
         type: 3}

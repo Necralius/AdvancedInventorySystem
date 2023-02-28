@@ -19,6 +19,7 @@ public class InventoryManagerController : MonoBehaviour
     [SerializeField] List<GameObject> itemList;
 
     [SerializeField] GenericBagScriptable currentBag;
+
     #endregion
 
     [SerializeField] protected List<KeyCode> keyCodeShortcutList;
@@ -27,6 +28,8 @@ public class InventoryManagerController : MonoBehaviour
     private void Start()
     {
         InventoryView.Instance.Initiate(currentBag);
+
+        //Iniciate ClothingWeapon
 
         BagScriptable resultBag = CastGenericBagToBag();
 
@@ -92,8 +95,18 @@ public class InventoryManagerController : MonoBehaviour
     {
 
     }
-    public bool RemoveItem()
+    public bool RemoveItem(GenericBagScriptable origin, int id, int index)
     {
+        bool result = false;
+
+        if (origin != null && id >= 0)
+        {
+            result = origin.RemoveItem(id);
+            RemoveItemFromShortCut(id);
+            StartCoroutine("RefreshInventoryView");
+
+        }
+
         return true;
     }
     public bool DropItem(GenericItemScriptable item)
@@ -159,9 +172,18 @@ public class InventoryManagerController : MonoBehaviour
     public bool OnDropItem(GenericItemScriptable itemDrop, GameObject origin, Vector2 coordinate, SlotPlaceTo slotPlaceTo)
     {
         int index = (int)coordinate.y;
+        //BAG ->
         if (origin.transform.parent.parent.name == "img_GridBackground" && slotPlaceTo != SlotPlaceTo.BAG)
         {
+            //ShortCut <-
             if (slotPlaceTo == SlotPlaceTo.SHORT_CUT) return AddItemToCurrentShortCut(index, itemDrop);
+
+            //Clothing Weapon <-
+            if (slotPlaceTo == SlotPlaceTo.CLOTHING_WEAPON)
+            {
+                //return TransferItemFromBagToClothingWeapon(index, itemDrop.Id);
+            }
+
         }
 
         //ShortCur => Change for another position
@@ -193,6 +215,52 @@ public class InventoryManagerController : MonoBehaviour
             InventoryView.Instance.UpdateDescriptionPanel(item);
         }
     }
+
+    #endregion
+
+    #region - Clothing Weapon Methods -
+
+    //public bool TransferItemFromBagToClothingWeapon(int index, int id)
+    //{
+    //    GenericItemScriptable item = currentBag.FindItemById(id);
+
+    //    bool result = currentClothingWeapon.AddItem(index, item);
+    //    if (result)
+    //    {
+    //        StartCoroutine("RefreshClothingWeaponView");
+    //        //ActionEquip
+    //        return RemoveItem(currentBag, id, index);
+    //    }
+
+    //    //ActionEquip
+    //    return false;
+    //}
+    //public bool TransferItemFromClothingWeaponToBag(int id)
+    //{
+    //    GenericItemScriptable item = currentClothingWeapon.GetItemByIndex(id);
+
+    //    bool result = currentClothingWeapon.RemoveItemById(id);
+        
+    //    if (result)
+    //    {
+    //        //Action Dequip
+    //        StartCoroutine("RefeshClothingWeaponView");
+    //        return AddItemToCurrentBag(item, 0, true);
+    //    }
+
+    //    //Action Dequip
+    //    return false;
+    //}
+    //private IEnumerator RefreshClothingWeaponView()
+    //{
+    //    yield return new WaitForSeconds(0.01f);
+    //    Dictionary<int, GenericItemScriptable> resultDictionary = currentClothingWeapon.ItemsDictionary;
+
+    //    //Instace in ClothingWeapon
+
+    //    //Update Current WeightChar
+        
+    //}
 
     #endregion
 
