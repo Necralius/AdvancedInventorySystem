@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public class DragBehaviorView : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    #region - Data Declaration -
     private CanvasGroup canvasGroupCg;
     private GameObject canvasIconGo;
     private GameObject iconGo;
     private Sprite iconImageSp;
-
-    #region - Data Declaration -
-
+    [SerializeField] private GameObject dragObjectParent;
     #endregion
 
     #region - Methods -
@@ -47,7 +46,7 @@ public class DragBehaviorView : MonoBehaviour, IBeginDragHandler, IDragHandler, 
         iconGo.GetComponent<Image>().raycastTarget = false;
 
         iconGo.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
-        iconGo.transform.SetParent(gameObject.transform);
+        iconGo.transform.SetParent(InventoryView.Instance.gameObject.transform);
         iconGo.GetComponent<CanvasGroup>().alpha = 0.65f;
     }
     private void StopDrag()

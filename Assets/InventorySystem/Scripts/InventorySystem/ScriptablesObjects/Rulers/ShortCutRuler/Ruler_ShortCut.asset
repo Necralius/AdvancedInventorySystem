@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4b0bd8d2a307404fb2b4721d444083a, type: 3}
+  m_Name: Ruler_ShortCut
+  m_EditorClassIdentifier: 
+  idSelected: 0
+  IgnoreAllSlotFilter: 0
+  useIdAndIgonoreAllItemTypeFilter: 0
+  slotFilter: {fileID: 11400000, guid: 37737db9562ddad4fa5f856844daf3c5, type: 2}
+  itemTypeFilter: {fileID: 11400000, guid: 6b43a20e8b5c7a84fa951660b9b29dcc, type: 2}

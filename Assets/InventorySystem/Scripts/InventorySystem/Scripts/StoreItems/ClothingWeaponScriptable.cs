@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Clothing Weapon", menuName = "InventorySystem/StoreItems/New Clothing Weapon")]
+[CreateAssetMenu(fileName = "New Clothing Weapon", menuName = "InventorySystem/Store Items/New Clothing Weapon")]
 public class ClothingWeaponScriptable : ScriptableObject
 {
     #region - Data Declaration
     [SerializeField, Range(1, 8)] private int slotNumber;
-
-    [SerializeField, Range(1, 4)] private int gunSlots;
-    [SerializeField, Range(1, 4)] private int clothingSlots;
 
     [SerializeField] private List<RulerScriptable> ruleList;
 
@@ -25,8 +22,6 @@ public class ClothingWeaponScriptable : ScriptableObject
     public float CurrentWeightUse { get => currentWeightUse; }
     public Dictionary<int, GenericItemScriptable> ItemsDictionary { get => itemsDictionary; }
     public int SlotNumber { get => slotNumber; }
-    public int GunSlots { get => gunSlots; }
-    public int ClothingSlots { get => clothingSlots; }
 
     #endregion
 
@@ -49,6 +44,7 @@ public class ClothingWeaponScriptable : ScriptableObject
             {
                 ItemsDictionary.Add(index, item);
                 UpdateTotalWeight();
+                return true;
             }
         }
         return false;

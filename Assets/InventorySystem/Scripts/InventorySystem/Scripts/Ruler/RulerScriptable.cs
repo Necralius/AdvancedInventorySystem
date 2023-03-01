@@ -34,17 +34,7 @@ public class RulerScriptable : ScriptableObject
 
             if (resultIndexList.Contains(index) || IgnoreAllSlotFilter)
             {
-                if (!useIdAndIgonoreAllItemTypeFilter)
-                {
-                    foreach (var itemTypeInList in resultItemTypeList)
-                    {
-                        if (itemTypeInList == item.GetItemType())
-                        {
-
-                            return true;
-                        }
-                    }
-                }
+                if (!useIdAndIgonoreAllItemTypeFilter) foreach (var itemTypeInList in resultItemTypeList) if (itemTypeInList == item.GetItemType()) return true;
                 else
                 {
                     if (idSelected == item.Id)

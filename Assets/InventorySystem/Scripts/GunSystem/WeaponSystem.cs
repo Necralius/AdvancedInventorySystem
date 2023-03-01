@@ -67,7 +67,7 @@ public class WeaponSystem : MonoBehaviour
     [Space, Header("Aiming System")]
 
     public Vector3 aimPosition;
-    private Vector3 originalPosition = Vector3.zero;
+    [SerializeField] private Vector3 originalPosition = Vector3.zero;
     public float reloadingOffset_Z = 0.2f;
     public float aimingFOV = 45;
     public float normalFOV = 60;

@@ -19,7 +19,7 @@ public class InventoryManagerController : MonoBehaviour
     [SerializeField] List<GameObject> itemList;
 
     [SerializeField] GenericBagScriptable currentBag;
-
+    [SerializeField] private ClothingWeaponScriptable currentClothingWeapon;
     #endregion
 
     [SerializeField] protected List<KeyCode> keyCodeShortcutList;
@@ -29,7 +29,7 @@ public class InventoryManagerController : MonoBehaviour
     {
         InventoryView.Instance.Initiate(currentBag);
 
-        //Iniciate ClothingWeapon
+        ClothingWeaponView.Instance.Iniciate(currentClothingWeapon);
 
         BagScriptable resultBag = CastGenericBagToBag();
 
@@ -52,7 +52,7 @@ public class InventoryManagerController : MonoBehaviour
     {
         bool result = false;
 
-        if (true)//Exception Case Verification
+        if (!GameManager.Instance.inventoryIsOpen || exceptionCase)//Exception Case Verification
         {
             result = currentBag.AddItem(newItem, quantity);
 
@@ -93,7 +93,11 @@ public class InventoryManagerController : MonoBehaviour
     
     public void OrganizeItem()
     {
-
+        currentBag.OrgnizeBySizePriority();
+        List<GenericItemScriptable> resultList = currentBag.ReturnFullList();
+        InventoryView.Instance.UpdateAllItems(resultList);
+        StartCoroutine("RefreshShortCutView");
+        currentBag.UsedOrganizeBtSizePriority = false;
     }
     public bool RemoveItem(GenericBagScriptable origin, int id, int index)
     {
@@ -104,7 +108,6 @@ public class InventoryManagerController : MonoBehaviour
             result = origin.RemoveItem(id);
             RemoveItemFromShortCut(id);
             StartCoroutine("RefreshInventoryView");
-
         }
 
         return true;
@@ -136,8 +139,7 @@ public class InventoryManagerController : MonoBehaviour
                 return true;
             }
         }
-
-        return true;
+        return false;
     }
     private void BuildMeshModel(int id, int currentQuantity)
     {
@@ -179,10 +181,7 @@ public class InventoryManagerController : MonoBehaviour
             if (slotPlaceTo == SlotPlaceTo.SHORT_CUT) return AddItemToCurrentShortCut(index, itemDrop);
 
             //Clothing Weapon <-
-            if (slotPlaceTo == SlotPlaceTo.CLOTHING_WEAPON)
-            {
-                //return TransferItemFromBagToClothingWeapon(index, itemDrop.Id);
-            }
+            if (slotPlaceTo == SlotPlaceTo.CLOTHING_WEAPON) return TransferItemFromBagToClothingWeapon(index, itemDrop.Id);
 
         }
 
@@ -192,6 +191,7 @@ public class InventoryManagerController : MonoBehaviour
         {
             return ChangeShortCutPosition(itemDrop, index);
         }
+
         return false;
     }
 
@@ -201,11 +201,8 @@ public class InventoryManagerController : MonoBehaviour
 
         if (originTag.Equals("ComplexSlot")) return DropItem(itemDrop);
         if (originTag.Equals("SpecialSlot")) return RemoveItemFromShortCut(itemDrop.Id);
+        if (originTag.Equals("ClothingWeaponsSlot")) return TransferItemFromClothingWeaponToBag(itemDrop.Id);
 
-        if (originTag.Equals("ClothingWeaponsSlot"))
-        {
-
-        }
         return false;
     }
     public void OnPointerDownItem(GenericItemScriptable item, GameObject origin)
@@ -220,47 +217,46 @@ public class InventoryManagerController : MonoBehaviour
 
     #region - Clothing Weapon Methods -
 
-    //public bool TransferItemFromBagToClothingWeapon(int index, int id)
-    //{
-    //    GenericItemScriptable item = currentBag.FindItemById(id);
+    public bool TransferItemFromBagToClothingWeapon(int index, int id)
+    {
+        GenericItemScriptable item = currentBag.FindItemById(id);
 
-    //    bool result = currentClothingWeapon.AddItem(index, item);
-    //    if (result)
-    //    {
-    //        StartCoroutine("RefreshClothingWeaponView");
-    //        //ActionEquip
-    //        return RemoveItem(currentBag, id, index);
-    //    }
+        bool result = currentClothingWeapon.AddItem(index, item);
+        if (result)
+        {
+            StartCoroutine("RefreshClothingWeaponView");
+            //ActionEquip
+            return RemoveItem(currentBag, id, index);
+        }
 
-    //    //ActionEquip
-    //    return false;
-    //}
-    //public bool TransferItemFromClothingWeaponToBag(int id)
-    //{
-    //    GenericItemScriptable item = currentClothingWeapon.GetItemByIndex(id);
+        //ActionEquip
+        return false;
+    }
+    public bool TransferItemFromClothingWeaponToBag(int id)
+    {
+        GenericItemScriptable item = currentClothingWeapon.GetItemById(id);
 
-    //    bool result = currentClothingWeapon.RemoveItemById(id);
-        
-    //    if (result)
-    //    {
-    //        //Action Dequip
-    //        StartCoroutine("RefeshClothingWeaponView");
-    //        return AddItemToCurrentBag(item, 0, true);
-    //    }
+        bool result = currentClothingWeapon.RemoveItemById(id);
 
-    //    //Action Dequip
-    //    return false;
-    //}
-    //private IEnumerator RefreshClothingWeaponView()
-    //{
-    //    yield return new WaitForSeconds(0.01f);
-    //    Dictionary<int, GenericItemScriptable> resultDictionary = currentClothingWeapon.ItemsDictionary;
+        if (result)
+        {
+            //Action Dequip
+            StartCoroutine("RefreshClothingWeaponView");
+            return AddItemToCurrentBag(item, 0, true);
+        }
 
-    //    //Instace in ClothingWeapon
+        //Action Dequip
+        return false;
+    }
+    public void CallRefreshClothingWeaponView() => StartCoroutine("RefreshClothingWeaponView");
+    private IEnumerator RefreshClothingWeaponView()
+    {
+        yield return new WaitForSeconds(0.01f);
+        Dictionary<int, GenericItemScriptable> resultDictionary = currentClothingWeapon.ItemsDictionary;
+        ClothingWeaponView.Instance.RefreshSlotSystem(resultDictionary);
 
-    //    //Update Current WeightChar
-        
-    //}
+        //Update Current WeightChar
+    }
 
     #endregion
 
