@@ -16,17 +16,14 @@ MonoBehaviour:
   title: School Bag
   maxColumn: 10
   maxRow: 10
-  currentSlotUse: 16
+  currentSlotUse: 7
   weightLimited: 20
-  currentWeightUse: 8
+  currentWeightUse: 0.9
   autoOrganize: 0
   itemList:
-  - {fileID: 11400000, guid: 772a6a3d22613af47a932a2f6ba5b31d, type: 2}
-  - {fileID: 11400000, guid: df765d499694b214c9238b6ce6fe6214, type: 2}
-  - {fileID: 11400000, guid: 1789056b5e88612498aa5791181e2a8c, type: 2}
-  - {fileID: 11400000, guid: 07dfe2b45e5aa7a49850a8969cedfd9f, type: 2}
-  - {fileID: 11400000, guid: 1534c2bd72f4ae44e81d7bca378288c8, type: 2}
   - {fileID: 11400000, guid: 6d3df370fc76aaf4a89e410d8c317dca, type: 2}
+  - {fileID: 11400000, guid: 5ee01ac14ec3bfd4bab8d151979b4b24, type: 2}
+  - {fileID: 11400000, guid: e6e16444506a67a4b892259d5f4e7acb, type: 2}
   maxShortCutSlot: 10
   rulerList:
-  - {fileID: 11400000, guid: a411de56e6da8ff4ab96ee341578922f, type: 2}
+  - {fileID: 11400000, guid: 9dc19c3eb6894374784b62cb0af1bcaa, type: 2}

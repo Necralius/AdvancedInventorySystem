@@ -37,7 +37,7 @@ public class ClothingWeaponView : MonoBehaviour
     {
         specialSlotDictionary = new Dictionary<int, GameObject>();
 
-        GameObject[] resultList = GameObject.FindGameObjectsWithTag("ClothingWeaponsSlot");
+        GameObject[] resultList = itensList;
 
         SimpleSlotView[] simpleSlotViewResult = new SimpleSlotView[resultList.Length];
 

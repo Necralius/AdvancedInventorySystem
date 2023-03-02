@@ -21,8 +21,9 @@ MonoBehaviour:
   description: AK-47 Rifle that uses 7.62mm Ammo.
   currentQuantity: 0
   maxQuantity: 1
-  slotSize: 2
+  slotSize: 4
   itemWeigth: 2.5
   totalWeightPerItem: 0
   actionUseList: []
-  actionEquipList: []
+  actionEquipList:
+  - {fileID: 11400000, guid: 7e0c4f4496f47554199bded4b90112de, type: 2}

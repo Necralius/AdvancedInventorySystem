@@ -19,13 +19,6 @@ public class PopupActionScriptable : GenericActionScriptable
     {
         yield return new WaitForSeconds(DelayToStart);
 
-        //Game Controller -> ShowPopup
-
-        /*
-         
-          
-        */
+        GameController.Instance.ShowPopup(description, icon, textcolor, backgroundColor, timeToClosePopup);
     }
-
-
 }

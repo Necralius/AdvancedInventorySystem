@@ -17,11 +17,7 @@ public class ItemView : MonoBehaviour
     public GenericItemScriptable Item { get => item; }
     #endregion
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.CompareTag("Player")) Collect();
-    }
-    private void Collect()
+    public void Collect()
     {
         bool result = InventoryManagerController.Instance.AddItemToCurrentBag(item, quantity, false);
 

@@ -11,6 +11,6 @@ public class EquipActionScriptable : GenericActionScriptable
     {
         yield return new WaitForSeconds(DelayToStart);
 
-        //Game Controller -> EquipChar()
+        GameController.Instance.EquipChar(itemEquip);
     }
 }

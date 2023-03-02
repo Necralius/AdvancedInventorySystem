@@ -23,12 +23,22 @@ public enum ItemEquip
     NONE = 0,
     ARMOR_KEVLAR = 1,
     ARMOR_BALISTIC_HELMET = 2,
-    FIREGUN_M4A4 = 3,
-    FIREGUN_AK47 = 4,
-    FIREGUN_L96 = 5,
-    FIREGUN_ = 5,
-    FIREGUN_GLOCK17 = 6,
-    FIREGUN_M9MM = 7,
-    FIREGUN_MAGNUN = 8,
-
+    Handable_FireGun_AK47 = 3,
+    Handable_FireGun_M4A4_Carbine = 4,
+    Handable_FireGun_M9 = 5,
+    Handable_FireGun_M24 = 6,
+    Handable_FireGun_Glock17 = 7,
+    Handable_FireGun_UMP45 = 8,
+}
+public enum SliderType
+{
+    Health = 0,
+    Hungry = 1,
+    Thirsty = 2,
+    Stamina = 3,
+    ColdLevel = 4,
+}
+public enum AttackType
+{
+    GUNPLAY = 0,
 }

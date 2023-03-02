@@ -223,6 +223,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8177016330449953688, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8151683007851360093, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8068252375559569419, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -237,6 +247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -39.78066
+      objectReference: {fileID: 0}
+    - target: {fileID: -7957136316944536407, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7760277445265404496, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
@@ -508,6 +523,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -3.1353083
       objectReference: {fileID: 0}
+    - target: {fileID: -1032550937200881491, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -753581636499053101, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
       propertyPath: m_UpdateWhenOffscreen
@@ -561,7 +581,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
       propertyPath: m_Name
-      value: Handable_FireGun_AK-47
+      value: Handable_FireGun_AK47
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
@@ -608,6 +628,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 6.702925
       objectReference: {fileID: 0}
+    - target: {fileID: 3139902664975364418, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3380769627072928264, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -627,6 +652,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 74.466736
+      objectReference: {fileID: 0}
+    - target: {fileID: 3661414331693400416, guid: dfef95a8ba6dc1c459483f633b51899e,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4142661325127024974, guid: dfef95a8ba6dc1c459483f633b51899e,
         type: 3}

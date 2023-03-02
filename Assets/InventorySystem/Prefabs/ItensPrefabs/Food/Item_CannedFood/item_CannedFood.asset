@@ -24,4 +24,5 @@ MonoBehaviour:
   slotSize: 1
   itemWeigth: 0.5
   totalWeightPerItem: 0
-  actionUseList: []
+  actionUseList:
+  - {fileID: 11400000, guid: a83e98146d655984aade247e7bfa1aa3, type: 2}

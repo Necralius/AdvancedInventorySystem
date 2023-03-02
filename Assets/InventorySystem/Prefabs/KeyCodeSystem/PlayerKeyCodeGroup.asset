@@ -29,3 +29,5 @@ MonoBehaviour:
     actionKeyCode: 114
   - keyActionName: ChangeGunStateKey
     actionKeyCode: 116
+  - keyActionName: ItemGrabKey
+    actionKeyCode: 101

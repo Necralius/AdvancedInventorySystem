@@ -10,6 +10,7 @@ TagManager:
   - SpecialSlot
   - ClothingWeaponsSlot
   - PlayerCam
+  - ItemTakable
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - Water
   - UI
   - HitableMask
-  - 
+  - TakableItem
   - 
   - 
   - 

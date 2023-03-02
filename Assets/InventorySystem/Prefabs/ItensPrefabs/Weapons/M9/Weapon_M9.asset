@@ -19,10 +19,11 @@ MonoBehaviour:
   isOnlyItem: 1
   label: M9 Pistol
   description: Low level pistol that uses 9mm Ammo
-  currentQuantity: 1
+  currentQuantity: 0
   maxQuantity: 1
   slotSize: 2
   itemWeigth: 1
   totalWeightPerItem: 0
   actionUseList: []
-  actionEquipList: []
+  actionEquipList:
+  - {fileID: 11400000, guid: 7f07270745e30e84b941e28c39f2da01, type: 2}

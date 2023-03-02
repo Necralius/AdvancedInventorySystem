@@ -23,6 +23,7 @@ MonoBehaviour:
   maxQuantity: 1
   slotSize: 2
   itemWeigth: 1
-  totalWeightPerItem: 0
+  totalWeightPerItem: 1
   actionUseList: []
-  actionEquipList: []
+  actionEquipList:
+  - {fileID: 11400000, guid: 372b227915791c64698ccd26f64bb67d, type: 2}

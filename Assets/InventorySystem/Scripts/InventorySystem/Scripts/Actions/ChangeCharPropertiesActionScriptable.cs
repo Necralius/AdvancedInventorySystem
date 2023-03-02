@@ -8,9 +8,9 @@ public class ChangeCharPropertiesActionScriptable : GenericActionScriptable
 
     #region - Main Declaration -
     [SerializeField, Range(-100f, 100f)] private float life;
-    [SerializeField, Range(-100f, 100f)] private float thirsty;
+    [SerializeField, Range(-100f, 100f)] private float thirst;
     [SerializeField, Range(-100f, 100f)] private float hungry;
-    [SerializeField, Range(-100f, 100f)] private float diseaseLevel;
+    [SerializeField, Range(-100f, 100f)] private float stamina;
     [SerializeField, Range(10f, 30f)] private float speed;
 
     [SerializeField] private bool applyNewPosition;
@@ -24,29 +24,26 @@ public class ChangeCharPropertiesActionScriptable : GenericActionScriptable
     {
         yield return new WaitForSeconds(DelayToStart);
 
-        if (life != 0)
-        {
-            //GameControler => Function();
-        }
-
-        if (thirsty != 0)
-        {
-            //GameControler => Function();
-        }
-
         if (hungry != 0)
         {
-            //GameControler => Function();
+            if (thirst != 0)
+            {
+                if (stamina != 0)
+                {
+                    GameController.Instance.EatFood(hungry, thirst, stamina);
+                    yield return null;
+                }
+                GameController.Instance.EatFood(hungry, thirst, 0);
+                yield return null;
+            }
+            GameController.Instance.EatFood(hungry, 0, 0);
+            yield return null;
         }
 
-        if (diseaseLevel != 0)
+        if (life != 0)
         {
-            //GameControler => Function();
-        }
-
-        if (speed != 0)
-        {
-            //GameControler => Function();
+            if (life > 0) GameController.Instance.CurePlayer(life);
+            else if (life < 0) GameController.Instance.DamagePlayer(life);
         }
 
         if (applyNewPosition)

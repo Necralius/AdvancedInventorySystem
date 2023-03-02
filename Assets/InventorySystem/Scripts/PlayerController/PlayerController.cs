@@ -2,12 +2,33 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region - Singleton Pattern -
+    public static PlayerController Instance;
+    private void Awake() => Instance = this;
+    #endregion
+
+    [Header("Item Taking State and Debug")]
+    public GameObject interactableInArea;
+    public bool hasItemInArea;
+    public bool isTakingObject;
+    [Space]
+    [Header("Item Interactable Detection System")]
+    public float takableRadius;
+    public LayerMask takableItemMask;
+    public Transform detectionCenter;
+
+    [Header("IK Targeting Objects")]
+    public GameObject handTarget;
+    public Transform handTransform;
+    public Animator thirdHandAnimator;
+
     #region - View Data -
-    public KeyCodeGroup playerKeyCodeGroup;
+    [Space, Header("Player Aspects")]
     public PlayerStats playerStats;
 
     private float xRotation = 0f;
@@ -21,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public Camera currentCamera => GetComponentInChildren<Camera>();
     private CharacterController playerController => GetComponent<CharacterController>();
     public ObjectPooler pooler => ObjectPooler.Instance;
+
     #endregion
 
     #region - Movment Data -
@@ -36,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Player State")]
     public bool isWalking;
+    public bool canRun;
     public bool isRunning;
     public bool isGrounded;
     public bool isCrouched;
@@ -63,9 +86,17 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public Transform cameraBody;
+    #region - Aim System -
     public Transform aimObject;
+    #endregion
+
+    #region - CameraHolder -
+    public Transform cameraBody;
+    #endregion
+
+    #region - Weapon Sway System -
     public GameObject weaponSwayObject;
+    #endregion
 
     #region - UI System -
     [Header("UI System")]
@@ -73,6 +104,10 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI gunStateText;
 
     #endregion
+
+    //======================================//
+
+    #region - Method Area -
 
     #region - BuildIn Methods -
     private void Start()
@@ -86,6 +121,61 @@ public class PlayerController : MonoBehaviour
         CalculateView();
         CalculateState();
         CalculateMovment();
+        ItemGrabbing();
+    }
+    #endregion
+
+    #region - Item Grabbing -
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(detectionCenter.position, takableRadius);
+    }
+    private void ItemGrabbing()
+    {
+        if (!isTakingObject)
+        {
+            Collider[] detectedItems = Physics.OverlapSphere(detectionCenter.position, takableRadius, takableItemMask);
+            if (detectedItems.Length > 0)
+            {
+                foreach(Collider col in detectedItems)
+                {
+                    if (col.gameObject.GetComponent<ItemInteraction>())
+                    {
+                        interactableInArea = detectedItems[0].gameObject;
+                        hasItemInArea = true;
+                    }
+                }
+                if (interactableInArea == null) hasItemInArea = false;
+            }
+            else hasItemInArea = false;
+        }
+        else if (isTakingObject)
+        {
+            handTarget.transform.position = interactableInArea.GetComponent<ItemInteraction>().grabArea.transform.position;
+            handTarget.transform.LookAt(-interactableInArea.GetComponent<ItemInteraction>().grabArea.transform.position);
+        }
+
+        if (hasItemInArea)
+        {
+            if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ItemGrabKey")))
+            {
+                isTakingObject = true;
+
+                thirdHandAnimator.SetTrigger("GrabItem");
+                controllerAnimator.SetTrigger("GrabItem");
+            }
+        }
+    }
+    public void OnItemGrabbed()
+    {
+        isTakingObject = false;
+        interactableInArea.GetComponent<Rigidbody>().isKinematic = true;
+        interactableInArea.transform.SetParent(handTransform, true);
+    }
+    public void CollectGrabbedItem()
+    {
+        interactableInArea.GetComponent<ItemView>().Collect();
+        interactableInArea = null;
     }
     #endregion
 
@@ -109,11 +199,11 @@ public class PlayerController : MonoBehaviour
         lookInput = new Vector2(Input.GetAxis("Mouse X") * playerStats.mouseSensitivity * Time.deltaTime, Input.GetAxis("Mouse Y") * playerStats.mouseSensitivity * Time.deltaTime);
         movmentInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("CrouchKey")) && CheckPlayerState()) Crouch();
-        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ProneKey")) && CheckPlayerState()) Prone();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("CrouchKey")) && !CheckPlayerState()) Crouch();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ProneKey")) && !CheckPlayerState()) Prone();
 
         isGrounded = playerController.isGrounded;
-        isRunning = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("SprintKey")) && isWalking;
+        isRunning = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("SprintKey")) && isWalking && canRun;
         isWalking = movmentInput != Vector2.zero && isGrounded;
         isAiming = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("AimKey")) && !isRunning;
 
@@ -194,5 +284,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Stand() => currentState.SetUp(playerStandState);
     private bool CheckPlayerState() => Physics.CheckSphere(headPosition.position, checkRadius, checkMask);
+    #endregion
+
     #endregion
 }

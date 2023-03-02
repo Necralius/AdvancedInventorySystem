@@ -8,7 +8,11 @@ public class InventoryManagerController : MonoBehaviour
 {
     #region - Singleton Pattern -
     public static InventoryManagerController Instance;
-    void Awake() => Instance = this;
+    void Awake()
+    {
+        Instance = this;
+        ClothingWeaponView.Instance.Iniciate(currentClothingWeapon);
+    }
     #endregion
 
     #region - Data Declaration - 
@@ -28,8 +32,6 @@ public class InventoryManagerController : MonoBehaviour
     private void Start()
     {
         InventoryView.Instance.Initiate(currentBag);
-
-        ClothingWeaponView.Instance.Iniciate(currentClothingWeapon);
 
         BagScriptable resultBag = CastGenericBagToBag();
 
@@ -225,11 +227,9 @@ public class InventoryManagerController : MonoBehaviour
         if (result)
         {
             StartCoroutine("RefreshClothingWeaponView");
-            //ActionEquip
+            item.ActionEquipandUnequipListDispatch();
             return RemoveItem(currentBag, id, index);
         }
-
-        //ActionEquip
         return false;
     }
     public bool TransferItemFromClothingWeaponToBag(int id)
@@ -237,15 +237,12 @@ public class InventoryManagerController : MonoBehaviour
         GenericItemScriptable item = currentClothingWeapon.GetItemById(id);
 
         bool result = currentClothingWeapon.RemoveItemById(id);
-
         if (result)
         {
-            //Action Dequip
+            item.ActionEquipandUnequipListDispatch();
             StartCoroutine("RefreshClothingWeaponView");
             return AddItemToCurrentBag(item, 0, true);
         }
-
-        //Action Dequip
         return false;
     }
     public void CallRefreshClothingWeaponView() => StartCoroutine("RefreshClothingWeaponView");
@@ -254,8 +251,6 @@ public class InventoryManagerController : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         Dictionary<int, GenericItemScriptable> resultDictionary = currentClothingWeapon.ItemsDictionary;
         ClothingWeaponView.Instance.RefreshSlotSystem(resultDictionary);
-
-        //Update Current WeightChar
     }
 
     #endregion

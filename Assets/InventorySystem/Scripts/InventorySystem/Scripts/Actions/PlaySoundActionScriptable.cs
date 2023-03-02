@@ -13,10 +13,7 @@ public class PlaySoundActionScriptable : GenericActionScriptable
     {
         yield return new WaitForSeconds(DelayToStart);
 
-        if (audioFile != null)
-        {
-            //Game Controller => PlayAudio();
-        }
+        if (audioFile != null) GameController.Instance.PlayAudio(audioFile);
         else Debug.LogWarning("There is no a valid audio file in this play sound asset.");
     }
 }

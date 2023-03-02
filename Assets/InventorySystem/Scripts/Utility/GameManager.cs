@@ -16,11 +16,14 @@ public class GameManager : MonoBehaviour
     #region - Inventory Change -
     public GameObject inventoryUIObject;
     public bool inventoryIsOpen = false;
+    public GameObject hudObj;
+
     public void ChangeInventoryState()
     {
         inventoryUIObject.SetActive(!inventoryUIObject.activeInHierarchy);
         inventoryIsOpen = inventoryUIObject.activeInHierarchy;
         Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        hudObj.SetActive(!inventoryIsOpen);
         InventoryManagerController.Instance.InventoryStateChanged();
         InventoryManagerController.Instance.CallRefreshClothingWeaponView();
     }
@@ -28,6 +31,7 @@ public class GameManager : MonoBehaviour
     public void ChangeCrosHairState() => CrossHair.SetActive(!CrossHair.activeInHierarchy);
     private void Start()
     {
+        //ChangeInventoryState();
         Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

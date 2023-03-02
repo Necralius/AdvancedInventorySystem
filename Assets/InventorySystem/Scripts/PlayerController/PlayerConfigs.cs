@@ -9,6 +9,12 @@ public class KeyCodeGroup : ScriptableObject
     public List<KeyCodeSave> keyCodes;
     public KeyCode GetKeyCodeByName(string name) => keyCodes.Find(x => x.keyActionName == name).actionKeyCode;
 }
+[Serializable]
+public struct KeyCodeSave
+{
+    public string keyActionName;
+    public KeyCode actionKeyCode;
+}
 
 [Serializable]
 public class PlayerStats
@@ -23,11 +29,4 @@ public class PlayerStats
     public float crouchSpeedEffector;
     public float proneSpeedEffector;
     public float aimSpeedEffector;
-}
-
-[Serializable]
-public struct KeyCodeSave
-{
-    public string keyActionName;
-    public KeyCode actionKeyCode;
 }

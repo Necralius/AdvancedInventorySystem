@@ -25,4 +25,5 @@ MonoBehaviour:
   itemWeigth: 2.75
   totalWeightPerItem: 0
   actionUseList: []
-  actionEquipList: []
+  actionEquipList:
+  - {fileID: 11400000, guid: 8e2508dee05f6144992463e26d93cbaa, type: 2}
