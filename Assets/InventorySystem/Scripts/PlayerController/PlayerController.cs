@@ -12,23 +12,8 @@ public class PlayerController : MonoBehaviour
     private void Awake() => Instance = this;
     #endregion
 
-    [Header("Item Taking State and Debug")]
-    public GameObject interactableInArea;
-    public bool hasItemInArea;
-    public bool isTakingObject;
-    [Space]
-    [Header("Item Interactable Detection System")]
-    public float takableRadius;
-    public LayerMask takableItemMask;
-    public Transform detectionCenter;
-
-    [Header("IK Targeting Objects")]
-    public GameObject handTarget;
-    public Transform handTransform;
-    public Animator thirdHandAnimator;
-
     #region - View Data -
-    [Space, Header("Player Aspects")]
+    [Header("Player Aspects")]
     public PlayerStats playerStats;
 
     private float xRotation = 0f;
@@ -121,61 +106,6 @@ public class PlayerController : MonoBehaviour
         CalculateView();
         CalculateState();
         CalculateMovment();
-        ItemGrabbing();
-    }
-    #endregion
-
-    #region - Item Grabbing -
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(detectionCenter.position, takableRadius);
-    }
-    private void ItemGrabbing()
-    {
-        if (!isTakingObject)
-        {
-            Collider[] detectedItems = Physics.OverlapSphere(detectionCenter.position, takableRadius, takableItemMask);
-            if (detectedItems.Length > 0)
-            {
-                foreach(Collider col in detectedItems)
-                {
-                    if (col.gameObject.GetComponent<ItemInteraction>())
-                    {
-                        interactableInArea = detectedItems[0].gameObject;
-                        hasItemInArea = true;
-                    }
-                }
-                if (interactableInArea == null) hasItemInArea = false;
-            }
-            else hasItemInArea = false;
-        }
-        else if (isTakingObject)
-        {
-            handTarget.transform.position = interactableInArea.GetComponent<ItemInteraction>().grabArea.transform.position;
-            handTarget.transform.LookAt(-interactableInArea.GetComponent<ItemInteraction>().grabArea.transform.position);
-        }
-
-        if (hasItemInArea)
-        {
-            if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ItemGrabKey")))
-            {
-                isTakingObject = true;
-
-                thirdHandAnimator.SetTrigger("GrabItem");
-                controllerAnimator.SetTrigger("GrabItem");
-            }
-        }
-    }
-    public void OnItemGrabbed()
-    {
-        isTakingObject = false;
-        interactableInArea.GetComponent<Rigidbody>().isKinematic = true;
-        interactableInArea.transform.SetParent(handTransform, true);
-    }
-    public void CollectGrabbedItem()
-    {
-        interactableInArea.GetComponent<ItemView>().Collect();
-        interactableInArea = null;
     }
     #endregion
 

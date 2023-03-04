@@ -12,14 +12,8 @@ public class ActionManagerController : MonoBehaviour
 
     #region - Methods -
 
-    private void OnEnable()
-    {
-        ActionManagerEvent.SendActionListEvent += ReceiveActionList;
-    }
-    private void OnDisable()
-    {
-        ActionManagerEvent.SendActionListEvent -= ReceiveActionList;
-    }
+    private void OnEnable() => ActionManagerEvent.SendActionListEvent += ReceiveActionList;
+    private void OnDisable() => ActionManagerEvent.SendActionListEvent -= ReceiveActionList;
     private void ReceiveActionList(List<GenericActionScriptable> actionListReceived)
     {
         if (actionListReceived.Count > 0) 
@@ -37,7 +31,7 @@ public class ActionManagerController : MonoBehaviour
             }
             catch (Exception ex)
             {
-                Debug.LogError("The Action List is empty or currupted!");
+                Debug.LogError("The Action List is currupted!");
             }
         }
         else Debug.LogWarning("There are any action inside current action List!");

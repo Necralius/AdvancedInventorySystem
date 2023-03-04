@@ -19,11 +19,12 @@ MonoBehaviour:
   isOnlyItem: 1
   label: AK-47
   description: AK-47 Rifle that uses 7.62mm Ammo.
-  currentQuantity: 0
+  currentQuantity: 1
   maxQuantity: 1
-  slotSize: 4
+  slotSize: 6
   itemWeigth: 2.5
-  totalWeightPerItem: 0
-  actionUseList: []
+  totalWeightPerItem: 2.5
+  actionUseList:
+  - {fileID: 11400000, guid: 7e0c4f4496f47554199bded4b90112de, type: 2}
   actionEquipList:
   - {fileID: 11400000, guid: 7e0c4f4496f47554199bded4b90112de, type: 2}

@@ -12,6 +12,10 @@ public class GameController : MonoBehaviour
     #region - Data Declaration -
     public Transform playerBody;
 
+    List<ItemEquip> equipList = new List<ItemEquip> { ItemEquip.NONE, ItemEquip.ARMOR_KEVLAR, ItemEquip.ARMOR_BALISTIC_HELMET,
+            ItemEquip.Handable_FireGun_AK47, ItemEquip.Handable_FireGun_M4A4_Carbine, ItemEquip.Handable_FireGun_M9,ItemEquip.Handable_FireGun_M24,
+            ItemEquip.Handable_FireGun_Glock17,ItemEquip.Handable_FireGun_UMP45 };//This variable represent all types of gun equip
+
     #endregion
 
     #region - Methods -
@@ -22,46 +26,22 @@ public class GameController : MonoBehaviour
     }
     public void EquipChar(ItemEquip itemEquip)
     {
-        switch (itemEquip)
+        List<ItemEquip> equipList = new List<ItemEquip> { ItemEquip.NONE, ItemEquip.ARMOR_KEVLAR, ItemEquip.ARMOR_BALISTIC_HELMET,
+            ItemEquip.Handable_FireGun_AK47, ItemEquip.Handable_FireGun_M4A4_Carbine, ItemEquip.Handable_FireGun_M9,ItemEquip.Handable_FireGun_M24,
+            ItemEquip.Handable_FireGun_Glock17,ItemEquip.Handable_FireGun_UMP45 };
+
+        foreach (ItemEquip equipType in equipList)
         {
-            case ItemEquip.NONE:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.ARMOR_KEVLAR:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.ARMOR_BALISTIC_HELMET:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_AK47:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_M4A4_Carbine:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_M9:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_M24:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_Glock17:
-                SetEquipment(itemEquip);
-                break;
-            case ItemEquip.Handable_FireGun_UMP45:
-                SetEquipment(itemEquip);
-                break;
-            default:
-                break;
+            if (equipType.Equals(itemEquip)) SetEquipment(equipType, true);
+            else SetEquipment(equipType, false);
         }
     }
-    public void PlayAudio(AudioClip audioClip) => AudioView.Instance.Play(audioClip);
-    private void SetEquipment(ItemEquip itemEquip)
+    public void DequipAllWeapons()
     {
-        bool status = PlayerView.Instance.StatusEquipment(itemEquip);
-        PlayerView.Instance.Equip(itemEquip, !status);
+        foreach(ItemEquip equipType in equipList) SetEquipment(equipType, false);
     }
-
+    private void SetEquipment(ItemEquip itemEquip, bool activeState) => PlayerView.Instance.Equip(itemEquip, activeState);
+    public void PlayAudio(AudioClip audioClip) => AudioView.Instance.Play(audioClip);
     public void CurePlayer(float value) => SurvivalAtributes.Instance.CurePlayer(value);
     public void DamagePlayer(float value) => SurvivalAtributes.Instance.GiveDamage(value);
     public void EatFood(float hungryValue, float thirstValue, float staminaValue)
@@ -83,7 +63,4 @@ public class GameController : MonoBehaviour
         playerBody.rotation = newPos.rotation;
     }
     #endregion
-
-
-
 }

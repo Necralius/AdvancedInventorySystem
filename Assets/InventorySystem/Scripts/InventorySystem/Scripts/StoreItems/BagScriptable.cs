@@ -14,29 +14,23 @@ public class BagScriptable : GenericBagScriptable
     [SerializeField] protected Dictionary<int, GenericItemScriptable> itemsShortCutDictionary;
     #endregion
 
-
     #region - Get and Set Data -
     public Dictionary<int, GenericItemScriptable> ItemsShortCutDictionary { get => itemsShortCutDictionary;}
     public int MaxShortCutSlot { get => maxShortCutSlot; }
     #endregion
 
-
     #region - Methods -
     protected override void OnEnable()
     {
-        itemsShortCutDictionary = new Dictionary<int, GenericItemScriptable>();
         base.OnEnable();
+        itemsShortCutDictionary = new Dictionary<int, GenericItemScriptable>();
     }
     protected override void ResetBag()
-    {
+    { 
         base.ResetBag();
-
         matrixUtility = new MatrixUtility(maxRow, maxColumn, title);
     }
-    public override bool UseItem(int id, int value)
-    {
-        return base.UseItem(id, value);
-    }
+    public override bool UseItem(int id, int value) => base.UseItem(id, value);
     public bool AddItemToShortCut(int index, GenericItemScriptable item)
     {
         if (itemsShortCutDictionary.ContainsValue(item)) Debug.LogWarning("The item " + item.name + "is already on shortcuts!");
@@ -58,7 +52,6 @@ public class BagScriptable : GenericBagScriptable
             AddItemToShortCut(index, item);
             return true;
         }
-
         return false;
     }
     public List<int> GetIdsFromItemShortCutDictionary()
@@ -113,7 +106,6 @@ public class BagScriptable : GenericBagScriptable
         }
         return resultIndex;
     }
-
     public bool RemoveItemFromShortCutById(int id)
     {
         try
@@ -134,21 +126,8 @@ public class BagScriptable : GenericBagScriptable
     }
     private bool CheckAllRules(int index, GenericItemScriptable item)
     {
-        if (rulerList.Count != 0)
-        {
-            foreach(var ruler in rulerList)
-            {
-                if (ruler.Validade(index, item))
-                {
-
-                    return true;
-                }
-            }
-        }
-        else
-        {
-            Debug.LogWarning("Thre is no Rules, so no item is allowed!");
-        }
+        if (rulerList.Count != 0) foreach (var ruler in rulerList) if (ruler.Validade(index, item)) return true;
+        else Debug.LogWarning("Thre is no Rules, so no item is allowed!");
         return false;
     }
     #endregion

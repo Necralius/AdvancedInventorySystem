@@ -19,11 +19,12 @@ MonoBehaviour:
   isOnlyItem: 1
   label: M4A4
   description: M4A4 Rifle that uses 5.52mm Ammo.
-  currentQuantity: 0
+  currentQuantity: 1
   maxQuantity: 1
-  slotSize: 3
+  slotSize: 6
   itemWeigth: 2.75
-  totalWeightPerItem: 0
-  actionUseList: []
+  totalWeightPerItem: 2.75
+  actionUseList:
+  - {fileID: 11400000, guid: 8e2508dee05f6144992463e26d93cbaa, type: 2}
   actionEquipList:
   - {fileID: 11400000, guid: 8e2508dee05f6144992463e26d93cbaa, type: 2}

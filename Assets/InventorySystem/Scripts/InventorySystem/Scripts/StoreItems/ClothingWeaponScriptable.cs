@@ -15,14 +15,12 @@ public class ClothingWeaponScriptable : ScriptableObject
     [SerializeField] private Dictionary<int, GenericItemScriptable> itemsDictionary;
 
     [SerializeField] private float currentWeightUse;
-
     #endregion
 
     #region - Data Get and Set -
     public float CurrentWeightUse { get => currentWeightUse; }
     public Dictionary<int, GenericItemScriptable> ItemsDictionary { get => itemsDictionary; }
     public int SlotNumber { get => slotNumber; }
-
     #endregion
 
     #region - Methods -
@@ -53,13 +51,7 @@ public class ClothingWeaponScriptable : ScriptableObject
     {
         try
         {
-            if (ruleList.Count != 0)
-            {
-                foreach(var rule in ruleList)
-                {
-                    if (rule.Validade(index, item)) return true;
-                }
-            }
+            if (ruleList.Count != 0) foreach (var rule in ruleList) if (rule.Validade(index, item)) return true;
         }
         catch(System.Exception ex)
         {
@@ -85,6 +77,7 @@ public class ClothingWeaponScriptable : ScriptableObject
             if (!(resultItem.Equals(null))){
                 itemsDictionary.Remove(resultItem.Key);
                 UpdateTotalWeight();
+                GameController.Instance.DequipAllWeapons();
                 return true;
             }
         }

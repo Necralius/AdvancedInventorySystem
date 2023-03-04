@@ -13,9 +13,8 @@ public class WeaponSystem : MonoBehaviour
 
     public GunType gunType;
 
-    [Space]
-
     #region - Gun States -
+    [Space, Header("Gun State System")]
     public GunState currentGunState;
     private int currentGunStateIndex = 0;
     public List<GunState> gunStates;
@@ -51,9 +50,10 @@ public class WeaponSystem : MonoBehaviour
     public AudioClip drawWeaponClip;
     public AudioClip aimClip;
     public AudioClip reloadClip;
+    public AudioClip fullReloadClip;
     #endregion
 
-    #region - Ammo -
+    #region - Ammo System -
     [Header("Ammo Settings")]
     [SerializeField] private int currentMagAmmo = 31;
     [SerializeField] private int maxMagAmmo = 31;
@@ -222,6 +222,9 @@ public class WeaponSystem : MonoBehaviour
 
         amountToNeeded = maxMagAmmo - currentMagAmmo;
 
+        if (amountToNeeded == maxMagAmmo) AudioManager.Instance.PlayEffectSound(fullReloadClip);
+        else if (amountToNeeded < maxMagAmmo) AudioManager.Instance.PlayEffectSound(reloadClip);
+
         gunAnimator.SetInteger("ReloadIndex", amountToNeeded == maxMagAmmo ? 0 : 1);
         isReloading = true;
         gunAnimator.SetBool("IsReloading", true);
@@ -229,7 +232,6 @@ public class WeaponSystem : MonoBehaviour
     public void StopReloadAnim() => gunAnimator.SetBool("IsReloading", false);
     public void EndReload()
     {
-
         if (currentInventoryAmmo - amountToNeeded > 0)
         {
             currentInventoryAmmo -= amountToNeeded;
@@ -245,6 +247,7 @@ public class WeaponSystem : MonoBehaviour
             currentInventoryAmmo = 0;
             currentMagAmmo = amountToNeeded;
         }
+
         amountToNeeded = 0;
         playerController.ammoText.text = string.Format("{0}/{1}", currentMagAmmo, currentInventoryAmmo);
 
@@ -333,6 +336,16 @@ public class WeaponSystem : MonoBehaviour
             
         }
     }
+    #endregion
+
+    #region - UI Update -
+    
+    public void UpdateGunUI()
+    {
+        playerController.ammoText.text = string.Format("{0}/{1}", currentMagAmmo, currentInventoryAmmo);
+        playerController.gunStateText.text = currentGunState.ToString();
+    }
+
     #endregion
 
     #region - Animation Events -

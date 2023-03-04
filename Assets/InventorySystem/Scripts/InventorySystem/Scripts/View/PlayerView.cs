@@ -19,7 +19,18 @@ public class PlayerView : MonoBehaviour
     #region - Methods -
     public void Equip(ItemEquip typeWeapon, bool visible)
     {
-        foreach(var item in weaponGoList) if (item.name == typeWeapon.ToString()) item.SetActive(visible);
+        foreach(var item in weaponGoList)
+        {
+            if (item.name == typeWeapon.ToString())
+            {
+                if (visible)
+                {
+                    PlayerController.Instance.equippedGun = item.GetComponent<WeaponSystem>();
+                    PlayerController.Instance.equippedGun.UpdateGunUI();
+                }
+                item.SetActive(visible);
+            }
+        }
     }
     public bool StatusEquipment(ItemEquip itemEquip)
     {
@@ -28,7 +39,7 @@ public class PlayerView : MonoBehaviour
     }
     private void Start()
     {
-        Equip(ItemEquip.Handable_FireGun_M4A4_Carbine, true);
+        //Equip(ItemEquip.Handable_FireGun_M4A4_Carbine, true);
     }
     #endregion
 }

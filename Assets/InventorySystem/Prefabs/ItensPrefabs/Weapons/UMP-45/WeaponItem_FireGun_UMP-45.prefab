@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1455426682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1455426683}
+  m_Layer: 7
+  m_Name: GrabCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1455426683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455426682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 254255781164282329}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &292159155892885042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -183,6 +214,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 87.85958
       objectReference: {fileID: 0}
+    - target: {fileID: -5974754426279526495, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -5777042299309875467, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -213,6 +249,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 14.24323
       objectReference: {fileID: 0}
+    - target: {fileID: -4641820047118882889, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: -4483120558522700576, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -227,6 +268,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -50.041443
+      objectReference: {fileID: 0}
+    - target: {fileID: -4213742502767325704, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -3757435080335900261, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
@@ -333,6 +379,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.11647933
       objectReference: {fileID: 0}
+    - target: {fileID: -160949480624808923, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 77225253842106613, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -367,6 +418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: WeaponItem_FireGun_UMP-45
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
@@ -478,6 +534,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -7.301079
       objectReference: {fileID: 0}
+    - target: {fileID: 4841883722294446685, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4870124285339429317, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -508,6 +569,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0.68744624
       objectReference: {fileID: 0}
+    - target: {fileID: 5262272646789808530, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 5678295964665538480, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -522,6 +588,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 16.858406
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911059395068280395, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6034640273679553580, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
@@ -605,7 +676,11 @@ PrefabInstance:
     - {fileID: -3184168622290099995, guid: bbda74bbae84f724cbc5a47e1860f701, type: 3}
     - {fileID: 3023449398582191097, guid: bbda74bbae84f724cbc5a47e1860f701, type: 3}
     - {fileID: 8910531129962710259, guid: bbda74bbae84f724cbc5a47e1860f701, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: bbda74bbae84f724cbc5a47e1860f701,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1455426683}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bbda74bbae84f724cbc5a47e1860f701,
         type: 3}
@@ -632,6 +707,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1126866536}
   m_SourcePrefab: {fileID: 100100000, guid: bbda74bbae84f724cbc5a47e1860f701, type: 3}
+--- !u!4 &254255781164282329 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bbda74bbae84f724cbc5a47e1860f701,
+    type: 3}
+  m_PrefabInstance: {fileID: 292159155892885042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &634054157947546467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bbda74bbae84f724cbc5a47e1860f701,

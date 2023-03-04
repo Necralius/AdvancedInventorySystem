@@ -21,9 +21,10 @@ MonoBehaviour:
   description: An high level pistol that uses 9mm Ammo
   currentQuantity: 1
   maxQuantity: 1
-  slotSize: 2
+  slotSize: 4
   itemWeigth: 1
   totalWeightPerItem: 1
-  actionUseList: []
+  actionUseList:
+  - {fileID: 11400000, guid: 372b227915791c64698ccd26f64bb67d, type: 2}
   actionEquipList:
   - {fileID: 11400000, guid: 372b227915791c64698ccd26f64bb67d, type: 2}

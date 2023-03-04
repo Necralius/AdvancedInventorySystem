@@ -32,9 +32,7 @@ public class InventoryManagerController : MonoBehaviour
     private void Start()
     {
         InventoryView.Instance.Initiate(currentBag);
-
         BagScriptable resultBag = CastGenericBagToBag();
-
         ShortCutView.Instance.IniciateShortCutSlots(resultBag.MaxShortCutSlot);
     }
     private void Update()
@@ -63,7 +61,6 @@ public class InventoryManagerController : MonoBehaviour
                 List<GenericItemScriptable> resultItemList = currentBag.ReturnFullList();
                 InventoryView.Instance.UpdateAllItems(resultItemList);
             }
-
             if (currentBag.UsedOrganizeBtSizePriority)
             {
                 List<GenericItemScriptable> resultItemList = currentBag.ReturnFullList();
@@ -73,10 +70,8 @@ public class InventoryManagerController : MonoBehaviour
             }
             RefreshShortCutByItem(newItem);
         }
-
         return result;
     }
-
     private void UseItem(int id, int quantity)
     {
         bool result = currentBag.UseItem(id, quantity);
@@ -86,14 +81,10 @@ public class InventoryManagerController : MonoBehaviour
             GenericItemScriptable itemResult = currentBag.FindItemById(id);
             RefreshShortCutByItem(itemResult);
 
-            if (itemResult.CurrentQuantity == 0 && itemResult.RemoveWhenNumberIsZero)
-            {
-                DropItem(itemResult);
-            }
+            if (itemResult.CurrentQuantity == 0 && itemResult.RemoveWhenNumberIsZero) DropItem(itemResult);
         }
     }
-    
-    public void OrganizeItem()
+    public void OrganizeItem()//This method organize the item UI representation based in his size
     {
         currentBag.OrgnizeBySizePriority();
         List<GenericItemScriptable> resultList = currentBag.ReturnFullList();
@@ -109,9 +100,8 @@ public class InventoryManagerController : MonoBehaviour
         {
             result = origin.RemoveItem(id);
             RemoveItemFromShortCut(id);
-            StartCoroutine("RefreshInventoryView");
+            StartCoroutine("RefreshInventoryView");//This statment call the inventory UI refresh method
         }
-
         return true;
     }
     public bool DropItem(GenericItemScriptable item)
@@ -119,32 +109,31 @@ public class InventoryManagerController : MonoBehaviour
         bool result = false;
         int currentQuantity;
 
-        if (item.Id >= 0)
+        if (item.Id >= 0)//This prevent the negative items ID
         {
             currentQuantity = item.CurrentQuantity;
             result = currentBag.DropItem(item.Id);
 
             if (result)
             {
-                StartCoroutine("RefreshInventoryView");
+                StartCoroutine("RefreshInventoryView");//This statment call the inventory UI refresh method
 
                 BagScriptable resultBag = CastGenericBagToBag();
 
                 List<int> idList = resultBag.GetIdsFromItemShortCutDictionary();
 
-                foreach (var idShortCut in idList)
-                {
-                    if (idShortCut == item.Id) RemoveItemFromShortCut(item.Id);
-                }
+                foreach (var idShortCut in idList) if (idShortCut == item.Id) RemoveItemFromShortCut(item.Id);//This remove item from his shortcut (if he is on a shortcut)
 
-                BuildMeshModel(item.Id, currentQuantity);
+                BuildMeshModel(item.Id, currentQuantity);//This call the item drop GameObject instatiation
                 return true;
             }
         }
         return false;
     }
+
     private void BuildMeshModel(int id, int currentQuantity)
     {
+        //This method instatiate the GameObject of the item drop and add an physic force to throw it away
         GameObject itemResult = itemList.Find(item => item.GetComponent<ItemView>().Item.Id == id);
 
         if (itemResult != null)
@@ -153,17 +142,15 @@ public class InventoryManagerController : MonoBehaviour
             Vector3 spawnPos = directionToLaunchItem.transform.forward + directionToLaunchItem.transform.position;
 
             GameObject obj = Instantiate(itemResult, spawnPos, playerRotation);
+
             obj.name = obj.GetComponent<ItemView>().Item.name + "_" + Time.realtimeSinceStartup;
-
             obj.GetComponent<ItemView>().Quantity = currentQuantity;
-
             obj.transform.SetParent(placeToDrop.transform, true);
-
             obj.GetComponentInChildren<Rigidbody>().AddRelativeForce(0, Random.Range(50, 250), Random.Range(75, 300));
         }
         else Debug.LogWarning("There is no item with this id in the item list to instantiate: ItemList: " + itemList.ToString() + "Item ID: " + id);
     }
-    private IEnumerator RefreshInventoryView()
+    private IEnumerator RefreshInventoryView()//This method refresh all the inventory UI
     {
         yield return new WaitForSeconds(0.02f);
         List<GenericItemScriptable> resultList = currentBag.ReturnFullList();
@@ -171,50 +158,37 @@ public class InventoryManagerController : MonoBehaviour
     }
     #endregion
 
-
     #region - OnDropItem and OnPointDownItem -
     public bool OnDropItem(GenericItemScriptable itemDrop, GameObject origin, Vector2 coordinate, SlotPlaceTo slotPlaceTo)
     {
+        //This statments represent the item drop functionality
         int index = (int)coordinate.y;
-        //BAG ->
         if (origin.transform.parent.parent.name == "img_GridBackground" && slotPlaceTo != SlotPlaceTo.BAG)
         {
-            //ShortCut <-
-            if (slotPlaceTo == SlotPlaceTo.SHORT_CUT) return AddItemToCurrentShortCut(index, itemDrop);
-
-            //Clothing Weapon <-
-            if (slotPlaceTo == SlotPlaceTo.CLOTHING_WEAPON) return TransferItemFromBagToClothingWeapon(index, itemDrop.Id);
-
+            if (slotPlaceTo == SlotPlaceTo.SHORT_CUT) return AddItemToCurrentShortCut(index, itemDrop);//This statment execute the item add to the shortcut Slot
+            if (slotPlaceTo == SlotPlaceTo.CLOTHING_WEAPON) return TransferItemFromBagToClothingWeapon(index, itemDrop.Id);//This statment transfer the item from bag to the Clothing/Weapon Slot
         }
-
-        //ShortCur => Change for another position
-
-        if (origin.transform.parent.parent.name == "cont_ShortCutSlotsGroup" && slotPlaceTo == SlotPlaceTo.SHORT_CUT)
-        {
-            return ChangeShortCutPosition(itemDrop, index);
-        }
-
+        if (origin.transform.parent.parent.name == "cont_ShortCutSlotsGroup" && slotPlaceTo == SlotPlaceTo.SHORT_CUT) return ChangeShortCutPosition(itemDrop, index);//This statment transfer the item betwen shortcut slots
         return false;
     }
-
     public bool OnDropItem(GenericItemScriptable itemDrop, string originTag)
     {
-        //ItemDrop come from inventory
-
-        if (originTag.Equals("ComplexSlot")) return DropItem(itemDrop);
+        //This statments represent the item drop limitation
+        if (originTag.Equals("ComplexSlot"))
+        {
+            currentClothingWeapon.RemoveItemById(itemDrop.Id);
+            StartCoroutine("RefreshClothingWeaponView");
+            return DropItem(itemDrop);
+        }
         if (originTag.Equals("SpecialSlot")) return RemoveItemFromShortCut(itemDrop.Id);
-        if (originTag.Equals("ClothingWeaponsSlot")) return TransferItemFromClothingWeaponToBag(itemDrop.Id);
+        //if (originTag.Equals("ClothingWeaponsSlot")) return TransferItemFromClothingWeaponToBag(itemDrop.Id);
 
         return false;
     }
     public void OnPointerDownItem(GenericItemScriptable item, GameObject origin)
     {
-        if (origin.transform.parent.parent.name == ("img_GridBackground"))
-        {
-            InventoryView.Instance.UpdateDescriptionPanel(item);
-        }
+        if (origin.transform.parent.parent.name == ("img_GridBackground")) InventoryView.Instance.UpdateDescriptionPanel(item);
     }
-
     #endregion
 
     #region - Clothing Weapon Methods -
@@ -223,12 +197,15 @@ public class InventoryManagerController : MonoBehaviour
     {
         GenericItemScriptable item = currentBag.FindItemById(id);
 
+        AddItemToCurrentShortCut(index, item);
         bool result = currentClothingWeapon.AddItem(index, item);
         if (result)
         {
             StartCoroutine("RefreshClothingWeaponView");
             item.ActionEquipandUnequipListDispatch();
-            return RemoveItem(currentBag, id, index);
+            return AddItemToCurrentShortCut(index, item);
+
+            //return RemoveItem(currentBag, id, index);
         }
         return false;
     }
@@ -241,6 +218,7 @@ public class InventoryManagerController : MonoBehaviour
         {
             item.ActionEquipandUnequipListDispatch();
             StartCoroutine("RefreshClothingWeaponView");
+            RemoveItemFromShortCut(id);
             return AddItemToCurrentBag(item, 0, true);
         }
         return false;
@@ -252,11 +230,9 @@ public class InventoryManagerController : MonoBehaviour
         Dictionary<int, GenericItemScriptable> resultDictionary = currentClothingWeapon.ItemsDictionary;
         ClothingWeaponView.Instance.RefreshSlotSystem(resultDictionary);
     }
-
     #endregion
 
     #region - ShortCut Methods -
-
     private bool AddItemToCurrentShortCut(int index, GenericItemScriptable item)
     {
         BagScriptable resultBag = CastGenericBagToBag();
@@ -296,7 +272,7 @@ public class InventoryManagerController : MonoBehaviour
             bool result = resultBag.RemoveItemFromShortCutById(id);
             if (result)
             {
-                StartCoroutine("RefreshShortCutView");
+                StartCoroutine("RefreshShortCutView");//This statment call the shortcut UI refresh
                 return true;
             }
         }
@@ -310,26 +286,24 @@ public class InventoryManagerController : MonoBehaviour
             GenericItemScriptable resultItem = resultBag.GetItemByIndexPosition(index);
 
             if (resultItem != null) UseItem(resultItem.Id, 1);
-            else Debug.LogWarning("Do not exists any item in this short cut slot!");
             StartCoroutine("RefreshInventoryView");
         }
     }
-    private IEnumerator RefreshShortCutView()
+    private IEnumerator RefreshShortCutView()//This method refresh the shortcut UI view
     {
         yield return new WaitForSeconds(0.02f);
         BagScriptable resultBag = CastGenericBagToBag();
         Dictionary<int, GenericItemScriptable> resultDictionary = resultBag.ItemsShortCutDictionary;
         ShortCutView.Instance.RefreshSlotSystem(resultDictionary);
     }
-
-    private void RefreshShortCutByItem(GenericItemScriptable itemUpdate)
+    private void RefreshShortCutByItem(GenericItemScriptable itemUpdate)//This method refresh the especific item that is on a shortcut
     {
         BagScriptable resultBag = CastGenericBagToBag();
         List<int> idsResults = resultBag.GetIdsFromItemShortCutDictionary();
 
-        foreach(var id in idsResults)
+        foreach (var id in idsResults)
         {
-            if(id == itemUpdate.Id)
+            if (id == itemUpdate.Id)
             {
                 Dictionary<int, GenericItemScriptable> resultDictionary = resultBag.ItemsShortCutDictionary;
                 List<int> keyResults = resultBag.GetUsedKeysFromShortCutDictionary();

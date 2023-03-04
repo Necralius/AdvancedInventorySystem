@@ -11,6 +11,4 @@ public class ActionManagerEvent : MonoBehaviour
     {
         if (SendActionListEvent != null) SendActionListEvent(actionList);
     }
-
-
 }

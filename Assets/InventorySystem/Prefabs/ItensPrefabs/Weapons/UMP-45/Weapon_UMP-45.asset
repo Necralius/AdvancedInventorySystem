@@ -21,7 +21,7 @@ MonoBehaviour:
   description: An higth quality smg gun that uses .45CP Ammo
   currentQuantity: 0
   maxQuantity: 1
-  slotSize: 2
+  slotSize: 4
   itemWeigth: 1.5
   totalWeightPerItem: 0
   actionUseList:

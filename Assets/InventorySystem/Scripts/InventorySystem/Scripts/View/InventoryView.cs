@@ -31,7 +31,6 @@ public class InventoryView : MonoBehaviour
     #endregion
 
     #region - TitlePanel -
-
     [Header("Title Panel")]
     [SerializeField] private Image bagIcon;
     [SerializeField] private TextMeshProUGUI bagTittle;
@@ -65,7 +64,6 @@ public class InventoryView : MonoBehaviour
     [Header("Designer and Slot Control")]
     [SerializeField] private List<GameObject> simpleSlotList;
     [SerializeField] private GridLayoutGroup gridController;
-
     #endregion
 
     #region - Getting Data -
@@ -73,11 +71,7 @@ public class InventoryView : MonoBehaviour
     #endregion
 
     #region - Methods -
-    private void OnEnable()
-    {
-        visiblePanel = inventoryGo.activeSelf;
-    }
-
+    private void OnEnable() => visiblePanel = inventoryGo.activeSelf;
     public void Initiate(GenericBagScriptable currentBag)
     {
         this.currentBag = currentBag;
@@ -85,7 +79,6 @@ public class InventoryView : MonoBehaviour
         BagIconAndTitleupdate();
         BagWeightAndSlotUpdate();
     }
-
     private void SlotAndGridUpdate(int maxRow, int maxColumn)
     {
         int r = 0;
@@ -134,11 +127,7 @@ public class InventoryView : MonoBehaviour
         if (GameManager.Instance.inventoryIsOpen)
         {
             RemoveAllComplexSlot();
-            foreach(var item in list)
-            {
-                BuildComplexSlot(item);
-            }
-
+            foreach(var item in list) BuildComplexSlot(item);
             BagWeightAndSlotUpdate();
         }
     }
@@ -156,14 +145,8 @@ public class InventoryView : MonoBehaviour
             factor = cellList[cellList.Count - 1] - cellList[0];
 
             size = new Vector2((cellSize * factor.y) + cellSize, (cellSize * factor.x) + cellSize);
-            if(size.x == 0)
-            {
-                size = new Vector2(cellSize, size.y);
-            }
-            if(size.y == 0)
-            {
-                size = new Vector2(size.x, cellSize);
-            }
+            if (size.x == 0) size = new Vector2(cellSize, size.y);
+            if (size.y == 0) size = new Vector2(size.x, cellSize);
         }
 
         pos = new Vector3(cellSize * cellList[0].y, (cellSize * cellList[0].x * -1));

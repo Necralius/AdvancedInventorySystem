@@ -19,11 +19,12 @@ MonoBehaviour:
   isOnlyItem: 1
   label: M24 Sniper Rifle
   description: An high level sniper rifle that uses 7.62mm ammo.
-  currentQuantity: 0
+  currentQuantity: 1
   maxQuantity: 1
-  slotSize: 4
+  slotSize: 6
   itemWeigth: 3
-  totalWeightPerItem: 0
-  actionUseList: []
+  totalWeightPerItem: 3
+  actionUseList:
+  - {fileID: 11400000, guid: 2409674aa899c8842ab212bd2c53cd04, type: 2}
   actionEquipList:
   - {fileID: 11400000, guid: 2409674aa899c8842ab212bd2c53cd04, type: 2}
