@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
     #region - References on Instantiation -
     private Transform playerBody => transform;
     public Camera currentCamera => GetComponentInChildren<Camera>();
-    private CharacterController playerController => GetComponent<CharacterController>();
+    public CharacterController playerController => GetComponent<CharacterController>();
     public ObjectPooler pooler => ObjectPooler.Instance;
+    public TerrainTextureCheck terrainTextureChecker;
 
     #endregion
 
@@ -45,10 +46,13 @@ public class PlayerController : MonoBehaviour
     public bool isWalking;
     public bool canRun;
     public bool isRunning;
-    public bool isGrounded;
     public bool isCrouched;
     public bool isProning;
     public bool isAiming;
+
+    public bool isOnNonTerrainGround;
+    public bool isGrounded;
+    public bool isOnTerrain;
 
     public Animator controllerAnimator;
 
@@ -98,6 +102,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         Stand();
+        terrainTextureChecker = GetComponent<TerrainTextureCheck>();
         playerStats.mouseSensitivity *= 100;
     }
     void Update()
@@ -106,6 +111,7 @@ public class PlayerController : MonoBehaviour
         CalculateView();
         CalculateState();
         CalculateMovment();
+        GroundChecks();
     }
     #endregion
 
@@ -132,7 +138,6 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("CrouchKey")) && !CheckPlayerState()) Crouch();
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ProneKey")) && !CheckPlayerState()) Prone();
 
-        isGrounded = playerController.isGrounded;
         isRunning = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("SprintKey")) && isWalking && canRun;
         isWalking = movmentInput != Vector2.zero && isGrounded;
         isAiming = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("AimKey")) && !isRunning;
@@ -146,6 +151,17 @@ public class PlayerController : MonoBehaviour
 
         if (equippedGun) equippedGun.isAiming = this.isAiming;
     }
+    private void GroundChecks()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerController.bounds.extents.y + 0.5f))
+        {
+            isGrounded = true;
+            isOnTerrain = hit.collider != null && hit.collider.tag == "Terrain";
+        }
+        else isGrounded = false;
+    }
     #endregion
 
     #region - Movment Calculations -
@@ -156,6 +172,8 @@ public class PlayerController : MonoBehaviour
         Vector3 movmentVector = transform.right * movmentInput.x + transform.forward * movmentInput.y;
 
         playerController.Move(movmentVector * currentSpeed * Time.deltaTime);
+
+        GetComponent<FootstepSystem>().currentSpeed = playerController.velocity.magnitude;
 
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("JumpKey")) && isGrounded)
         {

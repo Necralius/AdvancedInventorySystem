@@ -11,6 +11,7 @@ TagManager:
   - ClothingWeaponsSlot
   - PlayerCam
   - ItemTakable
+  - Terrain
   layers:
   - Default
   - TransparentFX

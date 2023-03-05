@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
+  m_Name: LeavesAudioBase
+  m_EditorClassIdentifier: 
+  ListTag: Leaves
+  WalkClips:
+  - {fileID: 8300000, guid: 50ad27f2e46a7074e9864dbad1e7eade, type: 3}
+  - {fileID: 8300000, guid: c758d50866c38364395e6497487c1af3, type: 3}
+  - {fileID: 8300000, guid: 88836c252240bf148b51f31eaa40423b, type: 3}
+  - {fileID: 8300000, guid: 7b0242fe2eb831e4cbf3bada890a9dcd, type: 3}
+  - {fileID: 8300000, guid: 5110f81119d96ea47b2e9a45875c1156, type: 3}
+  - {fileID: 8300000, guid: 2ee7a4274d261bf43bb411f2eae2561c, type: 3}
+  RunClips:
+  - {fileID: 8300000, guid: 03e0be3d4ce61d34da02d3d0a674d54a, type: 3}
+  - {fileID: 8300000, guid: bd2143d05a8cf734ea23012e5c3e4dbd, type: 3}
+  - {fileID: 8300000, guid: 5e1dbdb3454a3244d88f4178f8a08a08, type: 3}
+  - {fileID: 8300000, guid: 81ca12f276403d4429d50fcf4cf8629a, type: 3}
+  - {fileID: 8300000, guid: 80e0ad20812b5da4da809eb1976d38c6, type: 3}
+  - {fileID: 8300000, guid: 55a5a001ad9ac3b429adbbe18412b1f9, type: 3}
+  JumpLandClips:
+  - {fileID: 8300000, guid: 99c4a3774a894ff41a9f16f21aad34aa, type: 3}
+  - {fileID: 8300000, guid: 4d92b7b017bd31947a2785ee1aca7812, type: 3}
+  - {fileID: 8300000, guid: 89024d65ecc31884b8ff35b97efa8dcc, type: 3}
+  - {fileID: 8300000, guid: 156f78901fdf86e49ac90dd0c4a31ac5, type: 3}

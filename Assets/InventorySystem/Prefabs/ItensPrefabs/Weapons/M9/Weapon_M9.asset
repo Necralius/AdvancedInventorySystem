@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Weapon_M9
   m_EditorClassIdentifier: 
   id: 8
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 7275d454c1504ef48ae518737e9c0a4a, type: 3}
   isDroppable: 1
   removeWhenNumberIsZero: 0
   isOnlyItem: 1
   label: M9 Pistol
   description: Low level pistol that uses 9mm Ammo
-  currentQuantity: 1
+  currentQuantity: 0
   maxQuantity: 1
   slotSize: 4
   itemWeigth: 1
-  totalWeightPerItem: 1
+  totalWeightPerItem: 0
   actionUseList:
   - {fileID: 11400000, guid: 7f07270745e30e84b941e28c39f2da01, type: 2}
   actionEquipList:

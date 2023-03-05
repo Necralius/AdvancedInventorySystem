@@ -31,5 +31,11 @@ public class AudioManager : MonoBehaviour
         EffectsSource.volume = Random.Range(0.85f, 1f);
         EffectsSource.PlayOneShot(clipToPlay);
     }
+    public void PlayFootstepSound(AudioClip clipToPlay, float volumeScale)
+    {
+        EffectsSource.pitch = Random.Range(0.8f, 1f);
+        EffectsSource.volume = Random.Range(0.85f, 1f);
+        EffectsSource.PlayOneShot(clipToPlay);
+    }
     #endregion
 }

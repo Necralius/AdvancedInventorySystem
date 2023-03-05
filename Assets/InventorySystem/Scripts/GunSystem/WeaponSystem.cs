@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
@@ -51,6 +52,9 @@ public class WeaponSystem : MonoBehaviour
     public AudioClip aimClip;
     public AudioClip reloadClip;
     public AudioClip fullReloadClip;
+
+    [InspectorLabel("Only Assing if the gun is an Sniper")]
+    public AudioClip boltActionSound;
     #endregion
 
     #region - Ammo System -
@@ -199,6 +203,7 @@ public class WeaponSystem : MonoBehaviour
         if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ChangeGunStateKey"))) StateChange();
 
         isAiming = Input.GetMouseButton(1) && !playerController.isRunning;
+        if (Input.GetMouseButtonDown(1) && !playerController.isRunning) AudioManager.Instance.PlayEffectSound(aimClip);
     }
     #endregion
 
@@ -349,6 +354,7 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     #region - Animation Events -
+    public void PlaySniperBoltAction() => AudioManager.Instance.PlayEffectSound(boltActionSound);
     public void DrawWeapon() => AudioManager.Instance.PlayEffectSound(drawWeaponClip);
     public void SetCanShoot()
     {
