@@ -55,14 +55,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c11ecc89dec9e1a428e927466942ba39, type: 3}
   - {fileID: 8300000, guid: 4ca3f7b75bbc47c45a464277174030a4, type: 3}
   - {fileID: 8300000, guid: 31ce2f4f55b79d743ae941e2bc3a8dfa, type: 3}
+  JumpStartClips:
+  - {fileID: 8300000, guid: b120cc7d7055a284ea89422d100043e0, type: 3}
+  - {fileID: 8300000, guid: 64a62780b84db9645b00e69eb0621928, type: 3}
+  - {fileID: 8300000, guid: 7cd697be0072bfc4882068307562c2a9, type: 3}
+  - {fileID: 8300000, guid: 6866bd26706082149a4be4b47f1e1b3d, type: 3}
+  - {fileID: 8300000, guid: e161741de42dca1428e352cf4e26b50f, type: 3}
   JumpLandClips:
   - {fileID: 8300000, guid: 9064dac268872fd48bf90e84554267ab, type: 3}
   - {fileID: 8300000, guid: cff0e50a53df0a94299dc5ef1863ab62, type: 3}
   - {fileID: 8300000, guid: e5f9c2116d87f5a46a40ce04919d2dcc, type: 3}
   - {fileID: 8300000, guid: 41ec355b830e30e40ac5b45954d91907, type: 3}
   - {fileID: 8300000, guid: 778bae15671a6c74c93c28c84cae9fe4, type: 3}
-  - {fileID: 8300000, guid: b120cc7d7055a284ea89422d100043e0, type: 3}
-  - {fileID: 8300000, guid: 64a62780b84db9645b00e69eb0621928, type: 3}
-  - {fileID: 8300000, guid: 7cd697be0072bfc4882068307562c2a9, type: 3}
-  - {fileID: 8300000, guid: 6866bd26706082149a4be4b47f1e1b3d, type: 3}
-  - {fileID: 8300000, guid: e161741de42dca1428e352cf4e26b50f, type: 3}

@@ -12,10 +12,9 @@ public class WeaponSystem : MonoBehaviour
     public GunProceduralRecoil recoilAsset => GetComponent<GunProceduralRecoil>();
     #endregion
 
-    public GunType gunType;
-
     #region - Gun States -
     [Space, Header("Gun State System")]
+    public GunType gunType;
     public GunState currentGunState;
     private int currentGunStateIndex = 0;
     public List<GunState> gunStates;
@@ -44,7 +43,7 @@ public class WeaponSystem : MonoBehaviour
     public ParticleSystem muzzleFlash;
     #endregion
 
-    #region - Sound System
+    #region - Sound System -
     [Header("Sound System")]
     public AudioClip shootClip;
     public AudioClip emptyClip;
@@ -73,6 +72,7 @@ public class WeaponSystem : MonoBehaviour
     public Vector3 aimPosition;
     [SerializeField] private Vector3 originalPosition = Vector3.zero;
     public float reloadingOffset_Z = 0.2f;
+    public float defaultOffset_Z = 0f;
     public float aimingFOV = 45;
     public float normalFOV = 60;
     private float targetFOV;
@@ -123,13 +123,16 @@ public class WeaponSystem : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager.Instance.inventoryIsOpen) return;
+        if (GameManager.Instance.inventoryIsOpen) return;//This statement lock the player position and inputs if the inventory is active
         ShootInput();
         InputGathering();
         CalculateAiming();
         CalculateWeaponSway();
     }
-    private void InstatiateGun()
+    #endregion
+    
+    #region - Gun State Manegment -
+    private void InstatiateGun()//This method manage automatically the gun states based in his type
     {
         gunStates.Clear();
         if (gunType.Equals(GunType.SemiAndAuto)) gunStates = new List<GunState> { GunState.Locked, GunState.SemiFire, GunState.AutoFire };
@@ -139,12 +142,14 @@ public class WeaponSystem : MonoBehaviour
 
         if (!GetComponent<GunProceduralRecoil>()) gameObject.AddComponent<GunProceduralRecoil>();
     }
-    private void OnValidate() => InstatiateGun();
+    private void OnValidate() => InstatiateGun();//This statment call the state manegment every time that the inspector is changed
     #endregion
 
+    #region - Weapon Sway Calculations -
     private void CalculateWeaponSway()
     {
         #region - Aim Effectors -
+        //This statments change all the sway mechanics values whether or not the player is aiming
         float calcSwayAmount = isAiming ? swayAmount / 10 : swayAmount;
         float calcMaxAmount = isAiming ? maxAmount / 5 : maxAmount;
         float calcMovmentSwayXAmount = isAiming ? movmentSwayXAmount / 10 : movmentSwayXAmount;
@@ -155,6 +160,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Weapon Position Sway Calculations -
+        //This statments represent the weapon look sway calculations 
         float lookInputX = -playerController.lookInput.x * calcSwayAmount;
         float lookInputY = -playerController.lookInput.y * calcSwayAmount;
 
@@ -166,6 +172,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Movment Sway Calculations -
+        //This statmentes represent the weapon sway based on the player movment
         float movmentInputX = -playerController.movmentInput.x * calcMovmentSwayXAmount;
         float movmentInputY = -playerController.movmentInput.y * calcMovmentSwayYAmount;
 
@@ -177,6 +184,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Weapon Rotation Sway Calculations -
+        //This statmentes represent the weapon rotational sway calculations
         float rotationX = Mathf.Clamp(playerController.lookInput.y * calcRotationSwayAmount, -calcMaxRotationSwayAmount, calcMaxRotationSwayAmount);
         float rotationY = Mathf.Clamp(playerController.lookInput.x * calcRotationSwayAmount, -calcMaxRotationSwayAmount, calcMaxRotationSwayAmount);
 
@@ -185,18 +193,16 @@ public class WeaponSystem : MonoBehaviour
         playerController.weaponSwayObject.transform.localRotation = Quaternion.Slerp(playerController.weaponSwayObject.transform.localRotation, finalRotation * initialRotation, smoothRotationAmount * Time.deltaTime);
         #endregion
     }
+    #endregion
 
     #region - Input Gathering -
-    private void InputGathering() 
+    private void InputGathering()//This method nest all input calls 
     {
-        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ReloadKey"))) ReloadWeapon();
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("ReloadKey")) && canShoot && !isReloading) ReloadWeapon();
 
         if (gunType.Equals(GunType.SniperType))
         {
-            if (canShoot)
-            {
-                gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
-            }
+            if (canShoot) gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
             else gunAnimator.SetLayerWeight(1, !canShoot ? 1f : 0f);
         }
         else gunAnimator.SetLayerWeight(1, isReloading ? 1f : 0f);
@@ -208,34 +214,34 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     #region - Aiming Calculations -
-    private void CalculateAiming()
+    private void CalculateAiming()//This Method calculates and set the whole aim functionality 
     {
-        targetFOV = isAiming ? aimingFOV : normalFOV;
+        targetFOV = isAiming ? aimingFOV : normalFOV;//This statment change the player aim FOV between some conditions
 
-        playerController.currentCamera.fieldOfView = Mathf.Lerp(playerController.currentCamera.fieldOfView, targetFOV, aimSpeed * Time.deltaTime);
+        playerController.currentCamera.fieldOfView = Mathf.Lerp(playerController.currentCamera.fieldOfView, targetFOV, aimSpeed * Time.deltaTime);//This stament set the field of view using the Mathf.Lerp, whitch means that the FOV value is linearly
 
-        if (isAiming && !isReloading) playerController.aimObject.transform.localPosition = Vector3.Lerp(playerController.aimObject.transform.localPosition, aimPosition, aimSpeed * Time.deltaTime);
+        if (isAiming && !isReloading) playerController.aimObject.transform.localPosition = Vector3.Lerp(playerController.aimObject.transform.localPosition, new Vector3(aimPosition.x, aimPosition.y, aimPosition.z + defaultOffset_Z), aimSpeed * Time.deltaTime);
         else if (isAiming && isReloading) playerController.aimObject.transform.localPosition = Vector3.Lerp(playerController.aimObject.transform.localPosition, new Vector3(aimPosition.x, aimPosition.y, aimPosition.z + reloadingOffset_Z), aimSpeed * Time.deltaTime);
         else playerController.aimObject.transform.localPosition = Vector3.Lerp(playerController.aimObject.transform.localPosition, originalPosition, aimSpeed * Time.deltaTime);
     }
     #endregion
 
     #region - Reload System -
-    private void ReloadWeapon()
+    private void ReloadWeapon()//This Method execut the reload calculations
     {
-        if (currentMagAmmo == maxMagAmmo) return;
+        if (currentMagAmmo == maxMagAmmo) return;//This statment verifies if the ammo mag is full
 
-        amountToNeeded = maxMagAmmo - currentMagAmmo;
+        amountToNeeded = maxMagAmmo - currentMagAmmo;//This statment calculates the needed ammo for the reload action
 
-        if (amountToNeeded == maxMagAmmo) AudioManager.Instance.PlayEffectSound(fullReloadClip);
-        else if (amountToNeeded < maxMagAmmo) AudioManager.Instance.PlayEffectSound(reloadClip);
+        if (amountToNeeded == maxMagAmmo) AudioManager.Instance.PlayEffectSound(fullReloadClip);//This statment verifies if the mag will be fully replaced by a new one an plays a difrent reload sound
+        else if (amountToNeeded < maxMagAmmo) AudioManager.Instance.PlayEffectSound(reloadClip);//This statment play an reload sound 
 
-        gunAnimator.SetInteger("ReloadIndex", amountToNeeded == maxMagAmmo ? 0 : 1);
+        gunAnimator.SetInteger("ReloadIndex", amountToNeeded == maxMagAmmo ? 0 : 1);//This statment changes the reload Index based on his type (Full reloadType || Default Reload Type)
         isReloading = true;
         gunAnimator.SetBool("IsReloading", true);
     }
-    public void StopReloadAnim() => gunAnimator.SetBool("IsReloading", false);
-    public void EndReload()
+    public void StopReloadAnim() => gunAnimator.SetBool("IsReloading", false);//This method is used in an animation event to stop the reload animation
+    public void EndReload()//This statment set the reload values and update the gun UI
     {
         if (currentInventoryAmmo - amountToNeeded > 0)
         {
@@ -261,7 +267,7 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     #region - Gun State Transitioning -
-    private void StateChange()
+    private void StateChange()//This method linearly change the gun state
     {
         if (GunHolded)
         {
@@ -277,7 +283,7 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     #region - Shoot Behavior -
-    private void ShootInput()
+    private void ShootInput()//This method executes the shoot behavior limitations, calls and input
     {
         if (canShoot && !playerController.isRunning && !isReloading)
         {
@@ -309,10 +315,7 @@ public class WeaponSystem : MonoBehaviour
     }
     private IEnumerator ShootBehavior(float rateOfFire)
     {
-        if (gunType.Equals(GunType.SniperType))
-        {
-            gunAnimator.SetTrigger("Shooted");
-        }
+        if (gunType.Equals(GunType.SniperType)) gunAnimator.SetTrigger("Shooted");
         ShootGun();
         yield return new WaitForSeconds(rateOfFire);
         if (!gunType.Equals(GunType.SniperType)) canShoot = true;
@@ -320,8 +323,10 @@ public class WeaponSystem : MonoBehaviour
     public void ShootGun()
     {
         currentMagAmmo--;
+        PlayerController.Instance.isMoving = true;
         muzzleFlash.Emit(1);
         recoilAsset.RecoilFire(isAiming);
+
         playerController.ammoText.text = string.Format("{0}/{1}", currentMagAmmo, currentInventoryAmmo);
 
         AudioManager.Instance.PlayShootSound(shootClip);
@@ -333,27 +338,37 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     #region - Raycast Method -
-    private void RaycastCalculation()
+    private void RaycastCalculation()//This method execute an raycast calculation based on the player camera
     {
-        if (Physics.Raycast(playerController.transform.position, playerController.transform.forward, out hit, shootRange, enemyMask))
+        if (Physics.Raycast(playerController.currentCamera.transform.position, playerController.currentCamera.transform.forward, out hit, shootRange))
         {
-            //playerController.pooler.SpawnFromPool(hit.transform.tag, hit.point, Quaternion.Euler(-hit.normal));
-            
+            try
+            {
+                GameObject impactParticle= playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Impact");
+                GameObject decalParticle = playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Decal");
+
+                //This statmentes represent the particles get from particle DataBase and the Instatiation
+                if (!(impactParticle.Equals(null))) Instantiate(impactParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                if (!(decalParticle.Equals(null))) Instantiate(decalParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+            }
+            catch(System.Exception ex)
+            {
+                Debug.Log("An error Ocurred!");
+            }
         }
     }
     #endregion
 
     #region - UI Update -
-    
-    public void UpdateGunUI()
+    public void UpdateGunUI()//This Method update whole gun UI assets
     {
         playerController.ammoText.text = string.Format("{0}/{1}", currentMagAmmo, currentInventoryAmmo);
         playerController.gunStateText.text = currentGunState.ToString();
     }
-
     #endregion
 
     #region - Animation Events -
+    //This methods represent animations events methods used to very especific functionalities
     public void PlaySniperBoltAction() => AudioManager.Instance.PlayEffectSound(boltActionSound);
     public void DrawWeapon() => AudioManager.Instance.PlayEffectSound(drawWeaponClip);
     public void SetCanShoot()

@@ -12,6 +12,19 @@ TagManager:
   - PlayerCam
   - ItemTakable
   - Terrain
+  - GrassTerrain
+  - Surface_Stone
+  - Surface_Glass
+  - Surface_Plaster
+  - Surface_Plastic
+  - Surface_Sand
+  - Surface_Flesh
+  - Surface_Mud
+  - Surface_Concrete
+  - Surface_Brick
+  - Surface_Water
+  - Surface_Wood
+  - Surface_Metal
   layers:
   - Default
   - TransparentFX

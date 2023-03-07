@@ -13,6 +13,21 @@ MonoBehaviour:
   m_Name: WaterAudioBase
   m_EditorClassIdentifier: 
   ListTag: 
-  WalkClips: []
-  RunClips: []
-  JumpLandClips: []
+  WalkClips:
+  - {fileID: 8300000, guid: adf4e7fa93007bd49937217a0922f285, type: 3}
+  - {fileID: 8300000, guid: b9a5f4a46006d6f429a02ea0fadc4809, type: 3}
+  - {fileID: 8300000, guid: 6755e20b5c79018438c8aed7439dcfed, type: 3}
+  - {fileID: 8300000, guid: caf48be4d869fe24f85866b95cdbe017, type: 3}
+  - {fileID: 8300000, guid: a843d0038d0930149b2a4a6002937a10, type: 3}
+  RunClips:
+  - {fileID: 8300000, guid: eb25cc7f1bf9dbb43aa0833fe823843e, type: 3}
+  - {fileID: 8300000, guid: e6f87af77d097a84ca825ab2c2ce7e87, type: 3}
+  - {fileID: 8300000, guid: b682207ff9ac8db4695704cd57fb59a7, type: 3}
+  - {fileID: 8300000, guid: 938df53f74d50544b83b2cd1b17069f9, type: 3}
+  - {fileID: 8300000, guid: f29d6db9c3a008d4aae34c3399830406, type: 3}
+  JumpStartClips:
+  - {fileID: 8300000, guid: 0c65c34d499c17a42a643d5727eff438, type: 3}
+  - {fileID: 8300000, guid: 8ff708c2ef19b434aa3ee5ab814e5723, type: 3}
+  JumpLandClips:
+  - {fileID: 8300000, guid: 21ef2d961a0c7ad458ddeb2734ff319a, type: 3}
+  - {fileID: 8300000, guid: f08d12f8f068e5d4fb60a2683da4372f, type: 3}

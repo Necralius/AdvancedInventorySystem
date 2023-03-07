@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4babe233361d96d458ef02f53b68f394, type: 3}
+  m_Name: ParticlesDatabase
+  m_EditorClassIdentifier: 
+  PaticleValue:
+  - ParticleTag: GrassTerrain
+    ParticleDataImpact: {fileID: 100002, guid: f93f3f64c93ad61449d7d45134840955, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 1e25dc759a06a6a4caa12a328d537853, type: 3}
+  - ParticleTag: Surface_Concrete
+    ParticleDataImpact: {fileID: 100000, guid: cae283c880c5e9a4593b474dfbcb3154, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 42d2d3566709c7548ba30cf0114252b0, type: 3}
+  - ParticleTag: Surface_Brick
+    ParticleDataImpact: {fileID: 100002, guid: a002c8d5446bcbc46ba1208c3d21c6b6, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 58c9074ddd260e34f8746edc609e7113, type: 3}
+  - ParticleTag: Surface_Flesh
+    ParticleDataImpact: {fileID: 100000, guid: ba52805fd6eec8247b4d8496058700d5, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 59cad2a3cfe71c54790ffe4e9e02425c, type: 3}
+  - ParticleTag: Surface_Glass
+    ParticleDataImpact: {fileID: 100000, guid: b65206c2c5e319544b9c3a9a347f6fcd, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 92acec6288f60154c97a205de2dab055, type: 3}
+  - ParticleTag: Surface_Metal
+    ParticleDataImpact: {fileID: 100006, guid: 7e39de0af1681954b9dd97d5ab3cf899, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: c24bcfff41380d54ca28640132802fad, type: 3}
+  - ParticleTag: Surface_Mud
+    ParticleDataImpact: {fileID: 100004, guid: 4215b1cf469275542893a35dc313bda4, type: 3}
+    ParticleBulletHole: {fileID: 0}
+  - ParticleTag: Surface_Paper
+    ParticleDataImpact: {fileID: 100006, guid: f1dbf7c0d57de2944ac924cdfe83ea28, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: dadbb8922e33a7c4f90d9e7aa5b61d3e, type: 3}
+  - ParticleTag: Surface_Plaster
+    ParticleDataImpact: {fileID: 100004, guid: df36cc7677c5ab744968ae54aadb176c, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: 6e182a15450f81347862110563f1d541, type: 3}
+  - ParticleTag: Surface_Plastic
+    ParticleDataImpact: {fileID: 100000, guid: eea0d846c8f9d9d49992c19aa2141851, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: f7501aa385c36e541bb00ae267b149a8, type: 3}
+  - ParticleTag: Surface_Sand
+    ParticleDataImpact: {fileID: 100002, guid: 041cc7203d3b76145ac967322127a380, type: 3}
+    ParticleBulletHole: {fileID: 0}
+  - ParticleTag: Surface_Stone
+    ParticleDataImpact: {fileID: 100002, guid: 54dd9cb5740188a488b8baebbf19207c, type: 3}
+    ParticleBulletHole: {fileID: 0}
+  - ParticleTag: Surface_Water
+    ParticleDataImpact: {fileID: 100002, guid: 16cd485f3159b664b85143d6ec53f916, type: 3}
+    ParticleBulletHole: {fileID: 0}
+  - ParticleTag: Surface_Wood
+    ParticleDataImpact: {fileID: 100002, guid: 28bbf9615a4fa9a4f906305297d89b0a, type: 3}
+    ParticleBulletHole: {fileID: 100000, guid: b70308d826d47d4498696ec5cb66ae68, type: 3}

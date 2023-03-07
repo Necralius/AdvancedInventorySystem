@@ -16,30 +16,17 @@ public class MatrixUtility {
         maxCol = newMaxCol;
         name = label;
         PopulateMatrix ();
-        // SimulatePopulateMatrix();
     }
-
-    private void PrintTitle () {
-
-    //    Debug.Log ("->** " + name + " <-");
-
-    }
-
     public void PopulateMatrix () 
     {
         item = new int[maxRow,maxCol];
-        PrintTitle ();
 
         for (int row = 0 ; row < maxRow ; row++) for (int column = 0; column < maxCol; column++) item[row, column] = -1;
     }
-
-    private void ShowList (List<Vector2> listResult) => PrintTitle();
-
     public int[,] ShowFullList () => item;
 
     public void SetItem(List<Vector2> list, int id) 
     {
-        PrintTitle ();
 
         if (id >= 0) 
         {            
@@ -48,14 +35,12 @@ public class MatrixUtility {
                 int row = (int) location.x;
                 int column = (int) location.y;
                 item[row,column] = id;
-              //  Debug.LogWarning ("Row->  #" + row + " | Col->  #" + column + " Item: " + id);
             }
         }
         else Debug.LogWarning("Do not use id number above 0 Zero");  
     }
     public void ClearItemOnMatrix (int id) 
     {
-        PrintTitle ();
         if (id >= 0) for (int row = 0; row < maxRow; row++) for (int column = 0; column < maxCol; column++) if (item[row, column] == id) item[row, column] = -1;
     }
     public List<Vector2> FindLocationById(int id) 
@@ -71,11 +56,7 @@ public class MatrixUtility {
 
         if (number == 1) 
         {
-            //Debug.LogWarning ("Selected: " + number);
-
             listResult = LookForAreaHorizontalPriority (number,1);
-
-            //ShowList (listResult);
             return listResult;
         }
         if (number == 2) 
@@ -113,7 +94,6 @@ public class MatrixUtility {
         }
         if (number == 4) 
         {
-           // Debug.LogWarning ("Searching 4 ");
             listResult = LookForAreaHorizontalPriority (2,2);
 
             if (listResult.Count > 3) return listResult;
@@ -130,19 +110,13 @@ public class MatrixUtility {
         }
         if (number == 6) 
         {
-            //Debug.LogWarning ("Searching  6");
-
             listResult = LookForAreaHorizontalPriority (3,2);
 
             if (listResult.Count > 5) return listResult;
             else 
             {
                 listResult = LookForAreaVerticalPriority (2,3);
-                if (listResult.Count > 5) 
-                {                    
-                    ShowList (listResult);
-                    return listResult;
-                }
+                if (listResult.Count > 5) return listResult;
             }
         }
         if (number == 8) 
@@ -165,7 +139,6 @@ public class MatrixUtility {
         List<Vector2> listResult = new List<Vector2> ();        
         int colSelect = 0;
         
-        //Looking for slot free on Horizontal
         for (int row = 0 ; row < maxRow ; row++) 
         {
             for (int column = 0 ; column < maxCol ; column++) 
@@ -176,24 +149,18 @@ public class MatrixUtility {
 
                     if (maxCol - column >= numberHorizontal) 
                     {
-                        //Debug.Log ("-> There is HOPE _H_");
-
                         for (int i = colSelect ; i < maxCol ; i++) 
                         {                 
                             if (VerticalValidation (row,i,deep)) 
                             {
                                 for (int add = 0 ; add < deep ; add++) 
                                 {
-
                                     if (row + add < maxRow) 
                                     {
-
                                         if (item[row + add,i] == -1) 
                                         {
-
                                             listResult.Add (new Vector2(row + add,i));
                                             int w = row + add;
-                                            //Debug.Log ("-> ADD Row: " + w + " Col: " + i + " | " + item[w,i]);
                                         }
                                         else listResult.Clear();                                      
                                     }
@@ -203,14 +170,9 @@ public class MatrixUtility {
                             }                                                                                               
                             else 
                             {
-                                //Debug.Log ("There is a GAP in Row: " + row + " Col: " + i + " | " + item[row,i]);
-
                                 listResult.Clear ();
 
-                                //get the whole column test 
                                 column = i;
-
-                                //Debug.Log ("-> STOPPED in Row: " + row + " Col: " + column + " | " + item[row,column]);
 
                                 if (maxCol - column <= numberHorizontal) column = maxCol;
 
@@ -219,11 +181,7 @@ public class MatrixUtility {
                         }
                     }
                 }
-                //End Hope
-               // else { Debug.Log ("Drop to next row"); }
-                // In Test
                 listResult.Clear ();
-                //
             }
         }
         return listResult;
@@ -234,7 +192,6 @@ public class MatrixUtility {
         
         int rowSelect = 0;
 
-        //Looking for slot free on Vertical
         for (int column = 0 ; column < maxCol ; column++) 
         {
             for (int row = 0 ; row < maxRow ; row++) 
@@ -283,15 +240,11 @@ public class MatrixUtility {
         }
         return listResult;
     }
-
     private bool VerticalValidation (int currentRow,int currentColumn,int deepVertical) 
     {
-       
         bool result = true;
 
         if (deepVertical == 1) return result;
-
-        //its was my last added 
         
         if (deepVertical + currentRow > maxRow) return false;
 
@@ -301,15 +254,12 @@ public class MatrixUtility {
 
         return result;
     }
-
     private bool HorizontalValidation (int currentRow,int currentColumn,int deepHorizontal) 
     {
-
         bool result = true;
 
         if (deepHorizontal == 1) return result;
 
-        //its was my last added 
         if (deepHorizontal + currentColumn > maxCol) return false;
 
         int limit = deepHorizontal + currentColumn;

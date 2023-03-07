@@ -34,6 +34,13 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 82354d1fee336984994fbdcc8154c89c, type: 3}
   - {fileID: 8300000, guid: 068414160a0ccf34ca0c11b55d43ffc8, type: 3}
   - {fileID: 8300000, guid: 02d4b2dff380d194fab91c0864b0c386, type: 3}
+  JumpStartClips:
+  - {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
+  - {fileID: 8300000, guid: e708389b7a8f64a46aa12d201c187b69, type: 3}
+  - {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
+  - {fileID: 8300000, guid: caceea3cf407e1b47a4024a755887675, type: 3}
+  - {fileID: 8300000, guid: 322f3dcfdbd5b5742a885bfbc4fe5365, type: 3}
+  - {fileID: 8300000, guid: 866abdf3a931850498786581089be202, type: 3}
   JumpLandClips:
   - {fileID: 8300000, guid: 3d8f480d252db9449b2f978284506f8e, type: 3}
   - {fileID: 8300000, guid: 79e6e1370ee1ca747b469e68d0dcb0fe, type: 3}
@@ -41,9 +48,3 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1f080a1e65d584c4ca3e3c75fbb406b3, type: 3}
   - {fileID: 8300000, guid: 45bc125cb8cb195408490bec63fde615, type: 3}
   - {fileID: 8300000, guid: c2e0d3f88cb48f240af40a1f1bac7e8c, type: 3}
-  - {fileID: 8300000, guid: 8420cf17e21d6354a98e6ef6d19dc9cc, type: 3}
-  - {fileID: 8300000, guid: e708389b7a8f64a46aa12d201c187b69, type: 3}
-  - {fileID: 8300000, guid: f85e18b3e969dac4bbfc7f6b18139932, type: 3}
-  - {fileID: 8300000, guid: caceea3cf407e1b47a4024a755887675, type: 3}
-  - {fileID: 8300000, guid: 322f3dcfdbd5b5742a885bfbc4fe5365, type: 3}
-  - {fileID: 8300000, guid: 866abdf3a931850498786581089be202, type: 3}

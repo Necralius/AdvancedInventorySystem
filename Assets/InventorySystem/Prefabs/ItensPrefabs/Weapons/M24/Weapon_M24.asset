@@ -21,7 +21,7 @@ MonoBehaviour:
   description: An high level sniper rifle that uses 7.62mm ammo.
   currentQuantity: 1
   maxQuantity: 1
-  slotSize: 6
+  slotSize: 8
   itemWeigth: 3
   totalWeightPerItem: 3
   actionUseList:

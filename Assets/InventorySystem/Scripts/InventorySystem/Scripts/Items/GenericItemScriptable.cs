@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class GenericItemScriptable : ScriptableObject
 {
-    #region - Main Declaration -
+    #region - Main Data Declaration -
 
     [SerializeField] private int id;
 
@@ -20,7 +20,7 @@ public abstract class GenericItemScriptable : ScriptableObject
     [SerializeField] private int currentQuantity;
     [SerializeField] private int maxQuantity;
 
-    [SerializeField, Range(1, 6)] private int slotSize = 1;
+    [SerializeField, Range(1, 8)] private int slotSize = 1;
 
     [SerializeField] private float itemWeigth;
     [SerializeField] private float totalWeightPerItem;
@@ -118,5 +118,4 @@ public abstract class GenericItemScriptable : ScriptableObject
 
     void UpdateWeight() => totalWeightPerItem = itemWeigth * currentQuantity;
     #endregion
-
 }

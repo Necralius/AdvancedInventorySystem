@@ -1,26 +1,35 @@
+using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
+using UnityEngine.iOS;
 
 public class FootstepSystem : MonoBehaviour
 {
+    #region - Footstep System -
     public TerrainTextureCheck terrainTextureChecker => GetComponent<TerrainTextureCheck>();
-    public List<FootStepAudioClipAsset> audioDatabase;
-
     public PlayerController playerObject => GetComponent<PlayerController>();
-    
+    [Header("Footstep Audio Database")]
+    public List<FootStepAudioClipAsset> audioDatabase;
+    #endregion
+
     public float currentSpeed;
-    float distanceCovered;
     public float modifier = 0.5f;
+    private float distanceCovered;
 
     private AudioClip previusClip;
+
+    private bool playerJumped = false;
+    private float jumpAirTime = 0f;
 
     float airTime;
 
     private void Update()
     {
         PlaySoundIfFalling();
+        JumpBehaviorSoundDesing();
         if (playerObject.isWalking)
         {
             distanceCovered += (currentSpeed * Time.deltaTime) * modifier;
@@ -31,7 +40,6 @@ public class FootstepSystem : MonoBehaviour
             }
         }
     }
-
     AudioClip GetClipFromArray(List<AudioClip> audioClips)
     {
         int attempts = 3;
@@ -47,16 +55,39 @@ public class FootstepSystem : MonoBehaviour
     }
     void TriggerNextClip()
     {
-        terrainTextureChecker.GetTerrainTexture();
-        if (playerObject.isOnTerrain && playerObject.isWalking && !playerObject.isRunning)
+        if (playerObject.isOnTerrain)
         {
-            Debug.Log("Returning walk Clips!");
-            foreach(var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Walk")), selectedTexture.TextureValue);
+            terrainTextureChecker.GetTerrainTexture();
+            if (playerObject.isWalking && !playerObject.isRunning)
+            {
+                foreach(var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Walk")), selectedTexture.TextureValue);
+            }
+            else if (playerObject.isRunning)
+            {
+                foreach (var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Run")), selectedTexture.TextureValue);
+            }
         }
-        else if (playerObject.isOnTerrain && playerObject.isRunning)
+    }
+    private void JumpBehaviorSoundDesing()
+    {
+        if (playerObject.isOnTerrain)
         {
-            Debug.Log("Returning Run Clips!");
-            foreach (var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Run")), selectedTexture.TextureValue);
+            if (playerObject.isGrounded && Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("JumpKey")) && !playerJumped)
+            {
+                foreach (var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("JumpStart")), selectedTexture.TextureValue);
+                playerJumped = true;
+            }
+            else if (!playerObject.isGrounded && playerJumped) jumpAirTime += Time.deltaTime;
+
+            if (jumpAirTime > 0.15f)
+            {
+                if (playerObject.isGrounded)
+                {
+                    foreach (var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("JumpLand")), selectedTexture.TextureValue);
+                    jumpAirTime = 0;
+                    playerJumped = false;
+                }
+            }
         }
     }
     private void PlaySoundIfFalling()

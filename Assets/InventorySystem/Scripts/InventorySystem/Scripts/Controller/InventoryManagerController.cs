@@ -6,7 +6,13 @@ using Random = UnityEngine.Random;
 
 public class InventoryManagerController : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva and a Advanced inventory course used as an base - Junior Unity Programmer
+    //Inventory Manager Controller - Code Update Version 0.3 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - Singleton Pattern -
+    //This statment means a simple Singleton Pattern implementation
     public static InventoryManagerController Instance;
     void Awake()
     {
@@ -26,15 +32,22 @@ public class InventoryManagerController : MonoBehaviour
     [SerializeField] private ClothingWeaponScriptable currentClothingWeapon;
     #endregion
 
+    #region - ShortCut KeyCodes -
     [SerializeField] protected List<KeyCode> keyCodeShortcutList;
+    #endregion
 
-    #region - Methods -
+    #region - Methods Area -
+
+    #region - BuildInMethod -
     private void Start()
     {
         InventoryView.Instance.Initiate(currentBag);
         BagScriptable resultBag = CastGenericBagToBag();
         ShortCutView.Instance.IniciateShortCutSlots(resultBag.MaxShortCutSlot);
     }
+    #endregion
+
+    #region - Input Gathering -
     private void Update()
     {
         if (Input.GetKeyDown(keyCodeShortcutList[0])) UseShortCutToUseItem(0);
@@ -48,6 +61,9 @@ public class InventoryManagerController : MonoBehaviour
         if (Input.GetKeyDown(keyCodeShortcutList[8])) UseShortCutToUseItem(8);
         if (Input.GetKeyDown(keyCodeShortcutList[9])) UseShortCutToUseItem(9);
     }
+    #endregion
+
+    #region - Item Add to Bag Method -
     public bool AddItemToCurrentBag(GenericItemScriptable newItem, int quantity, bool exceptionCase)
     {
         bool result = false;
@@ -72,6 +88,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         return result;
     }
+    #endregion
+
+    #region - Item Use Method -
     private void UseItem(int id, int quantity)
     {
         bool result = currentBag.UseItem(id, quantity);
@@ -84,6 +103,9 @@ public class InventoryManagerController : MonoBehaviour
             if (itemResult.CurrentQuantity == 0 && itemResult.RemoveWhenNumberIsZero) DropItem(itemResult);
         }
     }
+    #endregion
+
+    #region - Item Organization Method -
     public void OrganizeItem()//This method organize the item UI representation based in his size
     {
         currentBag.OrgnizeBySizePriority();
@@ -92,6 +114,9 @@ public class InventoryManagerController : MonoBehaviour
         StartCoroutine("RefreshShortCutView");
         currentBag.UsedOrganizeBtSizePriority = false;
     }
+    #endregion
+
+    #region - Item Removal from Inventory -
     public bool RemoveItem(GenericBagScriptable origin, int id, int index)
     {
         bool result = false;
@@ -104,6 +129,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         return true;
     }
+    #endregion
+
+    #region - Item Drop Fucntion -
     public bool DropItem(GenericItemScriptable item)
     {
         bool result = false;
@@ -130,7 +158,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         return false;
     }
+    #endregion
 
+    #region - Drop Model Build and Instatiation -
     private void BuildMeshModel(int id, int currentQuantity)
     {
         //This method instatiate the GameObject of the item drop and add an physic force to throw it away
@@ -150,6 +180,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         else Debug.LogWarning("There is no item with this id in the item list to instantiate: ItemList: " + itemList.ToString() + "Item ID: " + id);
     }
+    #endregion
+
+    #region - Iventory UI Refresh Method -
     private IEnumerator RefreshInventoryView()//This method refresh all the inventory UI
     {
         yield return new WaitForSeconds(0.02f);
@@ -158,7 +191,9 @@ public class InventoryManagerController : MonoBehaviour
     }
     #endregion
 
-    #region - OnDropItem and OnPointDownItem -
+    #region - Inventory and Item Interaction Methods -
+
+    #region - Item Drop in Inventory Interactions -
     public bool OnDropItem(GenericItemScriptable itemDrop, GameObject origin, Vector2 coordinate, SlotPlaceTo slotPlaceTo)
     {
         //This statments represent the item drop functionality
@@ -171,28 +206,43 @@ public class InventoryManagerController : MonoBehaviour
         if (origin.transform.parent.parent.name == "cont_ShortCutSlotsGroup" && slotPlaceTo == SlotPlaceTo.SHORT_CUT) return ChangeShortCutPosition(itemDrop, index);//This statment transfer the item betwen shortcut slots
         return false;
     }
+    #endregion
+
+    #region - Item Drop Out Inventory Interactions -
     public bool OnDropItem(GenericItemScriptable itemDrop, string originTag)
     {
         //This statments represent the item drop limitation
         if (originTag.Equals("ComplexSlot"))
         {
             currentClothingWeapon.RemoveItemById(itemDrop.Id);
+            RemoveItemFromShortCut(itemDrop.Id);
             StartCoroutine("RefreshClothingWeaponView");
             return DropItem(itemDrop);
         }
         if (originTag.Equals("SpecialSlot")) return RemoveItemFromShortCut(itemDrop.Id);
-        //if (originTag.Equals("ClothingWeaponsSlot")) return TransferItemFromClothingWeaponToBag(itemDrop.Id);
+        if (originTag.Equals("ClothingWeaponsSlot"))
+        {
+            RemoveItemFromShortCut(itemDrop.Id);
+            currentClothingWeapon.RemoveItemById(itemDrop.Id);
+            StartCoroutine("RefreshClothingWeaponView");
+        }
 
         return false;
     }
+    #endregion
+
+    #region - Item Point Dow Click Method -
     public void OnPointerDownItem(GenericItemScriptable item, GameObject origin)
     {
         if (origin.transform.parent.parent.name == ("img_GridBackground")) InventoryView.Instance.UpdateDescriptionPanel(item);
     }
     #endregion
 
+    #endregion
+
     #region - Clothing Weapon Methods -
 
+    #region - Clothing Weapon Slot Add -
     public bool TransferItemFromBagToClothingWeapon(int index, int id)
     {
         GenericItemScriptable item = currentBag.FindItemById(id);
@@ -209,6 +259,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         return false;
     }
+    #endregion
+
+    #region - Clothing Weapon Slot Remove -
     public bool TransferItemFromClothingWeaponToBag(int id)
     {
         GenericItemScriptable item = currentClothingWeapon.GetItemById(id);
@@ -223,6 +276,9 @@ public class InventoryManagerController : MonoBehaviour
         }
         return false;
     }
+    #endregion
+
+    #region - Clothing Weapons Slot UI Refresh Method -
     public void CallRefreshClothingWeaponView() => StartCoroutine("RefreshClothingWeaponView");
     private IEnumerator RefreshClothingWeaponView()
     {
@@ -232,7 +288,11 @@ public class InventoryManagerController : MonoBehaviour
     }
     #endregion
 
+    #endregion
+
     #region - ShortCut Methods -
+
+    #region - ShortCut Item Add -
     private bool AddItemToCurrentShortCut(int index, GenericItemScriptable item)
     {
         BagScriptable resultBag = CastGenericBagToBag();
@@ -248,7 +308,10 @@ public class InventoryManagerController : MonoBehaviour
         }
         return false;
     }
-    public bool ChangeShortCutPosition(GenericItemScriptable itemChanged, int index)
+    #endregion
+
+    #region - ShortCut Item Position Change -
+    public bool ChangeShortCutPosition(GenericItemScriptable itemChanged, int index)//This Method change the item from shortcut to another shortcut
     {
         BagScriptable resultBag = CastGenericBagToBag();
 
@@ -263,7 +326,10 @@ public class InventoryManagerController : MonoBehaviour
         }
         return false;
     }
-    public bool RemoveItemFromShortCut(int id)
+    #endregion
+
+    #region - ShortCut Item Remove Method -
+    public bool RemoveItemFromShortCut(int id)//This Method remove the item from shortcut
     {
         BagScriptable resultBag = CastGenericBagToBag();
 
@@ -272,13 +338,16 @@ public class InventoryManagerController : MonoBehaviour
             bool result = resultBag.RemoveItemFromShortCutById(id);
             if (result)
             {
-                StartCoroutine("RefreshShortCutView");//This statment call the shortcut UI refresh
+                StartCoroutine("RefreshShortCutView");
                 return true;
             }
         }
         return false;
     }
-    private void UseShortCutToUseItem(int index)
+    #endregion
+
+    #region - Shortcut Item Use Method -
+    private void UseShortCutToUseItem(int index)//This Method execute the item use in the shortcut
     {
         if (!GameManager.Instance.inventoryIsOpen)
         {
@@ -289,6 +358,9 @@ public class InventoryManagerController : MonoBehaviour
             StartCoroutine("RefreshInventoryView");
         }
     }
+    #endregion
+
+    #region - ShortCut Slot UI Refresh Method -
     private IEnumerator RefreshShortCutView()//This method refresh the shortcut UI view
     {
         yield return new WaitForSeconds(0.02f);
@@ -296,6 +368,9 @@ public class InventoryManagerController : MonoBehaviour
         Dictionary<int, GenericItemScriptable> resultDictionary = resultBag.ItemsShortCutDictionary;
         ShortCutView.Instance.RefreshSlotSystem(resultDictionary);
     }
+    #endregion
+
+    #region - ShortCut Especific Item UI Refresh Method -
     private void RefreshShortCutByItem(GenericItemScriptable itemUpdate)//This method refresh the especific item that is on a shortcut
     {
         BagScriptable resultBag = CastGenericBagToBag();
@@ -311,12 +386,13 @@ public class InventoryManagerController : MonoBehaviour
             }
         }
     }
-    public void InventoryStateChanged() => StartCoroutine("RefreshInventoryView");
     #endregion
 
-    #region - Helpers Methods -
+    public void InventoryStateChanged() => StartCoroutine("RefreshInventoryView");//This Method calls the main UI refresh every time that the inventory state changes
+    #endregion
 
-    private BagScriptable CastGenericBagToBag()
+    #region - Utility Methods -
+    private BagScriptable CastGenericBagToBag()//This method captures the BagScriptable holded in the bag scriptable object
     {
         BagScriptable resultBag = ScriptableObject.CreateInstance<BagScriptable>();
 
@@ -324,5 +400,7 @@ public class InventoryManagerController : MonoBehaviour
 
         return resultBag;
     }
+    #endregion
+
     #endregion
 }

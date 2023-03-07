@@ -13,17 +13,17 @@ MonoBehaviour:
   m_Name: Weapon_UMP-45
   m_EditorClassIdentifier: 
   id: 5
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 25734e56e04e8b14fbb3fd8a2352a360, type: 3}
   isDroppable: 1
   removeWhenNumberIsZero: 0
   isOnlyItem: 1
   label: UMP-45
   description: An higth quality smg gun that uses .45CP Ammo
-  currentQuantity: 0
+  currentQuantity: 1
   maxQuantity: 1
-  slotSize: 4
+  slotSize: 6
   itemWeigth: 1.5
-  totalWeightPerItem: 0
+  totalWeightPerItem: 1.5
   actionUseList:
   - {fileID: 11400000, guid: cea13dde48cb2854ead74ae750762032, type: 2}
   actionEquipList:

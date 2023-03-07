@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weapon_Glock-17
   m_EditorClassIdentifier: 
   id: 6
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b561ac32ad6993a44ac210879092f391, type: 3}
   isDroppable: 1
   removeWhenNumberIsZero: 0
   isOnlyItem: 1

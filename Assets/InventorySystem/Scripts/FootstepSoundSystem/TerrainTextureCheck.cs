@@ -34,14 +34,8 @@ public class TerrainTextureCheck : MonoBehaviour
     private void CheckTexture()
     {
         float[,,] splatMap = terrainObject.terrainData.GetAlphamaps(posX, posZ, 1, 1);
-        textureValues[0].TextureValue = splatMap[0, 0, 0];
-        textureValues[1].TextureValue = splatMap[0, 0, 1];
-        textureValues[2].TextureValue = splatMap[0, 0, 2];
-        textureValues[3].TextureValue = splatMap[0, 0, 3];
-        textureValues[4].TextureValue = splatMap[0, 0, 4];
-        textureValues[5].TextureValue = splatMap[0, 0, 5];
-        textureValues[6].TextureValue = splatMap[0, 0, 6];
-        textureValues[7].TextureValue = splatMap[0, 0, 7];
+
+        for (int i = 0; i < textureValues.Length; i++) textureValues[i].TextureValue = splatMap[0, 0, i];
     }
 }
 [Serializable]

@@ -21,7 +21,7 @@ MonoBehaviour:
   description: M4A4 Rifle that uses 5.52mm Ammo.
   currentQuantity: 1
   maxQuantity: 1
-  slotSize: 6
+  slotSize: 8
   itemWeigth: 2.75
   totalWeightPerItem: 2.75
   actionUseList:

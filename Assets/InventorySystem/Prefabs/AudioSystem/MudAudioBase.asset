@@ -32,9 +32,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: e97a8da4003210f41ab64be2f49d795e, type: 3}
   - {fileID: 8300000, guid: 69ad51b0e53fa6e4d9e6db01c870f7fb, type: 3}
   - {fileID: 8300000, guid: 374c71596ed63e44ca7a07f15ed1ccd7, type: 3}
+  JumpStartClips:
+  - {fileID: 8300000, guid: 7eeb546a06967a149a37ea3e205b518b, type: 3}
+  - {fileID: 8300000, guid: 26ba84cde900f02408eaef46d1af7811, type: 3}
   JumpLandClips:
   - {fileID: 8300000, guid: 371c7554d1d165146a79898daa807134, type: 3}
   - {fileID: 8300000, guid: efa8d9408cf5dd1469f24a64eabb7b0d, type: 3}
   - {fileID: 8300000, guid: 09285afe64b606044b4bba58b6cced49, type: 3}
-  - {fileID: 8300000, guid: 7eeb546a06967a149a37ea3e205b518b, type: 3}
-  - {fileID: 8300000, guid: 26ba84cde900f02408eaef46d1af7811, type: 3}
