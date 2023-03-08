@@ -25,6 +25,8 @@ TagManager:
   - Surface_Water
   - Surface_Wood
   - Surface_Metal
+  - FirePlace
+  - ColdArea
   layers:
   - Default
   - TransparentFX

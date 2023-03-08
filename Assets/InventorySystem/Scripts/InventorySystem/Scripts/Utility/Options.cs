@@ -3,22 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Options { }
+//Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+//EnumStorage - Code Update Version 0.4 - (Refactored code).
+//Feel free to take all the code logic and apply in yours projects.
+//This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
-public enum SlotPlaceTo
+#region - Slot Indentification
+public enum SlotPlaceTo //This enumerator represents all the type of slot indentification
 {
     BAG = 0,
     CLOTHING_WEAPON = 1,
     SHORT_CUT = 2,
     OUT = 3,
 }
-public enum ItemType
+#endregion
+
+#region - Item Types -
+public enum ItemType //This enumerator represents all the items possible types
 {
     CONSUMABLE = 0,
     STORY = 1,
     WEAPON = 2,
     ARMOR = 3
 }
-public enum ItemEquip
+#endregion
+
+#region - Item Equip Types -
+public enum ItemEquip //This enumerator represents all the item equip possible types
 {
     NONE = 0,
     ARMOR_KEVLAR = 1,
@@ -30,15 +41,4 @@ public enum ItemEquip
     Handable_FireGun_Glock17 = 7,
     Handable_FireGun_UMP45 = 8,
 }
-public enum SliderType
-{
-    Health = 0,
-    Hungry = 1,
-    Thirsty = 2,
-    Stamina = 3,
-    ColdLevel = 4,
-}
-public enum AttackType
-{
-    GUNPLAY = 0,
-}
+#endregion

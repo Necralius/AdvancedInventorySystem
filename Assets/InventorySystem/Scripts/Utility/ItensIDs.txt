@@ -1,3 +1,10 @@
+//Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+//ItensIDs - Code Update Version 0.2 - (Refactored code).
+//Feel free to take all the code logic and apply in yours projects.
+//This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
+-------- This txt archive storages all the itens IDs --------
+
 1.AK47_FireGun
 2.Carbine_M4A4
 3.FN-FAL

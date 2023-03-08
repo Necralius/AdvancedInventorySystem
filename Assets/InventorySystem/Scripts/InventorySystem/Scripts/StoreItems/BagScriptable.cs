@@ -6,7 +6,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewBag", menuName = "InventorySystem/Store Items/New Bag")]
 public class BagScriptable : GenericBagScriptable
 {
-    #region - Data Declaration -
+    //Code made by Victor Paulo Melo da Silva and a Advanced Inventory course used as an base  - https://www.linkedin.com/in/victor-nekra-dev/
+    //BagScriptable - Code Update Version 0.4 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
+    #region - Main Data Declaration -
     [SerializeField, Range(1, 10)] protected int maxShortCutSlot;
 
     [SerializeField] private List<RulerScriptable> rulerList;
@@ -15,28 +20,37 @@ public class BagScriptable : GenericBagScriptable
     #endregion
 
     #region - Get and Set Data -
+    //This statements protect and manage the item data setting and get
     public Dictionary<int, GenericItemScriptable> ItemsShortCutDictionary { get => itemsShortCutDictionary;}
     public int MaxShortCutSlot { get => maxShortCutSlot; }
     #endregion
 
-    #region - Methods -
-    protected override void OnEnable()
+    //=========== Method Area ===========//
+
+    #region - Bag Start -
+    protected override void OnEnable()//This method reset and start the bag functionalities
     {
         base.OnEnable();
         itemsShortCutDictionary = new Dictionary<int, GenericItemScriptable>();
     }
-    protected override void ResetBag()
+    #endregion
+
+    #region - Bag Reset Functionality -
+    protected override void ResetBag()//This method overrides the bag reset method
     { 
         base.ResetBag();
         matrixUtility = new MatrixUtility(maxRow, maxColumn, title);
     }
-    public override bool UseItem(int id, int value) => base.UseItem(id, value);
-    public bool AddItemToShortCut(int index, GenericItemScriptable item)
+    #endregion
+
+    #region - Bag Use Functionality -
+    public override bool UseItem(int id, int value) => base.UseItem(id, value);//This method override the default use item method
+    public bool AddItemToShortCut(int index, GenericItemScriptable item)//This method adds an item to an shortcut slot
     {
         if (itemsShortCutDictionary.ContainsValue(item)) Debug.LogWarning("The item " + item.name + "is already on shortcuts!");
         else
         {
-            if (CheckAllRules(index, item))
+            if (CheckAllRules(index, item))//This statement verifies the bag shortcut slot rules
             {
                 itemsShortCutDictionary.Add(index, item);
                 return true;
@@ -44,7 +58,12 @@ public class BagScriptable : GenericBagScriptable
         }
         return false;
     }
-    public bool ChangeItemPosition(GenericItemScriptable item, int index)
+    #endregion
+
+    #region - Shortcut System -
+
+    #region - ShortCut Position Change -
+    public bool ChangeItemPosition(GenericItemScriptable item, int index)//This method changes the item shortcut position from one shortcut to another
     {
         if (itemsShortCutDictionary.ContainsValue(item))
         {
@@ -54,7 +73,10 @@ public class BagScriptable : GenericBagScriptable
         }
         return false;
     }
-    public List<int> GetIdsFromItemShortCutDictionary()
+    #endregion
+
+    #region - ShortCut Search by Dictionary -
+    public List<int> GetIdsFromItemShortCutDictionary()//This method returns all the items ids from the shortcut dictionary as a list
     {
         List<int> resultIds = new List<int>();
 
@@ -62,7 +84,7 @@ public class BagScriptable : GenericBagScriptable
 
         return resultIds;
     }
-    public List<int> GetUsedKeysFromShortCutDictionary()
+    public List<int> GetUsedKeysFromShortCutDictionary()//This method returns all the items key value from the shortcut dictionary as a list
     {
         List<int> resultKeys = new List<int>();
         
@@ -70,16 +92,17 @@ public class BagScriptable : GenericBagScriptable
 
         return resultKeys;
     }
-    public GenericItemScriptable GetItemByIndexPosition(int index)
+    #endregion
+
+    #region - Item Search -
+    public GenericItemScriptable GetItemByIndexPosition(int index)//This method returns the item that exists considering the item index passed on the method armument
     {
+        //This method also uses the Try Catch block to to avoid total code break
         try
         {
             var result = itemsShortCutDictionary.First(element => element.Key == index);
 
-            if (!(result.Value.Equals(null)))
-            {
-                return result.Value;
-            }
+            if (!(result.Value.Equals(null))) return result.Value;
         }
         catch(Exception ex)
         {
@@ -87,8 +110,9 @@ public class BagScriptable : GenericBagScriptable
         }
         return null;
     }
-    public int GetIndexByItem(GenericItemScriptable item)
+    public int GetIndexByItem(GenericItemScriptable item)//This method returns the item index from shortcut slot
     {
+        //This method also uses the Try Catch block to to avoid total code break
         int resultIndex = -1;
         try
         {
@@ -106,8 +130,12 @@ public class BagScriptable : GenericBagScriptable
         }
         return resultIndex;
     }
-    public bool RemoveItemFromShortCutById(int id)
+    #endregion
+
+    #region - Item Removal From ShortCut -
+    public bool RemoveItemFromShortCutById(int id)//This method remove the item founded in the shortcuts based in tem item id
     {
+        //This method also uses the Try Catch block to to avoid total code break
         try
         {
             var resultItem = itemsShortCutDictionary.First(element => element.Value.Id == id);
@@ -124,11 +152,16 @@ public class BagScriptable : GenericBagScriptable
         }
         return false;
     }
+    #endregion
+
+    #region - Item Rule Validation -
     private bool CheckAllRules(int index, GenericItemScriptable item)
     {
         if (rulerList.Count != 0) foreach (var ruler in rulerList) if (ruler.Validade(index, item)) return true;
         else Debug.LogWarning("Thre is no Rules, so no item is allowed!");
         return false;
     }
+    #endregion
+
     #endregion
 }

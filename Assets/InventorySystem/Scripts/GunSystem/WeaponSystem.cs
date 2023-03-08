@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class WeaponSystem : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //GunProceduralRecoil - Code Update Version 0.4 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - References on Instantiation -
     public PlayerController playerController => GetComponentInParent<PlayerController>();
     public Animator gunAnimator => GetComponent<Animator>();
@@ -108,9 +113,13 @@ public class WeaponSystem : MonoBehaviour
     public float maxMovmentSwayAmount = 0.5f;
     #endregion
 
+    //======================================//
+    #region - Methods Area -
+
     #region - BuildIn Methods -
     private void Start()
     {
+        canShoot = true;
         initialPosition = playerController.weaponSwayObject.transform.localPosition;
         initialRotation = playerController.weaponSwayObject.transform.localRotation;
 
@@ -130,7 +139,7 @@ public class WeaponSystem : MonoBehaviour
         CalculateWeaponSway();
     }
     #endregion
-    
+
     #region - Gun State Manegment -
     private void InstatiateGun()//This method manage automatically the gun states based in his type
     {
@@ -142,14 +151,16 @@ public class WeaponSystem : MonoBehaviour
 
         if (!GetComponent<GunProceduralRecoil>()) gameObject.AddComponent<GunProceduralRecoil>();
     }
-    private void OnValidate() => InstatiateGun();//This statment call the state manegment every time that the inspector is changed
+    private void OnValidate() => InstatiateGun();//This
+                                                 //
+                                                 //call the state manegment every time that the inspector is changed
     #endregion
 
     #region - Weapon Sway Calculations -
     private void CalculateWeaponSway()
     {
         #region - Aim Effectors -
-        //This statments change all the sway mechanics values whether or not the player is aiming
+        //This statements change all the sway mechanics values whether or not the player is aiming
         float calcSwayAmount = isAiming ? swayAmount / 10 : swayAmount;
         float calcMaxAmount = isAiming ? maxAmount / 5 : maxAmount;
         float calcMovmentSwayXAmount = isAiming ? movmentSwayXAmount / 10 : movmentSwayXAmount;
@@ -160,7 +171,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Weapon Position Sway Calculations -
-        //This statments represent the weapon look sway calculations 
+        //This statements represent the weapon look movment sway calculations 
         float lookInputX = -playerController.lookInput.x * calcSwayAmount;
         float lookInputY = -playerController.lookInput.y * calcSwayAmount;
 
@@ -172,7 +183,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Movment Sway Calculations -
-        //This statmentes represent the weapon sway based on the player movment
+        //This statementes represent the weapon sway based on the player movment
         float movmentInputX = -playerController.movmentInput.x * calcMovmentSwayXAmount;
         float movmentInputY = -playerController.movmentInput.y * calcMovmentSwayYAmount;
 
@@ -184,7 +195,7 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Weapon Rotation Sway Calculations -
-        //This statmentes represent the weapon rotational sway calculations
+        //This statementes represent the weapon rotational sway calculations
         float rotationX = Mathf.Clamp(playerController.lookInput.y * calcRotationSwayAmount, -calcMaxRotationSwayAmount, calcMaxRotationSwayAmount);
         float rotationY = Mathf.Clamp(playerController.lookInput.x * calcRotationSwayAmount, -calcMaxRotationSwayAmount, calcMaxRotationSwayAmount);
 
@@ -216,7 +227,7 @@ public class WeaponSystem : MonoBehaviour
     #region - Aiming Calculations -
     private void CalculateAiming()//This Method calculates and set the whole aim functionality 
     {
-        targetFOV = isAiming ? aimingFOV : normalFOV;//This statment change the player aim FOV between some conditions
+        targetFOV = isAiming ? aimingFOV : normalFOV;//This statement change the player aim FOV between some conditions
 
         playerController.currentCamera.fieldOfView = Mathf.Lerp(playerController.currentCamera.fieldOfView, targetFOV, aimSpeed * Time.deltaTime);//This stament set the field of view using the Mathf.Lerp, whitch means that the FOV value is linearly
 
@@ -229,19 +240,19 @@ public class WeaponSystem : MonoBehaviour
     #region - Reload System -
     private void ReloadWeapon()//This Method execut the reload calculations
     {
-        if (currentMagAmmo == maxMagAmmo) return;//This statment verifies if the ammo mag is full
+        if (currentMagAmmo == maxMagAmmo) return;//This statement verifies if the ammo mag is full
 
-        amountToNeeded = maxMagAmmo - currentMagAmmo;//This statment calculates the needed ammo for the reload action
+        amountToNeeded = maxMagAmmo - currentMagAmmo;//This statement calculates the needed ammo for the reload action
 
-        if (amountToNeeded == maxMagAmmo) AudioManager.Instance.PlayEffectSound(fullReloadClip);//This statment verifies if the mag will be fully replaced by a new one an plays a difrent reload sound
-        else if (amountToNeeded < maxMagAmmo) AudioManager.Instance.PlayEffectSound(reloadClip);//This statment play an reload sound 
+        if (amountToNeeded == maxMagAmmo) AudioManager.Instance.PlayEffectSound(fullReloadClip);//This statement verifies if the mag will be fully replaced by a new one an plays a difrent reload sound
+        else if (amountToNeeded < maxMagAmmo) AudioManager.Instance.PlayEffectSound(reloadClip);//This statement play an reload sound 
 
-        gunAnimator.SetInteger("ReloadIndex", amountToNeeded == maxMagAmmo ? 0 : 1);//This statment changes the reload Index based on his type (Full reloadType || Default Reload Type)
+        gunAnimator.SetInteger("ReloadIndex", amountToNeeded == maxMagAmmo ? 0 : 1);//This statement changes the reload Index based on his type (Full reloadType || Default Reload Type)
         isReloading = true;
         gunAnimator.SetBool("IsReloading", true);
     }
     public void StopReloadAnim() => gunAnimator.SetBool("IsReloading", false);//This method is used in an animation event to stop the reload animation
-    public void EndReload()//This statment set the reload values and update the gun UI
+    public void EndReload()//This statement set the reload values and update the gun UI
     {
         if (currentInventoryAmmo - amountToNeeded > 0)
         {
@@ -347,7 +358,7 @@ public class WeaponSystem : MonoBehaviour
                 GameObject impactParticle= playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Impact");
                 GameObject decalParticle = playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Decal");
 
-                //This statmentes represent the particles get from particle DataBase and the Instatiation
+                //This statementes represent the particles get from particle DataBase and the Instatiation
                 if (!(impactParticle.Equals(null))) Instantiate(impactParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
                 if (!(decalParticle.Equals(null))) Instantiate(decalParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
             }
@@ -375,5 +386,7 @@ public class WeaponSystem : MonoBehaviour
     {
         canShoot = true; gunAnimator.SetLayerWeight(1, 0);
     }
+    #endregion
+
     #endregion
 }

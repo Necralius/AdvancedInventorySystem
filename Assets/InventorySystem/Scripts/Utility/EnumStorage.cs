@@ -5,30 +5,43 @@ using UnityEngine;
 
 public class EnumStorage : MonoBehaviour
 {  }
+//Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+//EnumStorage - Code Update Version 0.5 - (Refactored code).
+//Feel free to take all the code logic and apply in yours projects.
+//This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
-public enum PlayerStateType 
+#region - Player State Type - 
+public enum PlayerStateType //This enumerator represents all the possible player state types
 { 
-    Stand, 
-    Crouch, 
-    Prone 
+    Stand,
+    Crouch,
+    Prone
 }
-public enum GunType
+#endregion
+
+#region - Gun Type -
+public enum GunType //This enumerator represents all the gun possible types
 {
     Shotgun,   
     SemiAndAuto,
     OnlySemi,
     SniperType
 }
-public enum GunState
+#endregion
+
+#region - Gun State -
+public enum GunState //This enumerator represents all the gun possible States
 {
     Locked,
     AutoFire,
     SemiFire,
     BurstFire
 }
+#endregion
 
+#region - Player State Model -
 [Serializable]
-public struct PlayerState
+public struct PlayerState //This
 {
     public float StateHeight;
     public float StateSpeedModifier;
@@ -47,3 +60,4 @@ public struct PlayerState
         this.state = state.state;
     }
 }
+#endregion

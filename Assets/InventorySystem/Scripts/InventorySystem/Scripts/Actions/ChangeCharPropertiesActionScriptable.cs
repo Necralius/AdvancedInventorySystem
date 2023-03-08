@@ -5,8 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewChangeCharPropertiesAction", menuName = "InventorySystem/Action/ChangeCharPropertiesAction")]
 public class ChangeCharPropertiesActionScriptable : GenericActionScriptable
 {
+    //Code made by Victor Paulo Melo da Silva and a Advanced Inventory course used as an base  - https://www.linkedin.com/in/victor-nekra-dev/
+    //ChangeCharPropertiesActionScriptable - Code Update Version 0.2 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
-    #region - Main Declaration -
+    #region - Action Data -
     [SerializeField, Range(-100f, 100f)] private float life;
     [SerializeField, Range(-100f, 100f)] private float thirst;
     [SerializeField, Range(-100f, 100f)] private float hungry;
@@ -14,13 +18,13 @@ public class ChangeCharPropertiesActionScriptable : GenericActionScriptable
     [SerializeField, Range(10f, 30f)] private float speed;
 
     [SerializeField] private bool applyNewPosition;
-    [SerializeField] private Vector3 teleportToPos;
+    [SerializeField] private Transform teleportToPos;
 
     [SerializeField] private bool resetSpeed;
     #endregion
 
-    #region - Methods -
-    public override IEnumerator Execute()
+    #region - Action Execution Method -
+    public override IEnumerator Execute()//This method execute the change char action
     {
         yield return new WaitForSeconds(DelayToStart);
 
@@ -46,11 +50,8 @@ public class ChangeCharPropertiesActionScriptable : GenericActionScriptable
             else if (life < 0) GameController.Instance.DamagePlayer(life);
         }
 
-        if (applyNewPosition)
-        {
-            //GameControler => Function();
-        }
+        if (applyNewPosition) GameController.Instance.TeleportPlayer(teleportToPos);
+        yield return null;
     }
-
     #endregion
 }

@@ -3,31 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class MatrixUtility {
+public class MatrixUtility 
+{
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //MatrixUtility - Code Update Version 0.3 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
+    #region - Main Data Declaration -
     public string name;
     private int maxRow;
     private int maxCol;
     private int[,] item;
+    #endregion
 
-    public MatrixUtility (int newMaxRow,int newMaxCol, string label) {
-
+    #region - MatrixUtility Class Constructor -
+    public MatrixUtility(int newMaxRow,int newMaxCol, string label)//This statment represent an MatrixUtility Constructor
+    {
         maxRow = newMaxRow;
         maxCol = newMaxCol;
         name = label;
-        PopulateMatrix ();
+        PopulateMatrix();
     }
-    public void PopulateMatrix () 
+    #endregion
+
+    #region - Matrix Population -
+    public void PopulateMatrix()//This function represent the instatiation of an bidimensional array (Matrix instatiation)
     {
         item = new int[maxRow,maxCol];
 
         for (int row = 0 ; row < maxRow ; row++) for (int column = 0; column < maxCol; column++) item[row, column] = -1;
     }
-    public int[,] ShowFullList () => item;
+    #endregion
 
-    public void SetItem(List<Vector2> list, int id) 
+    #region - List Show -
+    public int[,] ShowFullList() => item;
+    #endregion
+
+    #region - Item Set on Matrix -
+    public void SetItem(List<Vector2> list, int id)//This method set an item on a location using an list of Vector2 as coodinates
     {
-
         if (id >= 0) 
         {            
             foreach (var location in list)
@@ -39,10 +54,15 @@ public class MatrixUtility {
         }
         else Debug.LogWarning("Do not use id number above 0 Zero");  
     }
-    public void ClearItemOnMatrix (int id) 
+    #endregion
+
+    #region - Item Clear on Matrix -
+    public void ClearItemOnMatrix(int id)//This method clear an especific item on the matrix using his id
     {
         if (id >= 0) for (int row = 0; row < maxRow; row++) for (int column = 0; column < maxCol; column++) if (item[row, column] == id) item[row, column] = -1;
     }
+    #endregion
+
     public List<Vector2> FindLocationById(int id) 
     {
         List<Vector2> listResult = new List<Vector2> ();
@@ -134,7 +154,7 @@ public class MatrixUtility {
         return listResult;
     }
 
-    List<Vector2> LookForAreaHorizontalPriority (int numberHorizontal, int deep) 
+    List<Vector2> LookForAreaHorizontalPriority(int numberHorizontal, int deep) 
     {
         List<Vector2> listResult = new List<Vector2> ();        
         int colSelect = 0;
@@ -186,7 +206,7 @@ public class MatrixUtility {
         }
         return listResult;
     }
-    private List<Vector2> LookForAreaVerticalPriority (int numberVertical,int deep) 
+    private List<Vector2> LookForAreaVerticalPriority(int numberVertical,int deep) 
     {
         List<Vector2> listResult = new List<Vector2> ();
         
@@ -219,7 +239,6 @@ public class MatrixUtility {
                                         else listResult.Clear();
                                     }                                
                                 }
-
                                 if (listResult.Count == numberVertical * deep) return listResult;
                                 if (i == maxRow )  listResult.Clear();
                             }
@@ -240,7 +259,7 @@ public class MatrixUtility {
         }
         return listResult;
     }
-    private bool VerticalValidation (int currentRow,int currentColumn,int deepVertical) 
+    private bool VerticalValidation(int currentRow,int currentColumn,int deepVertical) 
     {
         bool result = true;
 
@@ -254,7 +273,7 @@ public class MatrixUtility {
 
         return result;
     }
-    private bool HorizontalValidation (int currentRow,int currentColumn,int deepHorizontal) 
+    private bool HorizontalValidation(int currentRow,int currentColumn,int deepHorizontal) 
     {
         bool result = true;
 

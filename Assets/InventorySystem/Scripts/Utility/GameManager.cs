@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer
-    //Code Version 0.2 - (Refactored code).
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //GameManager - Code Version 0.2 - (Refactored code).
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
     #region - Singleton Pattern -
-    //This statment means a simple Singleton Pattern implementation
+    //This statements means a simple Singleton Pattern implementation
     public static GameManager Instance;
     void Awake() => Instance = this;
     #endregion

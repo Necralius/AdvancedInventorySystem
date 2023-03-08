@@ -7,12 +7,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
     //Player Controller - Code Update Version 0.2 - (Refactored code).
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
     #region - Singleton Pattern -
+    //This statement means a simple Singleton Pattern implementation
     public static PlayerController Instance;
     private void Awake() => Instance = this;
     #endregion
@@ -110,9 +111,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI gunStateText;
     #endregion
 
-    //======================================//
-
-    #region - Method Area -
+    //=========== Method Area ===========//
 
     #region - Dynamic Cross Hair -
     private void UpdateCrossHair()//This method execute the CrossHair functionality
@@ -181,7 +180,7 @@ public class PlayerController : MonoBehaviour
         isAiming = Input.GetKey(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("AimKey")) && !isRunning;
 
         #region - Speed Effector Set -
-        //This statments changes the speed effectors based in the actual player state
+        //This statements changes the speed effectors based in the actual player state
         currentSpeed = isRunning ? playerStats.runSpeed : playerStats.walkSpeed;
         currentSpeed *= playerStats.currentSpeedEffector;
         #endregion
@@ -213,9 +212,9 @@ public class PlayerController : MonoBehaviour
 
         playerController.Move(movmentVector * currentSpeed * Time.deltaTime);
 
-        GetComponent<FootstepSystem>().currentSpeed = playerController.velocity.magnitude;//This statment transfer the current player velocity magnitude to the FootStep audio system
-
-        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("JumpKey")) && isGrounded)//This statment execute the jump calculations
+        GetComponent<FootstepSystem>().currentSpeed = playerController.velocity.magnitude;//This statement transfer the current player velocity magnitude to the FootStep audio system
+                                                                                        
+        if (Input.GetKeyDown(GameManager.Instance.GeneralKeyCodes.GetKeyCodeByName("JumpKey")) && isGrounded)//This statement execute the jump calculations
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             Stand();
@@ -241,15 +240,15 @@ public class PlayerController : MonoBehaviour
     #region - Player State Calculation -
     private void CalculateState()//This method calculates the current player stance state (verifies if it is crouching, proning or if it is standing)
     {
-        playerController.height = Mathf.Lerp(playerController.height, currentState.StateHeight, stateHeightChangeSpeed * Time.deltaTime);//This statment linearly changes the player controller collider height
+        playerController.height = Mathf.Lerp(playerController.height, currentState.StateHeight, stateHeightChangeSpeed * Time.deltaTime);//This statement linearly changes the player controller collider height
 
-        //This statmentes changes the players speed effectores based in the current player stance state
+        //This statements changes the players speed effectores based in the current player stance state
         if (isAiming) playerStats.currentSpeedEffector = playerStats.aimSpeedEffector;
         else if (currentState.Equals(playerStandState)) playerStats.currentSpeedEffector = playerStats.standSpeedEffector;
         else if (currentState.Equals(playerCrouchState)) playerStats.currentSpeedEffector = playerStats.crouchSpeedEffector;
         else if (currentState.Equals(playerProneState)) playerStats.currentSpeedEffector = playerStats.proneSpeedEffector;
 
-        //This statments execute some values set
+        //This statements execute some values set
         controllerAnimator.speed = playerStats.currentSpeedEffector;
         controllerAnimator.SetBool("IsWalking", isWalking);
         controllerAnimator.SetBool("IsRunning", isRunning);
@@ -274,7 +273,5 @@ public class PlayerController : MonoBehaviour
     }
     private void Stand() => currentState.SetUp(playerStandState);//This method tries to execute the stand stance state
     private bool CheckPlayerState() => Physics.CheckSphere(headPosition.position, checkRadius, checkMask);//This method check if the player can change the current stance state to an higher stance state
-    #endregion
-
     #endregion
 }

@@ -9,7 +9,6 @@ public class ItemView : MonoBehaviour
     [SerializeField] private GenericItemScriptable item;
     [SerializeField] private List<GenericActionScriptable> actionList;
     private ActionManagerEvent actionManagerEvt;
-
     #endregion
 
     #region - Data Get and Set -

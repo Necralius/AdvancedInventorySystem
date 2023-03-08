@@ -4,15 +4,25 @@ using UnityEngine.UI;
 
 public class SurvivalAtributes : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //ParticlesDatabase - Code Update Version 0.2 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - Singleton Pattern -
+    //This statements a simple Singleton Pattern implementation
     public static SurvivalAtributes Instance;
     private void Awake() => Instance = this;
     #endregion
 
-    private PlayerController playerAsset;
+    #region - Class References -
+    private PlayerController playerAsset => GetComponent<PlayerController>();
+    #endregion
 
+    #region - Health Values -
     [Range(0, 150)] public float currentHealth = 100;
     public float maxHealth = 150;
+    #endregion
 
     #region - Stamina Data -
     [Header("Stamina")]
@@ -67,7 +77,7 @@ public class SurvivalAtributes : MonoBehaviour
     public TextMeshProUGUI lifeText;
     #endregion
 
-    private void Start() => playerAsset = GetComponent<PlayerController>();
+    #region - Survival Atributes Behavior -
     void Update()
     {
         Stamina();
@@ -76,7 +86,9 @@ public class SurvivalAtributes : MonoBehaviour
         Hungry();
         SlidersTextUpdate();
     }
-    void ColdLevel()
+
+    #region - Cold Behavior -
+    void ColdLevel()//This method calculates all cold level values using the passed time and considering the current walk and run state
     {
         if (currentColdLevel <= 0) currentColdLevel = 0;
         if (currentColdLevel >= maxColdLevel) currentHealth -= coldLevelLifeLossTax * Time.deltaTime;
@@ -84,20 +96,29 @@ public class SurvivalAtributes : MonoBehaviour
         else if (currentColdLevel < maxColdLevel && OnSnow) currentColdLevel += coldLevelLossTax * 10 * Time.deltaTime;
         if (OnFirePlace) currentColdLevel -= coldLevelGainTax * Time.deltaTime;
     }
-    public void Thirst()
+    #endregion
+
+    #region - Thirst Behavior -
+    public void Thirst()//This method calculates all thirst values using the passed time and considering the current walk and run state
     {
         if (currentThrist <= 0) currentThrist = 0;
         if (currentThrist >= maxThrist) currentHealth -= thristLifeLossTax * Time.deltaTime;
         if (currentThrist < maxThrist && !playerAsset.isRunning) currentThrist += thirstLossTax * Time.deltaTime;
         else if (currentThrist < maxThrist && playerAsset.isRunning) currentThrist += thirstLossTax * 4 * Time.deltaTime;
     }
-    public void Hungry()
+    #endregion
+
+    #region - Hungry Behavior -
+    public void Hungry()//This method calculates all hungry values using the passed time and considering the current walk and run state
     {
         if (currentHungry <= 0) currentHungry = 0;
         if (currentHungry < maxHungry && !playerAsset.isRunning) currentHungry += hungryLossTax * Time.deltaTime;
         else if (currentHungry < maxHungry && playerAsset.isRunning) currentHungry += hungryLossTax * 2 * Time.deltaTime;
     }
-    public void Stamina()
+    #endregion
+
+    #region - Stamina Behavior -
+    public void Stamina()//This method calculates all stamina values considering the current player state
     {
         if (currentStamina >= maxStamina) currentStamina = maxStamina;
         if (currentStamina <= 0)
@@ -109,26 +130,20 @@ public class SurvivalAtributes : MonoBehaviour
         if (playerAsset.isRunning) currentStamina -= staminaLossTax * Time.deltaTime;
         if (!playerAsset.isRunning) currentStamina += staminaGainTax * Time.deltaTime;
     }
-    private void OnTriggerEnter(Collider other)
+    #endregion
+
+    #endregion
+
+    #region - Cold Area Behavior -
+    private void OnTriggerEnter(Collider other)//This method detects if the player is on a snow area and if he is on Fireplace area
     {
-       /* if (gameObject.CompareTag("ColdArea"))
-        {
-            OnSnow = true;
-        }
-        else
-        {
-            OnSnow = false;
-        }
-        if (gameObject.CompareTag("FirePlace"))
-        {
-            OnFirePlace = true;
-        }
-        else
-        {
-            OnFirePlace = false;
-        }*/
+        OnSnow = other.transform.CompareTag("ColdArea");
+        OnFirePlace = other.transform.CompareTag("FirePlace");
     }
-    public void SlidersTextUpdate()
+    #endregion
+
+    #region - Text and Sliders UI Update -
+    public void SlidersTextUpdate()//This method update all sliders and texts from the Survival Atributes System
     {
         #region - Health -
         lifeText.text = (currentHealth.ToString("F1") + "/100");
@@ -159,7 +174,10 @@ public class SurvivalAtributes : MonoBehaviour
         staminaSlider.maxValue = maxStamina;
         #endregion
     }
-    public void GiveDamage(float Damage)
+    #endregion
+
+    #region - Damage and Cure - 
+    public void GiveDamage(float Damage)//This method give a certain damage to the player considering his minimum life
     {
         if (currentHealth - Damage <= 0)
         {
@@ -167,5 +185,6 @@ public class SurvivalAtributes : MonoBehaviour
             //Die Behavior
         }
     }
-    public void CurePlayer(float cureValue) => currentHealth = (currentHealth + cureValue) > maxHealth ? maxHealth : currentHealth + cureValue; 
+    public void CurePlayer(float cureValue) => currentHealth = (currentHealth + cureValue) > maxHealth ? maxHealth : currentHealth + cureValue;//This method cure the player considering his maximum life
+    #endregion
 }

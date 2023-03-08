@@ -5,14 +5,23 @@ using UnityEngine;
 
 public class ObjectPooler : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //ObjectPooler - Code Update Version 0.4 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - Singleton Pattern -
+    //This statement  a simple Singleton Pattern implementation
     public static ObjectPooler Instance;
     private void Awake() => Instance = this;
     #endregion
 
+    #region - General Game Pools -
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
+    #endregion
 
+    #region - Object Pooler Intatiation -
     private void Start()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -30,7 +39,10 @@ public class ObjectPooler : MonoBehaviour
             poolDictionary.Add(tag, objectPool);
         }
     }
-    public GameObject SpawnFromPool(string poolTag, Vector3 position, Quaternion rotation)
+    #endregion
+
+    #region - Main Objet Pooler Objet Gathering -
+    public GameObject SpawnFromPool(string poolTag, Vector3 position, Quaternion rotation)//This Method get an object from the pool and set it as active, an set the object in a new position and rotation
     {
         if (!poolDictionary.ContainsKey(poolTag))
         {
@@ -44,16 +56,20 @@ public class ObjectPooler : MonoBehaviour
         objToSpawn.transform.position = position;
         objToSpawn.transform.rotation = rotation;
 
-        objToSpawn.GetComponent<IPooled>().OnObjectspawn();
+        objToSpawn.GetComponent<IPooled>().OnObjectspawn();//This statement calls the OnObjectSpawn Method that all pooled object has by default on the interface IPooled
 
         poolDictionary[tag].Enqueue(objToSpawn);
         return objToSpawn;
     }
+    #endregion
 }
+
+#region - Pool Structure -
 [Serializable]
-public class Pool
+public struct Pool//This Struct represent the default pool structure
 {
     public string tag;
     public GameObject prefab;
     public int size;
 }
+#endregion
