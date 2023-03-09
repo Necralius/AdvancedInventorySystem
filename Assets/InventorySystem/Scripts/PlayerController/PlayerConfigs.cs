@@ -12,6 +12,7 @@ public class KeyCodeGroup : ScriptableObject
     //KeyCodeGroup - Code Update Version 0.3 - (Refactored code).
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     public List<KeyCodeSave> keyCodes;//This variable represent an list of all keycodes used in the game functionalities
     public KeyCode GetKeyCodeByName(string name) => keyCodes.Find(x => x.keyActionName == name).actionKeyCode;//This method return the KeyCode value based on his tag
 }

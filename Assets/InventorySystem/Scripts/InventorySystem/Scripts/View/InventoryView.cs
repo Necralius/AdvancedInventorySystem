@@ -7,6 +7,7 @@ using TMPro;
 
 public class InventoryView : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva and a Advanced Inventory course used as an base  - https://www.linkedin.com/in/victor-nekra-dev/
     #region - Singleton Pattern -
     public static InventoryView Instance;
     void Awake() => Instance = this;

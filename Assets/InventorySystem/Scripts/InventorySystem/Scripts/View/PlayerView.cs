@@ -5,19 +5,26 @@ using UnityEngine.UI;
 
 public class PlayerView : MonoBehaviour
 {
+    //Code made by Victor Paulo Melo da Silva and a Advanced Inventory course used as an base  - https://www.linkedin.com/in/victor-nekra-dev/
+    //PlayerView - Code Update Version 0.4 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - Singleton Pattern -
     public static PlayerView Instance;
     private void Awake() => Instance = this;
     #endregion
 
     #region - Data Declaration -
-
     [SerializeField] private List<GameObject> weaponGoList;
 
+    [SerializeField] Slider characterRotationSlider;
+    [SerializeField] Transform characterObject;
+    [SerializeField] private float itemRotationSpeed;
     #endregion
 
-    #region - Methods -
-    public void Equip(ItemEquip typeWeapon, bool visible)
+    #region - Weapon Equip -
+    public void Equip(ItemEquip typeWeapon, bool visible)//This method select one weapon and set his state to the argument passed, and update all the weapons UI an assing the weapon to the equippedGun on PlayerController
     {
         foreach(var item in weaponGoList)
         {
@@ -32,14 +39,18 @@ public class PlayerView : MonoBehaviour
             }
         }
     }
-    public bool StatusEquipment(ItemEquip itemEquip)
+    #endregion
+
+    #region - Status Gathering -
+    public bool StatusEquipment(ItemEquip itemEquip)//This method select one weapon based on the argument, and return the selected gun state
     {
         foreach(var item in weaponGoList) if (item.name == itemEquip.ToString()) return item.activeSelf;
         return false;
     }
-    private void Start()
-    {
-        //Equip(ItemEquip.Handable_FireGun_M4A4_Carbine, true);
-    }
+    #endregion
+
+    #region - Character Inventory View -
+    private void Update() => SetCharacterRotation();
+    private void SetCharacterRotation() => characterObject.localRotation = Quaternion.Lerp(characterObject.localRotation, Quaternion.Euler(0, characterRotationSlider.value, 0), itemRotationSpeed * Time.deltaTime);
     #endregion
 }

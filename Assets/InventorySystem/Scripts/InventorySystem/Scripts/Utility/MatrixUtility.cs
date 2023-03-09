@@ -63,98 +63,107 @@ public class MatrixUtility
     }
     #endregion
 
-    public List<Vector2> FindLocationById(int id) 
+    #region - Item Search -
+    public List<Vector2> FindLocationById(int id)//This method returns an list of Vector2 that represents the complete item coordinate
     {
         List<Vector2> listResult = new List<Vector2> ();
 
-        if(id >= 0) for (int row = 0; row < maxRow; row++) for (int column = 0; column < maxCol; column++) if (item[row, column] == id) listResult.Add(new Vector2(row, column));
+        if (id >= 0) for (int row = 0; row < maxRow; row++) for (int column = 0; column < maxCol; column++) if (item[row, column] == id) listResult.Add(new Vector2(row, column));
         return listResult;
     }
-    public List<Vector2> LookForFreeArea(int number) 
+    #endregion
+
+    #region - Item Space Find -
+    public List<Vector2> LookForFreeArea(int number)
     {
+        //This method search an space for an item storage, based on the item size, and considering that the priority is horizontal space, if horizontal space has not finded, the algorithimum search for vertical space, and returns an list of Vector2 coordinates to the item ocupe the space
+        
         List<Vector2> listResult = new List<Vector2>();
 
-        if (number == 1) 
+        if (number == 1)
         {
-            listResult = LookForAreaHorizontalPriority (number,1);
+            listResult = LookForAreaHorizontalPriority(number, 1);
             return listResult;
         }
-        if (number == 2) 
+        if (number == 2)
         {
-            listResult = LookForAreaHorizontalPriority (number,1);
+            listResult = LookForAreaHorizontalPriority(number, 1);
 
             if (listResult.Count > 1) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaVerticalPriority (number,1);
+                listResult = LookForAreaVerticalPriority(number, 1);
                 if (listResult.Count > 1) return listResult;
             }
         }
-        if (number == 3) 
+        if (number == 3)
         {
-            listResult = LookForAreaHorizontalPriority (number,1);
+            listResult = LookForAreaHorizontalPriority(number, 1);
 
             if (listResult.Count > 2) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaVerticalPriority (number,1);
+                listResult = LookForAreaVerticalPriority(number, 1);
                 if (listResult.Count > 2) return listResult;
             }
         }
-        if (number == 5) {
+        if (number == 5)
+        {
 
-            listResult = LookForAreaHorizontalPriority (number,1);
+            listResult = LookForAreaHorizontalPriority(number, 1);
 
             if (listResult.Count > 4) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaVerticalPriority (number,1);
+                listResult = LookForAreaVerticalPriority(number, 1);
                 if (listResult.Count > 4) return listResult;
             }
         }
-        if (number == 4) 
+        if (number == 4)
         {
-            listResult = LookForAreaHorizontalPriority (2,2);
+            listResult = LookForAreaHorizontalPriority(2, 2);
 
             if (listResult.Count > 3) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaHorizontalPriority (4,1);
+                listResult = LookForAreaHorizontalPriority(4, 1);
                 if (listResult.Count > 3) return listResult;
-                else 
+                else
                 {
-                    listResult = LookForAreaVerticalPriority (4,1);
+                    listResult = LookForAreaVerticalPriority(4, 1);
                     if (listResult.Count > 3) return listResult;
-                }           
+                }
             }
         }
-        if (number == 6) 
+        if (number == 6)
         {
-            listResult = LookForAreaHorizontalPriority (3,2);
+            listResult = LookForAreaHorizontalPriority(3, 2);
 
             if (listResult.Count > 5) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaVerticalPriority (2,3);
+                listResult = LookForAreaVerticalPriority(2, 3);
                 if (listResult.Count > 5) return listResult;
             }
         }
-        if (number == 8) 
+        if (number == 8)
         {
-            listResult = LookForAreaHorizontalPriority (4,2);
+            listResult = LookForAreaHorizontalPriority(4, 2);
 
             if (listResult.Count > 7) return listResult;
-            else 
+            else
             {
-                listResult = LookForAreaVerticalPriority (4,2);
+                listResult = LookForAreaVerticalPriority(4, 2);
 
                 if (listResult.Count > 5) return listResult;
             }
         }
         return listResult;
     }
+    #endregion
 
-    List<Vector2> LookForAreaHorizontalPriority(int numberHorizontal, int deep) 
+    #region - Horizontal Area Searcher -
+    List<Vector2> LookForAreaHorizontalPriority(int numberHorizontal, int deep)//This method search an space on the matrix (bidimensional array), considering the horizontal priority
     {
         List<Vector2> listResult = new List<Vector2> ();        
         int colSelect = 0;
@@ -206,7 +215,10 @@ public class MatrixUtility
         }
         return listResult;
     }
-    private List<Vector2> LookForAreaVerticalPriority(int numberVertical,int deep) 
+    #endregion
+
+    #region - Vertical Area Searcher -
+    private List<Vector2> LookForAreaVerticalPriority(int numberVertical,int deep)//This method search an space on the matrix (bidimensional array), considering the vertical priority
     {
         List<Vector2> listResult = new List<Vector2> ();
         
@@ -259,7 +271,10 @@ public class MatrixUtility
         }
         return listResult;
     }
-    private bool VerticalValidation(int currentRow,int currentColumn,int deepVertical) 
+    #endregion
+
+    #region - Space Validation -
+    private bool VerticalValidation(int currentRow,int currentColumn,int deepVertical)//This method returns if the vertical space passed in the arguments is valid
     {
         bool result = true;
 
@@ -273,7 +288,7 @@ public class MatrixUtility
 
         return result;
     }
-    private bool HorizontalValidation(int currentRow,int currentColumn,int deepHorizontal) 
+    private bool HorizontalValidation(int currentRow, int currentColumn, int deepHorizontal)//This method returns if the horizontal space passed in the arguments is valid
     {
         bool result = true;
 
@@ -286,4 +301,5 @@ public class MatrixUtility
         for (int column = currentColumn ; column < limit ; column++) result = result && (item[currentRow, column] == -1);
         return result;
     }
+    #endregion
 }

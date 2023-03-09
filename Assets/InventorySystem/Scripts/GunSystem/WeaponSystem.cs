@@ -15,6 +15,7 @@ public class WeaponSystem : MonoBehaviour
     public PlayerController playerController => GetComponentInParent<PlayerController>();
     public Animator gunAnimator => GetComponent<Animator>();
     public GunProceduralRecoil recoilAsset => GetComponent<GunProceduralRecoil>();
+    public GameObject gun3D_Model;
     #endregion
 
     #region - Gun States -
@@ -138,6 +139,8 @@ public class WeaponSystem : MonoBehaviour
         CalculateAiming();
         CalculateWeaponSway();
     }
+    private void OnEnable() => gun3D_Model.SetActive(true);
+    private void OnDisable() => gun3D_Model.SetActive(false);
     #endregion
 
     #region - Gun State Manegment -

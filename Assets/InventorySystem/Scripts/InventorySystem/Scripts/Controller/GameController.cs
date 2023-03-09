@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     public void DequipAllWeapons()//This method dequip all the other weapons, is used as an guarantee that never gonna exist two or more weapons equipped at the same time
     {
         foreach(ItemEquip equipType in equipList) SetEquipment(equipType, false);
+        PlayerController.Instance.equippedGun = null;
     }
     private void SetEquipment(ItemEquip itemEquip, bool activeState) => PlayerView.Instance.Equip(itemEquip, activeState);//This method literally activate the weapon passed by the argument itemEquip
     #endregion

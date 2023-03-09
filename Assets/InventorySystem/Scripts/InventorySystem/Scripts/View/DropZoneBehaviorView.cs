@@ -7,7 +7,13 @@ using UnityEngine.UI;
 
 public class DropZoneBehaviorView : MonoBehaviour, IDropHandler
 {
-    public void OnDrop(PointerEventData eventData)
+    //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
+    //DropZoneBehaviorView - Code Update Version 0.2 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
+    #region - On Drop Functionality -
+    public void OnDrop(PointerEventData eventData)//This method handle the drop functionality using the unity Interface IDropHandler
     {
         RectTransform invPanel = transform as RectTransform;
         if (RectTransformUtility.RectangleContainsScreenPoint(invPanel, Input.mousePosition))
@@ -18,12 +24,8 @@ public class DropZoneBehaviorView : MonoBehaviour, IDropHandler
 
             SlotPlaceTo slotPlaceTo = GetComponent<SimpleSlotView>().slotPlaceTo;
 
-            bool result = InventoryManagerController.Instance.OnDropItem(itemResult, gameObjectResult, coordinate, slotPlaceTo);
-
-            if (result)
-            {
-                Debug.Log("Item accepted!");
-            }
+            InventoryManagerController.Instance.OnDropItem(itemResult, gameObjectResult, coordinate, slotPlaceTo);//This statement execute the item drop functionality calling the InventoryManagerContoller static instance and calling the OnDropItem Method
         }
     }
+    #endregion
 }

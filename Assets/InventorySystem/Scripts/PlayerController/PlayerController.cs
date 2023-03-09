@@ -33,6 +33,9 @@ public class PlayerController : MonoBehaviour
     public Camera currentCamera => GetComponentInChildren<Camera>();
     public CharacterController playerController => GetComponent<CharacterController>();
     public ObjectPooler pooler => ObjectPooler.Instance;
+
+    public Animator inventoryViewCharacterAnimator;
+
     public TerrainTextureCheck terrainTextureChecker;
     public ParticlesDatabase particlesDatabase;
 
@@ -149,6 +152,8 @@ public class PlayerController : MonoBehaviour
         CalculateMovment();
         GroundChecks();
         UpdateCrossHair();
+        if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsArmed", equippedGun != null);
+        if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsPistol", equippedGun.gunType == GunType.OnlySemi);
     }
     #endregion
 

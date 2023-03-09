@@ -36,7 +36,7 @@ public abstract class GenericItemScriptable : ScriptableObject
 
     #endregion
 
-    #region - Get and Set Data -
+    #region - Getting and Set Data -
     //This statements protect and manage the item data setting and get
     public int Id { get => id; }
     public abstract ItemType GetItemType();
