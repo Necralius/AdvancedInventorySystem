@@ -5,15 +5,20 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 
-public class InventoryView : MonoBehaviour
+public class InventoryView : MonoBehaviour//This class manage and control all the inventory system UI
 {
     //Code made by Victor Paulo Melo da Silva and a Advanced Inventory course used as an base  - https://www.linkedin.com/in/victor-nekra-dev/
+    //InventoryView - Code Update Version 0.5 - (Refactored code).
+    //Feel free to take all the code logic and apply in yours projects.
+    //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
+
     #region - Singleton Pattern -
+    //This statement means a simple Singleton Pattern implementation
     public static InventoryView Instance;
     void Awake() => Instance = this;
     #endregion
 
-    #region - Data Declaration -
+    #region - Main Data Declaration -
     [Header("View Declaration")]
     private GenericBagScriptable currentBag;
     private bool visiblePanel;
@@ -71,16 +76,21 @@ public class InventoryView : MonoBehaviour
     public bool VisiblePanel { get => visiblePanel; }
     #endregion
 
-    #region - Methods -
+    //=========== Method Area ===========//
+
+    #region - Inventory View Inicitation -
     private void OnEnable() => visiblePanel = inventoryGo.activeSelf;
-    public void Initiate(GenericBagScriptable currentBag)
+    public void Initiate(GenericBagScriptable currentBag)//This method iniciate all the inventory functionality, and update all the needed UI
     {
         this.currentBag = currentBag;
         SlotAndGridUpdate(this.currentBag.MaxRow, this.currentBag.MaxColumn);
         BagIconAndTitleupdate();
         BagWeightAndSlotUpdate();
     }
-    private void SlotAndGridUpdate(int maxRow, int maxColumn)
+    #endregion
+
+    #region - Slot Grid Update -
+    private void SlotAndGridUpdate(int maxRow, int maxColumn)//This method generates the item slot grid based in the number of row an collumn passed in the arguments
     {
         int r = 0;
         int c = 0;
@@ -90,7 +100,6 @@ public class InventoryView : MonoBehaviour
             int ajust = 500 - (maxColumn * 50);
             gridController.padding.right = ajust;
         }
-
         for (int i = 0; i < maxRow * maxColumn; i++)
         {
             GameObject currentSlotGo = Instantiate(slotGo);
@@ -105,12 +114,15 @@ public class InventoryView : MonoBehaviour
             currentSlotGo.transform.SetParent(slotGroup.transform);
         }
     }
-    private void BagIconAndTitleupdate()
+    #endregion
+
+    #region - Bag UI Update -
+    private void BagIconAndTitleupdate()//This method updates the bag Title on the bag UI
     {
         bagIcon.sprite = currentBag.Icon;
         bagTittle.text = currentBag.Title;
     }
-    public void BagWeightAndSlotUpdate()
+    public void BagWeightAndSlotUpdate()//This method updates the bag Slot Quantity and weight on the bag UI
     {
         float maxWeight = currentBag.WeightLimited;
         float maxSlot = currentBag.SlotLimited;
@@ -121,10 +133,11 @@ public class InventoryView : MonoBehaviour
         string slot = currentBag.CurrentSlot.ToString() + separationChar + maxSlot.ToString() + " Slot";
         bagSlot.text = slot;
     }
-    public void UpdateAllItems(List<GenericItemScriptable> list)
-    {
-        //Check Inventory Panel
+    #endregion
 
+    #region - Complex Item Inventory Update -
+    public void UpdateAllItems(List<GenericItemScriptable> list)//This method receive an item list as argument, then remove all complex slots and rebuild it
+    {
         if (GameManager.Instance.inventoryIsOpen)
         {
             RemoveAllComplexSlot();
@@ -132,16 +145,19 @@ public class InventoryView : MonoBehaviour
             BagWeightAndSlotUpdate();
         }
     }
-    private void BuildComplexSlot(GenericItemScriptable item)
+    #endregion
+
+    #region - Complex Slot Building -
+    private void BuildComplexSlot(GenericItemScriptable item)//This method build an item complex slot based on the item size
     {
         Vector3 pos = new Vector3(0, 0, 0);
         Vector2 size = new Vector2(cellSize, cellSize);
 
         Vector2 factor = new Vector2(1, 1);
 
-        List<Vector2> cellList = currentBag.FindCellById(item.Id);
+        List<Vector2> cellList = currentBag.FindCellById(item.Id);//This statement search the item on the matrix space using the item id as an argument
 
-        if (cellList.Count > 1)
+        if (cellList.Count > 1)//The following statements calculates the complex slot size
         {
             factor = cellList[cellList.Count - 1] - cellList[0];
 
@@ -150,8 +166,9 @@ public class InventoryView : MonoBehaviour
             if (size.y == 0) size = new Vector2(size.x, cellSize);
         }
 
-        pos = new Vector3(cellSize * cellList[0].y, (cellSize * cellList[0].x * -1));
+        pos = new Vector3(cellSize * cellList[0].y, (cellSize * cellList[0].x * -1));//This statement calculates the item complex slot position
 
+        //The following statements instatiate and setup the complex slot, later also update all his UI 
         GameObject obj = Instantiate(complexSlotGo);
 
         obj.transform.SetParent(complexSlotGroup.transform);
@@ -163,12 +180,18 @@ public class InventoryView : MonoBehaviour
         obj.tag = "ComplexSlot";
         obj.name = item.name + "_Clone";
     }
-    private void RemoveAllComplexSlot()
+    #endregion
+    
+    #region - ComplexSlotRemoval -
+    private void RemoveAllComplexSlot()//This method remove all complex slots of the inventory
     {
         GameObject[] resultComplexSlotGo = GameObject.FindGameObjectsWithTag("ComplexSlot");
         foreach (var item in resultComplexSlotGo) Destroy(item);
     }
-    public void UpdateDescriptionPanel(GenericItemScriptable item)
+    #endregion
+    
+    #region - Item Description Update -
+    public void UpdateDescriptionPanel(GenericItemScriptable item)//This method update all the item description panel
     {
         if (visiblePanel)
         {

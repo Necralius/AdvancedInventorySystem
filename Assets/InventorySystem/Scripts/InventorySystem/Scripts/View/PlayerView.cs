@@ -50,7 +50,7 @@ public class PlayerView : MonoBehaviour
     #endregion
 
     #region - Character Inventory View -
-    private void Update() => SetCharacterRotation();
+    private void Update() => SetCharacterRotation();//This method control the player model rotation in the inventory player view using as base an slider value
     private void SetCharacterRotation() => characterObject.localRotation = Quaternion.Lerp(characterObject.localRotation, Quaternion.Euler(0, characterRotationSlider.value, 0), itemRotationSpeed * Time.deltaTime);
     #endregion
 }

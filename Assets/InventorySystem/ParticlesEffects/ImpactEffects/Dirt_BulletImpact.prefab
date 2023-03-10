@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 400002}
   - component: {fileID: 19800002}
   - component: {fileID: 19900002}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Dirt_BulletImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4805,7 +4805,7 @@ GameObject:
   - component: {fileID: 400004}
   - component: {fileID: 19800004}
   - component: {fileID: 19900004}
-  m_Layer: 13
+  m_Layer: 10
   m_Name: Dirt_BulletImpact_
   m_TagString: Untagged
   m_Icon: {fileID: 0}

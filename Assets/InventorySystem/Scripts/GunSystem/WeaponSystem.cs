@@ -115,7 +115,6 @@ public class WeaponSystem : MonoBehaviour
     #endregion
 
     //======================================//
-    #region - Methods Area -
 
     #region - BuildIn Methods -
     private void Start()
@@ -358,6 +357,8 @@ public class WeaponSystem : MonoBehaviour
         {
             try
             {
+                if (hit.transform.CompareTag("Item")) return;
+
                 GameObject impactParticle= playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Impact");
                 GameObject decalParticle = playerController.particlesDatabase.GetParticleByBaseTagAndType(hit.transform.tag, "Decal");
 
@@ -389,7 +390,5 @@ public class WeaponSystem : MonoBehaviour
     {
         canShoot = true; gunAnimator.SetLayerWeight(1, 0);
     }
-    #endregion
-
     #endregion
 }

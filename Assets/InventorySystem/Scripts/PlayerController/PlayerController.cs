@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
         GroundChecks();
         UpdateCrossHair();
         if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsArmed", equippedGun != null);
-        if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsPistol", equippedGun.gunType == GunType.OnlySemi);
+        if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy && equippedGun != null) inventoryViewCharacterAnimator.SetBool("IsPistol", equippedGun.gunType == GunType.OnlySemi);
     }
     #endregion
 
