@@ -49,11 +49,14 @@ public class GunProceduralRecoil : MonoBehaviour
         currentPosition = Vector3.Lerp(currentPosition, targetPosition, snappiness * Time.deltaTime);
         Weapon.transform.localPosition = currentPosition;
 
-        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        Vector3 localRot = new Vector3(0, Weapon.transform.localRotation.y, Weapon.transform.localRotation.z);
+        targetRotation = Vector3.Lerp(targetRotation, localRot, returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, snappiness * Time.deltaTime);
 
-        var newRot = new Vector3(currentRotation.x * RecoilReduct, currentRotation.y * RecoilReduct, currentRotation.z * RecoilReduct);
         Weapon.transform.localRotation = Quaternion.Euler(currentRotation);
+
+        var newRot = new Vector3(currentRotation.x * RecoilReduct, currentRotation.y * RecoilReduct, currentRotation.z * RecoilReduct);
+
         CameraPos.transform.localRotation = Quaternion.Euler(newRot);
     }
     #endregion

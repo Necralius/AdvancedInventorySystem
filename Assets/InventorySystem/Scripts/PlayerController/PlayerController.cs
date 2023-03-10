@@ -114,6 +114,11 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI gunStateText;
     #endregion
 
+    #region - Hit Marker System -
+    public AudioClip hitMarkerSound;
+    public GameObject hitMarker;
+    #endregion
+
     //=========== Method Area ===========//
 
     #region - Dynamic Cross Hair -
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour
         else if (isAiming) return false;
         return true;
     }
-    private bool MovingCheck() => movmentInput != Vector2.zero || lookInput != Vector2.zero;//This method verifies if the player is moving
+    private bool MovingCheck() => movmentInput != Vector2.zero || lookInput != Vector2.zero || equippedGun != null && equippedGun.shootingGun ? true : false;//This method verifies if the player is moving
     #endregion
 
     #region - BuildIn Methods -

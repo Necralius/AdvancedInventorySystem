@@ -22,6 +22,7 @@ public class WeaponSystem : MonoBehaviour
     [Space, Header("Gun State System")]
     public GunType gunType;
     public GunState currentGunState;
+    public bool shootingGun = false;
     private int currentGunStateIndex = 0;
     public List<GunState> gunStates;
     #endregion
@@ -312,9 +313,11 @@ public class WeaponSystem : MonoBehaviour
             {
                 if (Input.GetMouseButton(0))
                 {
+                    shootingGun = true;
                     canShoot = false;
                     StartCoroutine(ShootBehavior(rateOfFire));
                 }
+                else shootingGun = false;
             }
             else if (currentGunState == GunState.SemiFire || currentGunState == GunState.BurstFire)
             {
@@ -326,7 +329,7 @@ public class WeaponSystem : MonoBehaviour
             }
         }
     }
-    private IEnumerator ShootBehavior(float rateOfFire)
+    private IEnumerator ShootBehavior(float rateOfFire)//This method fires the raycast, sound, particle and all shoot behavior of the weapon and manage the Rate of Fire.
     {
         if (gunType.Equals(GunType.SniperType)) gunAnimator.SetTrigger("Shooted");
         ShootGun();
@@ -365,12 +368,28 @@ public class WeaponSystem : MonoBehaviour
                 //This statementes represent the particles get from particle DataBase and the Instatiation
                 if (!(impactParticle.Equals(null))) Instantiate(impactParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
                 if (!(decalParticle.Equals(null))) Instantiate(decalParticle, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    AudioManager.Instance.PlayEffectSound(playerController.hitMarkerSound);
+                    StartCoroutine(HitMarker());
+                }
             }
             catch(System.Exception ex)
             {
                 Debug.Log("An error Ocurred!");
             }
         }
+    }
+    #endregion
+
+    #region - Hit Marker System -
+
+    IEnumerator HitMarker()//This method execute the HitMarker action
+    {
+        playerController.hitMarker.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        playerController.hitMarker.SetActive(false);
     }
     #endregion
 
