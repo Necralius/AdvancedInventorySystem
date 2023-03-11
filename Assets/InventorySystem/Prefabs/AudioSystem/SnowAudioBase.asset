@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: SnowAudioBase
   m_EditorClassIdentifier: 
-  ListTag: Snow
+  ListTag: Surface_Snow
   WalkClips:
   - {fileID: 8300000, guid: 3c1967f6644f7ee4cb90dd9da24dd7da, type: 3}
   - {fileID: 8300000, guid: bc42a9fc9dbd95442849a1d0a23dd41e, type: 3}

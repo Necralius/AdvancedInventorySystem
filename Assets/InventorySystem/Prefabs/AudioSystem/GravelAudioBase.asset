@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: GravelAudioBase
   m_EditorClassIdentifier: 
-  ListTag: Gravel
+  ListTag: Surface_Gravel
   WalkClips:
   - {fileID: 8300000, guid: 5461cae585b64f64089805f0d313bc84, type: 3}
   - {fileID: 8300000, guid: 2b3fc7e56f2686b48b9445e48c7db2c9, type: 3}

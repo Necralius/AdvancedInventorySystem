@@ -13,6 +13,11 @@ public class FootstepSystem : MonoBehaviour
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
+    #region - Singleton Pattern -
+    public static FootstepSystem Instance;
+    private void Awake() => Instance = this;
+    #endregion
+
     #region - Footstep System -
     public TerrainTextureCheck terrainTextureChecker => GetComponent<TerrainTextureCheck>();
     public PlayerController playerObject => GetComponent<PlayerController>();
@@ -30,6 +35,8 @@ public class FootstepSystem : MonoBehaviour
 
     private bool playerJumped = false;
     private float jumpAirTime = 0f;
+
+    public string stepedLayerTag;
     #endregion
 
     #region - Footstep Audio System Main Behavior -
@@ -72,9 +79,9 @@ public class FootstepSystem : MonoBehaviour
         if (playerObject.isOnTerrain)
         {
             terrainTextureChecker.GetTerrainTexture();
-            //The above
-            //is a nest of instructions that detect the current steppet texture getting it in the TerrainTextureChecker, later use the GetClipFromArray method that recieve the audiobase ReturnFullClipListByType method return using as indentifier the texture name/tag
-            
+            //The above statemetns is a nest of instructions that detect the current steppet texture getting it in the TerrainTextureChecker,
+            //later use the GetClipFromArray method that recieve the audiobase ReturnFullClipListByType method return using as indentifier the texture name/tag
+
             if (playerObject.isWalking && !playerObject.isRunning)//This statement plays the walk clips
             {               
                 foreach(var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Walk")), selectedTexture.TextureValue);
@@ -83,6 +90,11 @@ public class FootstepSystem : MonoBehaviour
             {
                 foreach (var selectedTexture in terrainTextureChecker.textureValues) if (selectedTexture.TextureValue > 0) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(selectedTexture.textureName)).ReturnFullClipListByType("Run")), selectedTexture.TextureValue);
             }
+        }
+        else if (playerObject.isOnNonTerrainGround)
+        {
+            if (playerObject.isWalking && !playerObject.isRunning) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(stepedLayerTag)).ReturnFullClipListByType("Walk")), 1);
+            else if (playerObject.isRunning) AudioManager.Instance.PlayFootstepSound(GetClipFromArray(audioDatabase.First(audioBase => audioBase.ListTag.Equals(stepedLayerTag)).ReturnFullClipListByType("Run")), 1);
         }
     }
     #endregion

@@ -27,6 +27,7 @@ TagManager:
   - Surface_Metal
   - FirePlace
   - ColdArea
+  - Stone
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - HitableMask
   - TakableItem
   - MainCharacter
-  - 
+  - NotTerrainSurface
   - ParticleLayer
   - Enemy
   - 

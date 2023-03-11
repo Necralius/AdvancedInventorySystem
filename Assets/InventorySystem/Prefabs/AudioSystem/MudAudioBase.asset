@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: MudAudioBase
   m_EditorClassIdentifier: 
-  ListTag: Mud
+  ListTag: Surface_Mud
   WalkClips:
   - {fileID: 8300000, guid: e3edc2a270af5c04886ab9c5fa4fced6, type: 3}
   - {fileID: 8300000, guid: 59dcb693bbd385e49aa6fa7ffd2f0f9f, type: 3}

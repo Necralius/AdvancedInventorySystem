@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: MetalAudioBase
   m_EditorClassIdentifier: 
-  ListTag: Metal
+  ListTag: Surface_Metal
   WalkClips:
   - {fileID: 8300000, guid: 5e265270fb85126479eef52d8fce3b08, type: 3}
   - {fileID: 8300000, guid: 3701a5fdf99882f40bc00eb9053eec92, type: 3}

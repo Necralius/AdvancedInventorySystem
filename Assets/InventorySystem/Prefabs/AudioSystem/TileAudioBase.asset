@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: TileAudioBase
   m_EditorClassIdentifier: 
-  ListTag: 
+  ListTag: Surface_Tile
   WalkClips:
   - {fileID: 8300000, guid: b993df4a93c1d304ab19d8b2eb88c9a5, type: 3}
   - {fileID: 8300000, guid: 5c9bdbce37b06a24fa6ea793bcfd1907, type: 3}

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: GrassAudioBase
   m_EditorClassIdentifier: Assembly-CSharp::FootStepAudioClipAsset
-  ListTag: Grass
+  ListTag: Surface_Grass
   WalkClips:
   - {fileID: 8300000, guid: 551d550ab98e3cc4bb7793e752fe8628, type: 3}
   - {fileID: 8300000, guid: 18e761ff5ef14fd4588d9283fcc9b829, type: 3}

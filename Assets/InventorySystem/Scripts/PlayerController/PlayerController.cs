@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -157,8 +158,28 @@ public class PlayerController : MonoBehaviour
         CalculateMovment();
         GroundChecks();
         UpdateCrossHair();
+
         if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsArmed", equippedGun != null);
         if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy && equippedGun != null) inventoryViewCharacterAnimator.SetBool("IsPistol", equippedGun.gunType == GunType.OnlySemi);
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.gameObject.layer == LayerMask.NameToLayer("NotTerrainSurface"))
+        {
+            isOnNonTerrainGround = true;
+            isOnTerrain = false;
+            FootstepSystem.Instance.stepedLayerTag = other.tag;
+        }
+        else
+        {
+            isOnNonTerrainGround = false;
+            isOnTerrain = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        isOnNonTerrainGround = false;
+        FootstepSystem.Instance.stepedLayerTag = "NoneCollider";
     }
     #endregion
 
@@ -200,17 +221,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region - Ground Checking -
-    private void GroundChecks()//This method verifies if the player is on ground and if it is on a terrain ground
-    {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, playerController.bounds.extents.y + 0.5f))
-        {
-            isGrounded = true;
-            isOnTerrain = hit.collider != null && hit.collider.CompareTag("GrassTerrain");
-        }
-        else isGrounded = false;
-    }
+    private void GroundChecks() => isGrounded = playerController.isGrounded;//This method verifies if the player is on ground and if it is on a terrain ground
     #endregion
 
     #region - Movment Calculations -

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: SandAudioBase
   m_EditorClassIdentifier: 
-  ListTag: Sand
+  ListTag: Surface_Sand
   WalkClips:
   - {fileID: 8300000, guid: 557e96b16076cb84285c90941906b44c, type: 3}
   - {fileID: 8300000, guid: 93b5a4dc803c25c48a325a38b5617c33, type: 3}

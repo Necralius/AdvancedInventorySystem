@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c21292ec9689cde4794053b7dac12954, type: 3}
   m_Name: WoodAudioBase
   m_EditorClassIdentifier: 
-  ListTag: 
+  ListTag: Surface_Wood
   WalkClips:
   - {fileID: 8300000, guid: 8e001351cd7065543a068386cde4c960, type: 3}
   - {fileID: 8300000, guid: c41fb169b2991c247a5466e00faa6639, type: 3}

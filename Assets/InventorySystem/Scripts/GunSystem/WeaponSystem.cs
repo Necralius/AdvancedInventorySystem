@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -113,6 +114,19 @@ public class WeaponSystem : MonoBehaviour
 
     public float movmentSwaySmooth = 6f;
     public float maxMovmentSwayAmount = 0.5f;
+
+    [Header("Breathing Weapon Sway")]
+    public float swayAmountA = 4;
+    public float swayAmountB = 2;
+
+    public float swayScale = 600;
+    public float aimSwayScale = 6000;
+
+    public float swayLerpSpeed = 14f;
+
+    public float swayTime;
+    public Vector3 swayPosition;
+    public GameObject weaponSwayPosition;
     #endregion
 
     //======================================//
@@ -206,7 +220,20 @@ public class WeaponSystem : MonoBehaviour
 
         playerController.weaponSwayObject.transform.localRotation = Quaternion.Slerp(playerController.weaponSwayObject.transform.localRotation, finalRotation * initialRotation, smoothRotationAmount * Time.deltaTime);
         #endregion
+
+        #region - Breathing Idle Sway -
+        var targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / (isAiming ? aimSwayScale : swayScale);
+
+        swayPosition = Vector3.Lerp(swayPosition, targetPosition, Time.smoothDeltaTime * swayLerpSpeed);
+
+        weaponSwayPosition.transform.localPosition = swayPosition;
+
+        swayTime += Time.deltaTime;
+
+        if (swayTime > 6.3f) swayTime = 0;
+        #endregion
     }
+    private Vector3 LissajousCurve(float Time, float A, float B) => new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI)); 
     #endregion
 
     #region - Input Gathering -
