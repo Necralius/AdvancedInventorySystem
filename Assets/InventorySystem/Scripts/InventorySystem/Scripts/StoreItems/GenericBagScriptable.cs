@@ -49,7 +49,7 @@ public abstract class GenericBagScriptable : ScriptableObject
 
     #region - Bag Reset -
     protected virtual void OnEnable() => ResetBag();//This deactivate the persistent data for the inventory system
-    protected virtual void ResetBag()//This method reset the bag items and its aspects
+    public virtual void ResetBag()//This method reset the bag items and its aspects
     {
         itemList = new List<GenericItemScriptable>();
         currentSlotUse = 0;

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +21,28 @@ public class GameManager : MonoBehaviour
     public KeyCodeGroup GeneralKeyCodes;
     #endregion
 
+    #region - Main Data Declaration - 
+    public TextMeshProUGUI restartScene;
+    #endregion
+
+    #region - BuildIn Methods -
+    private void Update()
+    {
+        if (Input.GetKeyDown(GeneralKeyCodes.GetKeyCodeByName("RestartSceneKey")))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);//This statement restarts the scene if the selected key is pressed
+            InventoryManagerController.Instance.currentBag.ResetBag();
+            InventoryManagerController.Instance.currentClothingWeapon.ResetSlots();
+            InventoryManagerController.Instance.CastGenericBagToBag().ResetShortCut();
+        }
+    }
+    private void Start()
+    {
+        Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;//This method automatcally set the cursor lock state based in the current inventory state
+        restartScene.text = "Press " + GeneralKeyCodes.GetKeyCodeByName("RestartSceneKey").ToString() + " to restart the scene";
+    }
+    #endregion
+
     #region - Inventory Change -
     public GameObject inventoryUIObject;
     public bool inventoryIsOpen = false;
@@ -34,6 +58,4 @@ public class GameManager : MonoBehaviour
         InventoryManagerController.Instance.CallRefreshClothingWeaponView();
     }
     #endregion
-
-    private void Start() => Cursor.lockState = inventoryIsOpen ? CursorLockMode.None : CursorLockMode.Locked;//This method automatcally set the cursor lock state based in the current inventory state
 }

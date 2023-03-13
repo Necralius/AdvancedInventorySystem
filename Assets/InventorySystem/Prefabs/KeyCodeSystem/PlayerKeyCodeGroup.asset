@@ -29,5 +29,7 @@ MonoBehaviour:
     actionKeyCode: 114
   - keyActionName: ChangeGunStateKey
     actionKeyCode: 116
-  - keyActionName: ItemGrabKey
+  - keyActionName: InteractKey
     actionKeyCode: 101
+  - keyActionName: RestartSceneKey
+    actionKeyCode: 103

@@ -1,4 +1,3 @@
-using Mono.Cecil;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +31,8 @@ public class ClothingWeaponScriptable : ScriptableObject
     //=========== Method Area ===========//
 
     #region - Item Start -
-    private void OnEnable()//This method start the ClothingWeapon declaration
+    private void OnEnable() => ResetSlots();
+    public void ResetSlots()//This method start the ClothingWeapon declaration and also reset the clothing weapon slot content
     {
         itemsDictionary = new Dictionary<int, GenericItemScriptable>();
         currentWeightUse = 0;

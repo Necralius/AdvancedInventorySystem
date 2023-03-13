@@ -247,7 +247,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017386845646}
 --- !u!114 &932358757343592994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33226,7 +33225,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017386845646}
 --- !u!114 &1251110813326994780
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57101,7 +57099,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017716649379}
 --- !u!114 &7376515804053930553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57400,7 +57397,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017716649379}
 --- !u!114 &9160142745560206503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60000,7 +59996,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017386845646}
 --- !u!114 &7933369426984474496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61953,7 +61948,6 @@ MonoBehaviour:
   swayLerpSpeed: 14
   swayTime: 0
   swayPosition: {x: 0, y: 0, z: 0}
-  weaponSwayPosition: {fileID: 8534769017386845646}
 --- !u!114 &7278910503288238243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63078,7 +63072,7 @@ Transform:
   - {fileID: 8534769017188439424}
   - {fileID: 8534769017834949458}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &8534769017444686788
 CharacterController:
@@ -63130,7 +63124,6 @@ MonoBehaviour:
   lookInput: {x: 0, y: 0}
   movmentInput: {x: 0, y: 0}
   inventoryViewCharacterAnimator: {fileID: 0}
-  terrainTextureChecker: {fileID: 0}
   particlesDatabase: {fileID: 11400000, guid: 7cb61d39f2c223e4f948b09626d78c0d, type: 2}
   currentSpeed: 8
   gravity: -0.5
@@ -63260,21 +63253,21 @@ MonoBehaviour:
   posX: 205
   posZ: 64
   textureValues:
-  - textureName: Grass
+  - textureName: Surface_Grass
     TextureValue: 0
-  - textureName: DirtyGround
+  - textureName: Surface_DirtyGround
     TextureValue: 0
-  - textureName: Gravel
+  - textureName: Surface_Gravel
     TextureValue: 0
-  - textureName: Leaves
+  - textureName: Surface_Leaves
     TextureValue: 0
-  - textureName: Mud
+  - textureName: Surface_Mud
     TextureValue: 0
-  - textureName: Rock
+  - textureName: Surface_Rock
     TextureValue: 0
-  - textureName: Sand
+  - textureName: Surface_Sand
     TextureValue: 0
-  - textureName: Snow
+  - textureName: Surface_Snow
     TextureValue: 0
 --- !u!114 &4037169500164368607
 MonoBehaviour:
@@ -63289,8 +63282,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioDatabase:
-  - {fileID: 11400000, guid: f9731938e836d1d428e3683953a2bf7a, type: 2}
   - {fileID: 11400000, guid: aaec95a30f9462540bc9ae46820be78e, type: 2}
+  - {fileID: 11400000, guid: f9731938e836d1d428e3683953a2bf7a, type: 2}
   - {fileID: 11400000, guid: 30ae600459cde354997a1dc6c2ecf245, type: 2}
   - {fileID: 11400000, guid: 66deb5ffb06a7814b98757ff1869b547, type: 2}
   - {fileID: 11400000, guid: c946facd13b1915428123c006db9adea, type: 2}
@@ -63298,8 +63291,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7447da472122a9c4e92c26dc8208afb8, type: 2}
   - {fileID: 11400000, guid: e2112cd721d62cf4c8693d4cd9212da8, type: 2}
   - {fileID: 11400000, guid: 24a428160581bd94e8b4907a08377b9c, type: 2}
+  - {fileID: 11400000, guid: 02cfe6c389eaaf84f9df7c3193bf6a8c, type: 2}
   currentSpeed: 0
   modifier: 0.35
+  stepedLayerTag: 
 --- !u!1 &8534769017514426115
 GameObject:
   m_ObjectHideFlags: 0

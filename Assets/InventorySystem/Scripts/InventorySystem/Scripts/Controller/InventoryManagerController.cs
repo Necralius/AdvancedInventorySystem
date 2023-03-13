@@ -26,8 +26,8 @@ public class InventoryManagerController : MonoBehaviour //This class literally c
     #endregion
 
     #region - Bag and Clowthing Weapon Data -
-    [SerializeField] GenericBagScriptable currentBag;
-    [SerializeField] private ClothingWeaponScriptable currentClothingWeapon;
+    [HideInInspector] public GenericBagScriptable currentBag;
+    [SerializeField] public ClothingWeaponScriptable currentClothingWeapon;
     #endregion
 
     #region - ShortCut KeyCodes -
@@ -387,7 +387,7 @@ public class InventoryManagerController : MonoBehaviour //This class literally c
     #endregion
 
     #region - Utility Methods -
-    private BagScriptable CastGenericBagToBag()//This method captures the BagScriptable holded in the bag scriptable object
+    public BagScriptable CastGenericBagToBag()//This method captures the BagScriptable holded in the bag scriptable object
     {
         BagScriptable resultBag = ScriptableObject.CreateInstance<BagScriptable>();
 

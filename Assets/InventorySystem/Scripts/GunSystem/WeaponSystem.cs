@@ -8,7 +8,7 @@ using UnityEngine;
 public class WeaponSystem : MonoBehaviour
 {
     //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
-    //GunProceduralRecoil - Code Update Version 0.4 - (Refactored code).
+    //WeaponSystem - Code Update Version 0.6 - (Refactored code).
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
@@ -22,6 +22,7 @@ public class WeaponSystem : MonoBehaviour
     #region - Gun States -
     [Space, Header("Gun State System")]
     public GunType gunType;
+    public GunTypeIndexer gunTypeIndex;
     public GunState currentGunState;
     public bool shootingGun = false;
     private int currentGunStateIndex = 0;
@@ -126,7 +127,6 @@ public class WeaponSystem : MonoBehaviour
 
     public float swayTime;
     public Vector3 swayPosition;
-    public GameObject weaponSwayPosition;
     #endregion
 
     //======================================//
@@ -153,8 +153,11 @@ public class WeaponSystem : MonoBehaviour
         CalculateAiming();
         CalculateWeaponSway();
     }
-    private void OnEnable() => gun3D_Model.SetActive(true);
-    private void OnDisable() => gun3D_Model.SetActive(false);
+    public void SetGunState(bool state)
+    {
+        gameObject.SetActive(state);
+        gun3D_Model.SetActive(state);
+    }
     #endregion
 
     #region - Gun State Manegment -
@@ -222,18 +225,19 @@ public class WeaponSystem : MonoBehaviour
         #endregion
 
         #region - Breathing Idle Sway -
-        var targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / (isAiming ? aimSwayScale : swayScale);
+        //This statements use the LissajousCurve calculation to make an breathing idle procedural animation
+        Vector3 targetPosition = LissajousCurve(swayTime, swayAmountA, swayAmountB) / (isAiming ? aimSwayScale : swayScale);
 
         swayPosition = Vector3.Lerp(swayPosition, targetPosition, Time.smoothDeltaTime * swayLerpSpeed);
 
-        weaponSwayPosition.transform.localPosition = swayPosition;
+        playerController.weaponSwayObject.transform.localPosition = swayPosition;
 
         swayTime += Time.deltaTime;
 
         if (swayTime > 6.3f) swayTime = 0;
         #endregion
     }
-    private Vector3 LissajousCurve(float Time, float A, float B) => new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI)); 
+    private Vector3 LissajousCurve(float Time, float A, float B) => new Vector3(Mathf.Sin(Time), A * Mathf.Sin(B * Time + Mathf.PI));//This method return an calculation that is used to make an procedural horizontal and vertical wave that represent an breathing idle animation
     #endregion
 
     #region - Input Gathering -

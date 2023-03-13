@@ -27,6 +27,11 @@ public enum GunType //This enumerator represents all the gun possible types
     OnlySemi,
     SniperType
 }
+public enum GunTypeIndexer
+{
+    Pistol = 0,
+    Rifle = 1
+}
 #endregion
 
 #region - Gun State -

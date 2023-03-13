@@ -35,7 +35,7 @@ public class PlayerView : MonoBehaviour
                     PlayerController.Instance.equippedGun = item.GetComponent<WeaponSystem>();
                     PlayerController.Instance.equippedGun.UpdateGunUI();
                 }
-                item.SetActive(visible);
+                item.GetComponent<WeaponSystem>().SetGunState(visible);
             }
         }
     }

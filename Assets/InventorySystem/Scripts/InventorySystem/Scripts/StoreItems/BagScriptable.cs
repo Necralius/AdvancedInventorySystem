@@ -31,12 +31,13 @@ public class BagScriptable : GenericBagScriptable
     protected override void OnEnable()//This method reset and start the bag functionalities
     {
         base.OnEnable();
-        itemsShortCutDictionary = new Dictionary<int, GenericItemScriptable>();
+        ResetShortCut();
     }
+    public void ResetShortCut() => itemsShortCutDictionary = new Dictionary<int, GenericItemScriptable>();
     #endregion
 
     #region - Bag Reset Functionality -
-    protected override void ResetBag()//This method overrides the bag reset method
+    public override void ResetBag()//This method overrides the bag reset method
     { 
         base.ResetBag();
         matrixUtility = new MatrixUtility(maxRow, maxColumn, title);

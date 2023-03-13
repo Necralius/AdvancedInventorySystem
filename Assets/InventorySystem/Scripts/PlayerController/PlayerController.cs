@@ -5,11 +5,12 @@ using TMPro;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerController : MonoBehaviour
 {
     //Code made by Victor Paulo Melo da Silva - Junior Unity Programmer - https://www.linkedin.com/in/victor-nekra-dev/
-    //Player Controller - Code Update Version 0.2 - (Refactored code).
+    //PlayerController - Code Update Version 0.2 - (Refactored code).
     //Feel free to take all the code logic and apply in yours projects.
     //This project represents a work to improve my personal portifolio, and has no intention of obtaining any financial return.
 
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     public Animator inventoryViewCharacterAnimator;
 
-    public TerrainTextureCheck terrainTextureChecker;
+    public TerrainTextureCheck terrainTextureChecker => GetComponent<TerrainTextureCheck>();
     public ParticlesDatabase particlesDatabase;
 
     #endregion
@@ -116,6 +117,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region - Hit Marker System -
+    [Header("Hit Marker System")]
     public AudioClip hitMarkerSound;
     public GameObject hitMarker;
     #endregion
@@ -146,9 +148,14 @@ public class PlayerController : MonoBehaviour
     #region - BuildIn Methods -
     private void Start()
     {
-        Stand();
-        terrainTextureChecker = GetComponent<TerrainTextureCheck>();
+        TextSetState(false);
         playerStats.mouseSensitivity *= 100;
+        Stand();
+    }
+    public void TextSetState(bool state)
+    {
+        ammoText.gameObject.SetActive(state);
+        gunStateText.gameObject.SetActive(state);
     }
     void Update()
     {
@@ -158,6 +165,7 @@ public class PlayerController : MonoBehaviour
         CalculateMovment();
         GroundChecks();
         UpdateCrossHair();
+        TextSetState(equippedGun != null);
 
         if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy) inventoryViewCharacterAnimator.SetBool("IsArmed", equippedGun != null);
         if (inventoryViewCharacterAnimator.gameObject.activeInHierarchy && equippedGun != null) inventoryViewCharacterAnimator.SetBool("IsPistol", equippedGun.gunType == GunType.OnlySemi);
